@@ -1,0 +1,2948 @@
+/* ==UserStyle==
+@name           Dark SocialBlade
+@version        1.0.0
+@homepageURL    https://github.com/DayvidKnows/Socialblade-Dark
+@updateURL      https://raw.githubusercontent.com/DayvidKnows/Socialblade-Dark/master/socialblade-dark.user.css
+@license        CC BY-ND 4.0
+@author        	DayvidKnows
+@advanced dropdown hideAds "Hide Ads?" {
+ yes "Yes" <<<EOT
+ none EOT;
+ no "No" <<<EOT
+ inherit EOT;
+}
+@advanced dropdown hideAdContainers "Hide Ad containers?" {
+ no "No" <<<EOT
+ inherit EOT;
+yes "Yes" <<<EOT
+ none EOT;
+}
+@advanced color defaultSiteColor "SocialBlade" #b3382c
+@advanced dropdown serviceOverrideColor "Use Platform colors instead?" {
+ yes "Yes" <<<EOT
+ var() EOT;
+ no "No" <<<EOT
+ var(--default-site-color) EOT;
+}
+@advanced color youtube-color "Youtube" #e52d27
+@advanced color twitch-color "Twitch" #7550b9
+@advanced color twitter-color "Twitter" #53abee
+@advanced color instagram-color "Instagram" #e1306c
+@advanced color facebook-color "Facebook" #2c52a5
+@advanced color dailymotion-color "Dailymotion" #00aaff
+@advanced color mixer-color "Mixer" #1fbaed
+==/UserStyle== */
+@-moz-document domain("socialblade.com") {
+	:root {
+		--site-background: hsl(0, 0%, 13%);
+		--container-background: hsl(0, 0%, 20%);
+		--container-content: hsl(0, 0%, 27%);
+		--container-highlight: hsl(0, 0%, 35%);
+		--graph-line: hsl(0, 0%, 47%);
+		--font-color: hsl(0, 0%, 93%);
+		--site-header-color: rgb(47, 44, 44);
+		--button-border-color: var(--site-background);
+		--text-shadow-color: var(--site-background);
+		--default-site-color: /*[[defaultSiteColor]]*/;
+		--site-color: var(--default-site-color);
+		/*  hsl(300, 100%, 30%) */
+	}
+
+	:root {
+		--youtube-color: #e52d27;
+		--twitch-color: #7550b9;
+		--twitter-color: #53abee;
+		--instagram-color: #e1306c;
+		--facebook-color: #2c52a5;
+		--dailymotion-color: #00aaff;
+		--mixer-color: #1fbaed;
+		--google-color: #d34836;
+	}
+}
+
+@-moz-document regexp("https?://socialblade.com/youtube/.*") {
+	:root {
+		--site-color: /*[[youtube-color]]*/;
+	}
+}
+
+@-moz-document regexp("https?://socialblade.com/twitch/.*") {
+	:root {
+		--site-color: /*[[twitch-color]]*/;
+	}
+}
+
+@-moz-document regexp("https?://socialblade.com/twitter/.*") {
+	:root {
+		--site-color: /*[[twitter-color]]*/;
+	}
+}
+
+@-moz-document regexp("https?://socialblade.com/instagram/.*") {
+	:root {
+		--site-color: /*[[instagram-color]]*/;
+	}
+}
+
+@-moz-document regexp("https?://socialblade.com/facebook/.*") {
+	:root {
+		--site-color: /*[[facebook-color]]*/;
+	}
+}
+
+@-moz-document regexp("https?://socialblade.com/dailymotion/.*") {
+	:root {
+		--site-color: /*[[dailymotion-color]]*/;
+	}
+}
+
+@-moz-document regexp("https?://socialblade.com/mixer/.*") {
+	:root {
+		--site-color: /*[[mixer-color]]*/;
+	}
+}
+
+@-moz-document domain("socialblade.com") {
+	:root {
+		--site-color: /*[[serviceOverrideColor]]*/;
+	}
+}
+
+@-moz-document domain("socialblade.com") {
+	/*--------------------------------------------*/
+	/* General Background, Site Header and Footer */
+	/* Header Menues, Cookie Settings             */
+	/*--------------------------------------------*/
+	body {
+		color: var(--font-color) !important;
+		background: var(--site-background) !important;
+	}
+
+	p,
+	span,
+	div,
+	h2,
+	label,
+	input,
+	a,
+	option,
+	select {
+		text-shadow: -1px -1px 0 var(--text-shadow-color), 1px -1px 0 var(--text-shadow-color), -1px 1px 0 var(--text-shadow-color), 1px 1px 0 var(--text-shadow-color);
+	}
+
+	.fa {
+		color: var(--font-color) !important;
+	}
+
+	/* Site Header */
+	#top-header,
+	#top-header-wrap,
+	#footer-bar-wrap,
+	#footer-bar-wrap div,
+	#footer-main-outer-wrap,
+	#footer-main-outer-wrap div,
+	#footer-bottom-bar-wrap,
+	#footer-bottom-bar-wrap div {
+		background: var(--site-header-color);
+	}
+
+	#main-menu-container {
+		background: var(--site-header-color) !important;
+	}
+
+	#SearchInput {
+		background: var(--container-content);
+		color: var(--font-color);
+	}
+
+	.search-button,
+	.top-menu-list > a,
+	.top-menu-list > a:hover {
+		color: var(--font-color);
+	}
+
+	#top-menu-wrap,
+	.top-menu-list,
+	.top-partner-link,
+	.top-partner-link:hover {
+		background: var(--site-color) !important;
+	}
+
+	.top-menu-list,
+	.top-menu-partner,
+	.top-menu-partner:hover,
+	#top-menu,
+	#top-menu-social {
+		border-left: 1px solid var(--site-header-color);
+		border-right: 1px solid var(--site-header-color);
+	}
+
+	.dash-bar-menu a:hover {
+		background: none;
+	}
+
+	/* Live Counts / Realtime Menu*/
+	#top-menu-content-realtime > div > a,
+	#top-menu-content-realtime > div > a:hover {
+		color: var(--font-color);
+	}
+
+	#top-menu-content-realtime > div:first-child > h2 {
+		color: var(--youtube-color);
+	}
+
+	#top-menu-content-realtime > div:nth-child(2) > h2 {
+		color: var(--twitch-color);
+	}
+
+	#top-menu-content-realtime > div:nth-child(3) > h2 {
+		color: var(--twitter-color);
+	}
+
+	#top-menu-content-realtime > div:nth-child(4) > h2 {
+		color: var(--dailymotion-color);
+	}
+
+	#top-menu-content-realtime > div:nth-child(5) > h2 {
+		color: var(--mixer-color);
+	}
+
+	/* Supported Platforms */
+	#top-menu-content-charts > div > a,
+	#top-menu-content-charts > div > a:hover {
+		color: var(--font-color);
+	}
+
+	/* Top Lists Menu*/
+	.top-menu-top-charts-content > a,
+	.top-menu-top-charts-content > a:hover {
+		color: var(--font-color);
+	}
+
+	.top-menu-category-button[data-rolechange="youtube"] {
+		border-color: var(--youtube-color) !important;
+	}
+
+	.top-menu-category-button[data-rolechange="twitch"] {
+		border-color: var(--twitch-color) !important;
+	}
+
+	.top-menu-category-button[data-rolechange="instagram"] {
+		border-color: var(--instagram-color) !important;
+	}
+
+	.top-menu-category-button[data-rolechange="twitter"] {
+		border-color: var(--twitter-color) !important;
+	}
+
+	.top-menu-category-button[data-rolechange="dailymotion"] {
+		border-color: var(--dailymotion-color) !important;
+	}
+
+	.top-menu-category-button[data-rolechange="mixer"] {
+		border-color: var(--mixer-color) !important;
+	}
+
+	.top-menu-category-button[data-rolechange="facebook"] {
+		border-color: var(--facebook-color) !important;
+	}
+
+	#top-menu-content-youtube .top-menu-top-charts-header {
+		color: var(--youtube-color);
+	}
+
+	#top-menu-content-twitch .top-menu-top-charts-header {
+		color: var(--twitch-color) !important;
+	}
+
+	#top-menu-content-instagram .top-menu-top-charts-header {
+		color: var(--instagram-color) !important;
+	}
+
+	#top-menu-content-twitter .top-menu-top-charts-header {
+		color: var(--twitter-color) !important;
+	}
+
+	#top-menu-content-dailymotion .top-menu-top-charts-header {
+		color: var(--dailymotion-color) !important;
+	}
+
+	#top-menu-content-mixer .top-menu-top-charts-header {
+		color: var(--dailymotion-color) !important;
+	}
+
+	#top-menu-content-facebook .top-menu-top-charts-header {
+		color: var(--facebook-color) !important;
+	}
+
+	/* Buttons */
+	.FacebookButton,
+	.TwitterButton,
+	.GoogleButton,
+	.OrangeButtonWrap > a > div,
+	.core-button,
+	.core-button:hover {
+		border: 1px solid var(--button-border-color) !important;
+		border-radius: 0;
+	}
+
+	.OrangeButton,
+	.core-button,
+	.core-button:hover {
+		background: var(--site-color) !important;
+	}
+
+	.FacebookButton {
+		background: var(--facebook-color);
+	}
+
+	.TwitterButton {
+		background: var(--twitter-color);
+	}
+
+	.GoogleButton {
+		background: var(--google-color);
+	}
+
+	.footer-social-block > div {
+		border: 1px solid var(--button-border-color) !important;
+	}
+
+	.footer-social-block[href*="youtube"] > div {
+		background: var(--youtube-color) !important;
+	}
+
+	.footer-social-block[href*="facebook"] > div {
+		background: var(--facebook-color) !important;
+	}
+
+	.footer-social-block[href*="twitter"] > div {
+		background: var(--twitter-color) !important;
+	}
+
+	.footer-social-block[href*="instagram"] > div {
+		background: var(--instagram-color) !important;
+	}
+
+	.footer-social-block[href*="google"] > div {
+		background: var(--google-color) !important;
+	}
+
+	/* Search selection*/
+	.dd-options {
+		border: none;
+		width: 160px !important;
+	}
+
+	.dd-selected-text,
+	.dd-option-text {
+		cursor: pointer;
+	}
+
+	.dd-option {
+		background: var(--container-background);
+		color: var(--font-color);
+		border: none;
+	}
+
+	.dd-option:hover {
+		background: var(--container-highlight);
+		color: var(--font-color);
+	}
+
+	.dd-select {
+		border-radius: 0;
+	}
+
+	.dd-option-image {
+		margin-top: 7px;
+	}
+
+	.dd-selected-image {
+		margin-top: 3px;
+	}
+
+	.dd-option-selected {
+		display: none;
+	}
+
+	/* Login Page */
+	.dashboard-form-header {
+		background: var(--container-background);
+	}
+
+	.dashboard-form-content {
+		background: var(--container-content);
+	}
+
+	.dashboard-form {
+		background: var(--container-highlight);
+		border: none;
+		color: var(--font-color);
+	}
+
+	/* Register Page */
+	[for="dashboard_signup_newsletter"] + div {
+		color: var(--font-color) !important;
+	}
+
+	/* User Tags*/
+	.sb-tag-popular {
+		background: var(--site-color);
+	}
+
+	/* Cookie Disclaimer */
+	div[class^="banner_banner"] {
+		background: var(--container-background);
+		color: var(--font-color);
+		box-shadow: 0 0 0 5px var(--site-color);
+	}
+
+	div[class^="banner_banner"] a,
+	div[class^="banner_banner"] a:hover {
+		color: var(--site-color);
+	}
+
+	div[class^="banner_banner"]::before {
+		box-shadow: 0 0 30px var(--site-color);
+	}
+
+	a[class^="banner_continue"] {
+		background: var(--site-color) !important;
+		border: none !important;
+		border-radius: 0 !important;
+	}
+
+	a[class^="banner_learnMore"] {
+		color: var(--site-color) !important;
+	}
+
+	/* Cookie Popup */
+	div[class^="popup_content"] {
+		background: var(--container-background);
+	}
+
+	div[class^="details_description"] {
+		color: var(--font-color);
+	}
+
+	div[class^="app_gdpr"] a,
+	div[class^="app_gdpr"] a:hover {
+		color: var(--site-color);
+	}
+
+	a[class^="summary_learnMore"],
+	button[class*="details_back"] {
+		color: var(--site-color) !important;
+	}
+
+	span[class*="switch_isSelected"] > span[class^="switch_visualizationContainer"],
+	span[class^="switch_switch"] > span[class^="switch_visualizationGlow"] {
+		background: var(--site-color) !important;
+	}
+
+	button[class*="details_save"] {
+		background: var(--site-color) !important;
+	}
+
+	a[class^="vendors_policy"] svg {
+		fill: var(--site-color);
+	}
+
+	/* Ads */
+	iframe[id^="google_ads_iframe"] {
+		display: /*[[hideAds]]*/;
+	}
+
+	#cdm-zone-06 {
+		display: /*[[hideAdContainers]]*/;
+	}
+}
+
+@-moz-document regexp("https?://socialblade.com/?") {
+	/*--------------------------------------------*/
+	/* Home Page                                  */
+	/*--------------------------------------------*/
+	#top-menu-wrap + div {
+		border-bottom: 1px solid var(--site-color);
+	}
+
+	/* Search */
+	#homepage-meta-search-input {
+		background: var(--container-background) !important;
+		border: none;
+		color: var(--font-color);
+		height: 60px !important;
+	}
+
+	#homepage-meta-search-button {
+		background: var(--site-color) !important;
+	}
+
+	/* Numbers */
+	.index-full[style*="#282828"] > div > div:first-child > p {
+		color: var(--site-color) !important;
+	}
+
+	.index-full[style*="#282828"] > div > div:nth-child(2) > p {
+		color: var(--youtube-color) !important;
+	}
+
+	.index-full[style*="#282828"] > div > div:nth-child(3) > p {
+		color: var(--twitch-color) !important;
+	}
+
+	.index-full[style*="#282828"] > div > div:nth-child(4) > p {
+		color: var(--twitter-color) !important;
+	}
+
+	.index-full[style*="#282828"] > div > div:nth-child(5) > p {
+		color: var(--instagram-color) !important;
+	}
+
+	.index-full[style*="#282828"] > div > div:nth-child(6) > p {
+		color: var(--facebook-color) !important;
+	}
+
+	.index-full[style*="#282828"] > div > div:nth-child(7) > p {
+		color: var(--dailymotion-color) !important;
+	}
+
+	.index-full[style*="#282828"] > div > div:nth-child(8) > p {
+		color: var(--mixer-color) !important;
+	}
+
+	/* Content */
+	.index-full[style*="#fff"] {
+		background: var(--container-background) !important;
+	}
+
+	.index-full[style*="#f4f4f4"],
+	.index-full[style*="#282828"] {
+		background: var(--site-background) !important;
+	}
+
+	p {
+		color: var(--font-color) !important;
+	}
+
+	h2[style*="color:#222"],
+	h3[style*="color:#333"],
+	h3[style*="color:#444"] {
+		color: var(--font-color) !important;
+	}
+
+	.index-full > div > a {
+		color: var(--site-color);
+	}
+
+	#email {
+		background: var(--site-background);
+		color: var(--font-color);
+	}
+
+	#submit {
+		border-radius: 0 !important;
+		background: var(--site-color) !important;
+	}
+}
+
+@-moz-document regexp("https?://socialblade.com/(.*/)*compare") {
+	/*--------------------------------------------*/
+	/* Compare Main Page and Subpages             */
+	/*--------------------------------------------*/
+	/* Main Page Buttons*/
+	.compare-anchor-button {
+		border: 1px solid var(--site-background);
+	}
+
+	.compare-anchor-button[href^="/youtube"] {
+		background: var(--youtube-color);
+	}
+
+	.compare-anchor-button[href^="/twitch"] {
+		background: var(--twitch-color);
+	}
+
+	.compare-anchor-button[href^="/instagram"] {
+		background: var(--instagram-color);
+	}
+
+	.compare-anchor-button[href^="/twitter"] {
+		background: var(--twitter-color);
+	}
+
+	#about-wrap {
+		background: var(--container-background);
+	}
+
+	/* Subpage */
+	.compare-section-top,
+	#compareUser1,
+	#compareUser2,
+	#compareUser3 {
+		background: var(--container-highlight);
+	}
+
+	#compareUser1,
+	#compareUser2,
+	#compareUser3 {
+		border: none;
+		color: var(--font-color) !important;
+		margin-top: -3px;
+	}
+
+	#alpha-h1,
+	#alpha-summary,
+	.compare-h2,
+	.compare-paragraph,
+	.alpha-h2,
+	.alpha-p,
+	.alpha-h3 {
+		color: var(--font-color);
+	}
+
+	button[id^="compare"][id$="Button-Submit"] {
+		background: var(--site-color) !important;
+		border-radius: 0 !important;
+		border: 1px solid var(--button-border-color) !important;
+		color: var(--font-color) !important;
+		padding: 10px 35px !important;
+	}
+
+	/* Space before Share Buttons */
+	#about-wrap > div:nth-last-child(2) > div:last-child {
+		height: 18px;
+	}
+
+	/* Share Buttons */
+	#share-buttons > a > img {
+		border: 1px solid var(--button-border-color);
+		border-radius: 50%;
+	}
+}
+
+@-moz-document regexp("^https?://socialblade.com/(.*/)?search/.*") {
+	/*--------------------------------------------*/
+	/* Search Pages                               */
+	/*--------------------------------------------*/
+	h2 > a,
+	h2 > a:hover {
+		color: var(--site-color);
+	}
+
+	div[style*="#fff"] {
+		background: var(--container-background) !important;
+	}
+
+	.ui-black {
+		background: var(--container-content);
+	}
+
+	.ui-black:hover {
+		background: var(--container-highlight);
+	}
+
+	span[style*="#f6f6f6"] {
+		background: var(--container-content) !important;
+		color: var(--font-color) !important;
+		border: none !important;
+	}
+
+	h2[style*="#cc6767"] {
+		color: var(--site-color) !important;
+	}
+
+	p {
+		color: var(--font-color) !important;
+	}
+
+	#top-menu-wrap + div + div > div {
+		border-bottom: none !important;
+	}
+
+	/* Search Results */
+	a[href^="/youtube"] > div:last-child,
+	a[href^="/twitter"] > div:last-child,
+	a[href^="/twitch"] > div:last-child,
+	a[href^="/instagram"] > div:last-child,
+	a[href^="/facebook"] > div:last-child,
+	a[href^="/dailymotion"] > div:last-child,
+	a[href^="/mixer"] > div:last-child {
+		width: 1160px !important;
+	}
+
+	a[href^="/youtube"] > div,
+	a[href^="/twitter"] > div,
+	a[href^="/twitch"] > div,
+	a[href^="/instagram"] > div,
+	a[href^="/facebook"] > div,
+	a[href^="/dailymotion"] > div,
+	a[href^="/mixer"] > div {
+		border-bottom-width: 3px;
+		border-bottom-style: solid;
+	}
+
+	[href^="/youtube"] > div {
+		border-bottom-color: var(--youtube-color);
+	}
+
+	[href^="/youtube"] > div > div > h2 {
+		color: var(--youtube-color) !important;
+	}
+
+	[href^="/youtube"] > div > div > div > span:first-child {
+		background: var(--youtube-color) !important;
+	}
+
+	[href^="/twitter"] > div {
+		border-bottom-color: var(--twitter-color);
+	}
+
+	[href^="/twitter"] > div > div > h2 {
+		color: var(--twitter-color) !important;
+	}
+
+	[href^="/twitter"] > div > div > div > span:first-child {
+		background: var(--twitter-color) !important;
+	}
+
+	[href^="/twitch"] > div {
+		border-bottom-color: var(--twitch-color);
+	}
+
+	[href^="/twitch"] > div > div > h2 {
+		color: var(--twitch-color) !important;
+	}
+
+	[href^="/twitch"] > div > div > div > span:first-child {
+		background: var(--twitch-color) !important;
+	}
+
+	[href^="/instagram"] > div {
+		border-bottom-color: var(--instagram-color);
+	}
+
+	[href^="/instagram"] > div > div > h2 {
+		color: var(--instagram-color) !important;
+	}
+
+	[href^="/instagram"] > div > div > div > span:first-child {
+		background: var(--instagram-color) !important;
+	}
+
+	[href^="/dailymotion"] > div {
+		border-bottom-color: var(--dailymotion-color);
+	}
+
+	[href^="/dailymotion"] > div > div > h2 {
+		color: var(--dailymotion-color) !important;
+	}
+
+	[href^="/dailymotion"] > div > div > div > span:first-child {
+		background: var(--dailymotion-color) !important;
+	}
+
+	[href^="/mixer"] > div {
+		border-bottom-color: var(--mixer-color);
+	}
+
+	[href^="/mixer"] > div > div > h2 {
+		color: var(--mixer-color) !important;
+	}
+
+	[href^="/mixer"] > div > div > div > span:first-child {
+		background: var(--mixer-color) !important;
+	}
+}
+
+@-moz-document regexp("^https?://socialblade.com/.*/top/.*") {
+	/*--------------------------------------------*/
+	/* Top Pages                                  */
+	/*--------------------------------------------*/
+	a,
+	a:hover {
+		color: var(--site-color);
+	}
+
+	/* Ads */
+	.cas-container,
+	.cas-wide-container,
+	.sidebar-module,
+	.content-container > .content-module {
+		background: var(--container-background);
+		display: /*[[hideAdContainers]]*/;
+	}
+
+	/* Sidebar Search */
+	#widget-search-container {
+		background: var(--container-background);
+	}
+
+	#widget-search-input {
+		background: var(--container-content);
+		color: var(--font-color);
+		border: none;
+	}
+
+	#widget-search-submit {
+		color: var(--font-color);
+	}
+
+	/* Container */
+	/* Header */
+	[style*="#263238"],
+	.sidebarHeader {
+		background: var(--container-background) !important;
+		color: var(--font-color) !important;
+		border: none;
+	}
+
+	/* Content */
+	.anchor-sidebar-light,
+	.anchor-sidebar,
+	.anchor-sidebar:hover,
+	.sideCategory {
+		background: var(--container-content);
+		color: var(--font-color);
+		border-color: var(--container-background);
+	}
+
+	.anchor-sidebar-light:hover {
+		background: var(--container-highlight);
+		color: var(--font-color);
+		border-right-color: var(--site-color);
+	}
+
+	.sidebarContent + div {
+		background: none !important;
+	}
+
+	/* Country Selection */
+	#CountrySelectorSidebar {
+		background: var(--container-content) !important;
+		color: var(--font-color) !important;
+		border: none !important;
+		padding-left: 16px;
+	}
+
+	#CountrySelectorSidebar > option[disabled] {
+		color: var(--site-color);
+	}
+
+	/* Table */
+	#sort-by-container {
+		background: var(--container-background);
+		border-bottom-color: var(--font-color);
+		color: var(--font-color);
+	}
+
+	#sort-by-dropdown > .sort-by-select {
+		background: var(--container-content);
+		color: var(--font-color);
+	}
+
+	/* Rows */
+	#sort-by ~ div > div:first-child,
+	#sort-by ~ div > div:nth-child(n+3) > span {
+		color: var(--font-color) !important;
+	}
+
+	div[style*="#fafafa"] {
+		background: var(--container-content) !important;
+	}
+
+	div[style*="#f8f8f8"] {
+		background: var(--container-highlight) !important;
+	}
+
+	/* Some Pages are different */
+	.main-container {
+		margin-top: 20px;
+	}
+
+	.content-container > .content-module:first-child {
+		background: linear-gradient(325deg, rgb(169, 113, 176) 0%, rgb(75, 113, 173) 100%);
+	}
+
+	.content-container > .content-module:first-child > span:last-child {
+		color: var(--font-color) !important;
+	}
+
+	.ContentHeader,
+	.content-header {
+		background: var(--site-color) !important;
+	}
+
+	.table-cell {
+		color: var(--font-color);
+	}
+
+	/* Tabs */
+	.subsection {
+		background: var(--container-background);
+		border: none !important;
+	}
+
+	.activesubsection {
+		background: var(--container-content);
+	}
+}
+
+@-moz-document regexp("^https?://socialblade.com/(youtube|twitch|twitter|instagram|facebook|dailymotion|mixer)/?") {
+	/*--------------------------------------------*/
+	/* Service Overview Pages                     */
+	/*--------------------------------------------*/
+	/* Search */
+	.section-panel {
+		background: var(--container-background);
+	}
+
+	.section-search-box {
+		background: var(--container-content);
+		color: var(--font-color);
+		border: none;
+	}
+
+	.section-search-btn,
+	.section-search-btn:hover {
+		background: var(--site-color) !important;
+	}
+
+	.section-panel > h1 {
+		color: var(--site-color);
+	}
+
+	.section-panel > h5,
+	.section-panel > h5 > a {
+		color: var(--font-color);
+	}
+
+	/* Community Leaders */
+	.section-panel-header {
+		background: var(--site-color);
+	}
+
+	.section-community-leaders,
+	.section-community-members {
+		color: var(--site-color);
+		text-decoration: underline;
+	}
+
+	.section-panel-small {
+		background: var(--container-background);
+	}
+
+	/* Ads */
+	.section-square-vert,
+	.section-long-vert-container {
+		background: var(--container-background);
+		display: /*[[hideAdContainers]]*/;
+	}
+
+	/* Table */
+	.table-cell a {
+		color: var(--site-color);
+		font-weight: bold;
+	}
+
+	.table-cell.section-grade > span,
+	.table-cell > a {
+		text-shadow: -1px -1px 0 var(--site-background), 1px -1px 0 var(--site-background), -1px 1px 0 var(--site-background), 1px 1px 0 var(--site-background);
+	}
+
+	.table-cell {
+		color: var(--font-color);
+	}
+
+	.section-full-width .table-body:nth-child(odd) {
+		background: var(--container-content);
+	}
+
+	.section-full-width .table-body:nth-child(even) {
+		background: var(--container-highlight);
+	}
+}
+
+@-moz-document regexp("https?://socialblade.com/404\?URI=.*"),
+regexp("https?://socialblade.com/.*") {
+	/*--------------------------------------------*/
+	/* 404 Page                                   */
+	/*--------------------------------------------*/
+	.border-box {
+		background: var(--container-background);
+	}
+
+	#error-404-symbol-container {
+		background: var(--site-color)
+	}
+
+	#error-404-title-container h2 {
+		color: var(--site-color);
+	}
+
+	#error-404-title-container p {
+		color: var(--font-color);
+	}
+}
+
+@-moz-document regexp("https?://socialblade.com/youtube/(user|c|channel)/.*") {
+	/*--------------------------------------------*/
+	/* Youtube User Base                          */
+	/*--------------------------------------------*/
+	div[class^="youtube-video-embed"] {
+		background: var(--container-content) !important;
+	}
+
+	/* Header */
+	#youtube-authenticated-action-menu,
+	#YouTubeUserTopInfoWrap {
+		background: var(--container-background) !important;
+	}
+
+	#youtube-authenticated-action-bars-normal,
+	#youtube-authenticated-action-menu-button,
+	#youtube-authenticated-action-menu,
+	#YouTubeUserTopInfoWrap span,
+	#youtube-user-page-country,
+	#youtube-user-page-channeltype,
+	#YouTubeUserTopInfoBlockTop div h1 {
+		color: var(--font-color) !important;
+	}
+
+	#youtube-authenticated-action-authenticate {
+		color: var(--site-color);
+	}
+
+	#YouTubeUserMenu {
+		border-top: 1px solid var(--font-color);
+	}
+
+	#YouTubeUserMenu > a:hover {
+		background: var(--container-background);
+	}
+
+	/* Recent Blog Posts */
+	.anchor-sidebar,
+	.anchor-sidebar:hover {
+		background: var(--container-content);
+		color: var(--font-color);
+		border-top: 1px solid var(--container-background);
+	}
+
+	/* Favorite Feature Popup */
+	#dialog_favorite_logincheck,
+	.ui-dialog-titlebar-close,
+	.ui-dialog-titlebar-close:hover {
+		background: var(--container-content) !important;
+	}
+
+	.ui-dialog a {
+		color: var(--site-color);
+	}
+
+	#dialog_favorite_logincheck,
+	.ui-button-text {
+		color: var(--font-color);
+	}
+
+	#top-menu-wrap ~ div:not([id]) + div + div {
+		display: /*[[hideAds]]*/;
+	}
+}
+
+@-moz-document regexp("^https?://socialblade.com/youtube/(user|c|channel)/[^/]*/?$") {
+	/*--------------------------------------------*/
+	/* Youtube User Summary                       */
+	/*--------------------------------------------*/
+	/* Tab Highlight */
+	#YouTubeUserMenu > a:first-child {
+		background: var(--container-highlight);
+	}
+
+	/* Overview */
+	#top-menu-wrap ~ div:not([id]) > div {
+		background: var(--container-background) !important;
+	}
+
+	#afd-header-subs-30d,
+	#afd-header-views-30d,
+	#top-menu-wrap ~ div:not([id]) > div > div:first-child > div:nth-child(2) > div > div > p:nth-child(n+2),
+	#top-menu-wrap ~ div:not([id]) > div > div:first-child > div:nth-child(2) > div:nth-child(2) > div > p {
+		color: var(--font-color) !important;
+	}
+
+	/* Table */
+	/* 1st Row */
+	#top-menu-wrap ~ div:not([id]) > div:nth-of-type(4) > div:first-child > div:first-child > div:nth-child(5) {
+		border-bottom: 2px var(--font-color) solid;
+	}
+
+	/* Rows */
+	#top-menu-wrap ~ div:not([id]) > div:nth-of-type(4) > div:first-child > div:first-child > div:nth-child(n+6) {
+		background: var(--container-highlight) !important;
+		color: var(--font-color) !important;
+	}
+
+	#top-menu-wrap ~ div:not([id]) > div:last-child > div:first-child > div > div:nth-child(n+6):nth-child(even),
+	#top-menu-wrap ~ div:not([id]) > div:last-child > div:first-child > div:first-child > div:last-child,
+	#top-menu-wrap ~ div:not([id]) > div:last-child > div:first-child > div:first-child > div:nth-last-child(2) {
+		background: var(--container-content) !important;
+	}
+
+	/* Graph */
+	#top-menu-wrap ~ div:not([id]) > div:last-child > div > div:nth-last-of-type(2) {
+		background: var(--container-content) !important;
+		color: var(--font-color) !important;
+	}
+
+	.dygraph-axis-label {
+		color: var(--font-color);
+	}
+
+	.dygraph-ylabel {
+		margin-top: -10px;
+	}
+
+	/* Ads */
+	#top-menu-wrap ~ div:not([id]) > div:nth-child(6) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1),
+	#top-menu-wrap ~ div:not([id]) > div:nth-child(6) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) {
+		background: var(--container-background) !important;
+		display: /*[[hideAdContainers]]*/;
+	}
+
+	/* User Tags */
+	#top-menu-wrap ~ div:not([id]) > div:last-child > div:nth-child(2) > div:first-child > div:last-child {
+		background: var(--container-content) !important;
+	}
+
+	/* Recent Blog Posts */
+	#top-menu-wrap ~ div:not([id]) > div:last-child > div:last-child > div:nth-last-child(2) {
+		background: var(--container-background) !important;
+		color: var(--font-color) !important;
+	}
+}
+
+@-moz-document regexp("https?://socialblade.com/youtube/(user|c|channel)/.*/futureprojections(/.*)?") {
+	/*--------------------------------------------*/
+	/* Youtube Future Projections                 */
+	/*--------------------------------------------*/
+	a,
+	a:hover {
+		color: var(--site-color);
+	}
+
+	/* Tab Highlight */
+	#YouTubeUserMenu > a[href$="futureprojections"] {
+		background: var(--container-highlight);
+	}
+
+	/* Prediction errors */
+	#top-menu-wrap ~ div:not([id]) > div:first-child > div:first-child > div:nth-child(4) {
+		background: var(--container-background) !important;
+		color: var(--font-color) !important;
+	}
+
+	/* Tabs */
+	.subsection {
+		background: var(--container-background);
+		border: none !important;
+	}
+
+	.activesubsection {
+		background: var(--container-content);
+	}
+
+	/* Table */
+	.TableHeader[style$="#D1C4E9"] {
+		color: var(--site-color) !important;
+	}
+
+	.TableHeader {
+		border-bottom: 2px solid var(--font-color);
+	}
+
+	.TableMonthlyStats {
+		background: var(--container-highlight) !important;
+		color: var(--font-color);
+	}
+
+	.TableMonthlyStats:nth-child(5n+1):nth-child(odd),
+	.TableMonthlyStats:nth-child(5n+2):nth-child(even),
+	.TableMonthlyStats:nth-child(5n+3):nth-child(odd),
+	.TableMonthlyStats:nth-child(5n+4):nth-child(even),
+	.TableMonthlyStats:nth-child(5n+5):nth-child(odd) {
+		background: var(--container-content) !important;
+	}
+
+	.TableMonthlyStats:nth-child(5n+1) {
+		color: var(--font-color) !important;
+	}
+
+	.TableMonthlyStats:nth-child(5n+2) {
+		color: var(--site-color) !important;
+	}
+
+	/* Graph */
+	#top-menu-wrap ~ div:not([id]) > div:first-child > div:first-child > div:nth-last-of-type(2) {
+		background: var(--container-content) !important;
+	}
+
+	.highcharts-background {
+		fill: var(--container-content);
+	}
+
+	.highcharts-yaxis-grid .highcharts-grid-line {
+		stroke: var(--graph-line);
+	}
+
+	.highcharts-title,
+	.highcharts-axis-title,
+	.highcharts-axis-labels text {
+		fill: var(--font-color) !important;
+	}
+
+	/* Ads */
+	#top-menu-wrap ~ div:not([id]) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1),
+	#top-menu-wrap ~ div:not([id]) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) {
+		background: var(--container-background) !important;
+		display: /*[[hideAdContainers]]*/;
+	}
+
+	/* User Tags */
+	#top-menu-wrap ~ div:not([id]) > div:first-child > div:last-child > div:first-child > div:last-child {
+		background: var(--container-content) !important;
+	}
+
+	#top-menu-wrap ~ div:not([id]) > div:first-child > div:last-child > div:nth-last-child(2) {
+		background: var(--container-background) !important;
+		color: var(--font-color) !important;
+	}
+}
+
+@-moz-document regexp("https?://socialblade.com/youtube/(user|c|channel)/.*/monthly") {
+	/*--------------------------------------------*/
+	/* Youtube Detailed Statistics                */
+	/*--------------------------------------------*/
+	/* Tab Highlight */
+	#YouTubeUserMenu > a[href$="monthly"] {
+		background: var(--container-highlight);
+	}
+
+	/* Main Table */
+	#top-menu-wrap ~ div:not([id]) > div:first-child > div:first-child > div:nth-child(4) {
+		border-bottom: 2px solid var(--font-color);
+	}
+
+	#top-menu-wrap ~ div:not([id]) > div:first-child > div:first-child > div:nth-child(n+5):nth-last-child(n+10):nth-child(even) {
+		background: var(--container-highlight) !important;
+		color: var(--font-color) !important;
+	}
+
+	#top-menu-wrap ~ div:not([id]) > div:first-child > div:first-child > div:nth-child(n+5):nth-last-child(n+7) {
+		background: var(--container-content) !important;
+		color: var(--font-color) !important;
+	}
+
+	/* Graphs */
+	#DailySubscribers,
+	#TotalSubscribers,
+	#DailyVideoViews,
+	#TotalVideoViews,
+	#AverageViewsPerDay,
+	#AverageViewsPerMonth,
+	#top-menu-wrap ~ div:not([id]) > div:first-child > div:first-child > div:nth-last-of-type(1) {
+		background: var(--container-content) !important;
+		color: var(--font-color);
+	}
+
+	.dygraph-axis-label {
+		color: var(--font-color) !important;
+	}
+
+	/* Side Table */
+	.TableMonthlyStats {
+		background: var(--container-highlight) !important;
+		color: var(--font-color) !important;
+	}
+
+	.TableMonthlyStats:nth-child(3n+1):nth-child(odd),
+	.TableMonthlyStats:nth-child(3n+2):nth-child(even),
+	.TableMonthlyStats:nth-child(3n+3):nth-child(odd) {
+		background: var(--container-content) !important;
+	}
+
+	/* Ads */
+	#top-menu-wrap ~ div:not([id]) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1),
+	#top-menu-wrap ~ div:not([id]) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) {
+		background: var(--container-background) !important;
+		display: /*[[hideAdContainers]]*/;
+	}
+
+	/* User Tags */
+	#top-menu-wrap ~ div:not([id]) > div:first-child > div:nth-child(2) > div:first-child > div:nth-child(3) {
+		background: var(--container-content) !important;
+	}
+
+	#top-menu-wrap ~ div:not([id]) > div:first-child > div:last-child > div:nth-last-child(2) {
+		background: var(--container-background) !important;
+		color: var(--font-color) !important;
+	}
+}
+
+@-moz-document regexp("https?://socialblade.com/youtube/(user|c|channel)/.*/otherchans/?.*") {
+	/*--------------------------------------------*/
+	/* Youtube Featured Box                       */
+	/*--------------------------------------------*/
+	a,
+	a:hover {
+		color: var(--site-color)
+	}
+
+	/* Tab Highlight */
+	#YouTubeUserMenu > a[href$="otherchans/sbrank"] {
+		background: var(--container-highlight);
+	}
+
+	/* Tabs */
+	.subsection {
+		background: var(--container-background);
+		border: none !important;
+	}
+
+	.activesubsection {
+		background: var(--container-content);
+	}
+
+	#InPageMenuWrap + h3 {
+		color: var(--site-color) !important;
+	}
+
+	/* Table */
+	#top-menu-wrap ~ div:not([id]) > div:nth-child(3) {
+		background: var(--container-content) !important;
+	}
+
+	.TableHeader {
+		border-bottom: 2px solid var(--font-color);
+	}
+
+	#top-menu-wrap ~ div:not([id]) > div:last-child > div,
+	#top-menu-wrap ~ div:not([id]) > div:last-child > div > div {
+		color: var(--font-color) !important;
+	}
+
+	#top-menu-wrap ~ div:not([id]) > div:last-child > div:nth-child(odd) {
+		background: var(--container-content) !important;
+	}
+
+	#top-menu-wrap ~ div:not([id]) > div:last-child > div:nth-child(even) {
+		background: var(--container-highlight) !important;
+	}
+
+	/* Ads */
+	#top-menu-wrap ~ div:not([id]) > div:first-child > div:first-child > div:first-child > div:first-child {
+		background: var(--container-content) !important;
+		display: /*[[hideAdContainers]]*/;
+	}
+
+	/* User Tags */
+	#top-menu-wrap ~ div:not([id]) > div:first-child > div:first-child > div:first-child > div:nth-child(3) {
+		background: var(--container-content) !important;
+	}
+
+	#top-menu-wrap ~ div:not([id]) > div:first-child > div:first-child > div:nth-last-child(2) {
+		background: var(--container-background) !important;
+		color: var(--font-color) !important;
+	}
+}
+
+@-moz-document regexp("https?://socialblade.com/youtube/(user|c|channel)/.*/similarrank/?.*") {
+	/*--------------------------------------------*/
+	/* Youtube Similar Channels                   */
+	/*--------------------------------------------*/
+	a,
+	a:hover {
+		color: var(--site-color);
+	}
+
+	/* Tab Highlight */
+	#YouTubeUserMenu > a[href$="similarrank"] {
+		background: var(--container-highlight);
+	}
+
+	/* Tabs */
+	.subsection {
+		background: var(--container-background);
+		border: none !important;
+	}
+
+	.activesubsection {
+		background: var(--container-content);
+	}
+
+	/* Table */
+	.TableHeader {
+		border-bottom: 2px solid var(--font-color);
+	}
+
+	.TableMonthlyStats {
+		background: var(--container-highlight) !important;
+		color: var(--font-color) !important;
+	}
+
+	.TableMonthlyStats:nth-child(7n+13):nth-child(odd),
+	.TableMonthlyStats:nth-child(7n+14):nth-child(even),
+	.TableMonthlyStats:nth-child(7n+15):nth-child(odd),
+	.TableMonthlyStats:nth-child(7n+16):nth-child(even),
+	.TableMonthlyStats:nth-child(7n+17):nth-child(odd),
+	.TableMonthlyStats:nth-child(7n+18):nth-child(even),
+	.TableMonthlyStats:nth-child(7n+19):nth-child(odd) {
+		background: var(--container-content) !important;
+	}
+
+	/*Ads*/
+	#top-menu-wrap ~ div:not([id]) > div:first-child > div:first-child > div:first-child,
+	#top-menu-wrap ~ div:not([id]) > div:first-child > div:nth-child(2) > div:first-child > div:first-child {
+		background: var(--container-background) !important;
+	}
+
+	/* User Tags */
+	#top-menu-wrap ~ div:not([id]) > div:first-child > div:nth-child(2) > div:first-child > div:nth-child(3) {
+		background: var(--container-content) !important;
+	}
+
+	#top-menu-wrap ~ div:not([id]) > div:last-child > div:last-child > div:nth-last-child(2) {
+		background: var(--container-background) !important;
+		color: var(--font-color) !important;
+	}
+}
+
+@-moz-document regexp("https?://socialblade.com/youtube/(user|c|channel)/.*/videos/?.*") {
+	/*--------------------------------------------*/
+	/* Youtube User Videos                        */
+	/*--------------------------------------------*/
+	a,
+	a:hover {
+		color: var(--site-color)
+	}
+
+	/* Tab Highlight */
+	#YouTubeUserMenu > a[href$="videos"] {
+		background: var(--container-highlight);
+	}
+
+	/* Tabs */
+	.subsection {
+		background: var(--container-background);
+		border: none !important;
+	}
+
+	.activesubsection {
+		background: var(--container-content);
+	}
+
+	/* Table */
+	.TableHeader {
+		border-bottom: 2px solid var(--font-color);
+	}
+
+	.RowRecentTable > div {
+		color: var(--font-color);
+	}
+
+	.RowRecentTable:nth-child(odd) > div {
+		background: var(--container-content) !important;
+	}
+
+	.RowRecentTable:nth-child(even) > div {
+		background: var(--container-highlight) !important;
+	}
+
+	/*Ads*/
+	#top-menu-wrap ~ div:not([id]) > div:nth-child(2) > div:first-child,
+	#top-menu-wrap ~ div:not([id]) > div:first-child > div:first-child > div:first-child > div:first-child {
+		background: var(--container-background) !important;
+		display: /*[[hideAdContainers]]*/;
+	}
+
+	/* User Tags */
+	#top-menu-wrap ~ div:not([id]) > div:first-child > div:first-child > div:first-child > div:nth-child(3) {
+		background: var(--container-content) !important;
+	}
+
+	#top-menu-wrap ~ div:not([id]) > div:first-child > div:last-child > div:nth-last-child(2) {
+		background: var(--container-background) !important;
+		color: var(--font-color) !important;
+	}
+}
+
+@-moz-document regexp("https?://socialblade.com/twitch/user/.*") {
+	/*--------------------------------------------*/
+	/* Twitch User Base                           */
+	/*--------------------------------------------*/
+	/* Header */
+	#top-menu-wrap + div > div:first-child {
+		background: var(--container-background) !important;
+	}
+
+	#YouTubeUserMenu {
+		border-top: 1px solid var(--font-color);
+	}
+
+	#top-menu-wrap + div > div:first-child > div:nth-child(2) > div:first-child > h2 {
+		color: var(--site-color) !important;
+	}
+
+	#fav-bubble {
+		background: var(--site-color);
+		border: 1px solid var(--button-border-color);
+	}
+
+	#fav-twitch {
+		color: var(--font-color) !important;
+	}
+
+	#YouTubeUserMenu > a:hover {
+		background: var(--container-background);
+	}
+
+	/* Recent Blog Posts */
+	#socialblade-user-sidebar > div > div:nth-child(2) {
+		background: var(--container-background) !important;
+		color: var(--font-color) !important;
+	}
+
+	.anchor-sidebar,
+	.anchor-sidebar:hover {
+		background: var(--container-content);
+		color: var(--font-color);
+		border-top: 1px solid var(--container-background);
+	}
+
+	/* Ads */
+	#socialblade-user-content > div:first-child,
+	.sidebar-module {
+		background: var(--container-background) !important;
+		display: /*[[hideAdContainers]]*/;
+	}
+
+	/* Graph */
+	.highcharts-selection-marker {
+		fill: var(--font-color) !important;
+		fill-opacity: 0.25;
+	}
+
+	/* Graph Button */
+	.highcharts-reset-zoom > rect {
+		fill: var(--site-color);
+	}
+
+	.highcharts-reset-zoom > text {
+		fill: var(--font-color) !important;
+	}
+}
+
+@-moz-document regexp("https?://socialblade.com/twitch/user/[^/]*/?") {
+	/*--------------------------------------------*/
+	/* Twitch User Summary                        */
+	/*--------------------------------------------*/
+	/* Tab Highlight */
+	#YouTubeUserMenu > a:first-child {
+		background: var(--container-highlight);
+	}
+
+	/* Overview */
+	#top-menu-wrap + div + div > div:first-child {
+		background: var(--container-background) !important;
+	}
+
+	#top-menu-wrap + div + div > div > div:first-child > p:first-child,
+	#top-menu-wrap + div + div > div > div > p:last-child {
+		color: var(--font-color) !important;
+	}
+
+	/* Table */
+	/* Header */
+	#socialblade-user-content > div:nth-child(4) {
+		border-bottom: 2px solid var(--font-color);
+	}
+
+	/* Rows */
+	#socialblade-user-content > div:nth-child(5) > div,
+	#socialblade-user-content > div:nth-child(6) > div,
+	#socialblade-user-content > div:nth-child(7) > div {
+		color: var(--font-color) !important;
+	}
+
+	#socialblade-user-content > div:nth-child(5) > div,
+	#socialblade-user-content > div:nth-child(6),
+	#socialblade-user-content > div:nth-child(7) {
+		background: var(--container-content) !important;
+	}
+
+	#socialblade-user-content > div:nth-child(5) > div:nth-child(even) {
+		background: var(--container-highlight) !important;
+	}
+
+	/* Graph */
+	#socialblade-user-content > div:nth-last-child(2) {
+		background: var(--container-content) !important;
+	}
+
+	.highcharts-background {
+		fill: var(--container-content) !important;
+	}
+
+	.highcharts-title > tspan,
+	.highcharts-axis > text,
+	.highcharts-axis-labels > text {
+		fill: var(--font-color) !important;
+	}
+
+	.highcharts-graph {
+		stroke: var(--site-color);
+	}
+
+	.highcharts-markers > path {
+		fill: var(--site-color)
+	}
+
+	.highcharts-label > path {
+		stroke: var(--site-color);
+		fill: var(--container-content);
+	}
+
+	.highcharts-label > text > tspan:nth-child(2) {
+		fill: var(--site-color) !important;
+	}
+
+	.highcharts-label > text {
+		fill: var(--font-color) !important;
+	}
+}
+
+@-moz-document regexp("https?://socialblade.com/twitch/user/.*/futureprojections(/.*)?") {
+	/*--------------------------------------------*/
+	/* Twitch Future Projections                  */
+	/*--------------------------------------------*/
+	a,
+	a:hover {
+		color: var(--site-color);
+	}
+
+	/* Tab Highlight */
+	#YouTubeUserMenu > a[href$="futureprojections"] {
+		background: var(--container-highlight);
+	}
+
+	/* Predition Error Warning */
+	#socialblade-user-content > div:nth-child(4) {
+		color: var(--font-color) !important;
+		background: var(--container-content) !important;
+	}
+
+	/* Tabs */
+	.subsection {
+		background: var(--container-background);
+		border: none !important;
+	}
+
+	.activesubsection {
+		background: var(--container-content);
+	}
+
+	/* Table */
+	.TableHeader[style$="#D1C4E9"] {
+		color: var(--site-color) !important;
+	}
+
+	.TableMonthlyStats {
+		background: var(--container-highlight) !important;
+		color: var(--font-color);
+	}
+
+	.TableMonthlyStats:nth-child(5n+1):nth-child(odd),
+	.TableMonthlyStats:nth-child(5n+2):nth-child(even),
+	.TableMonthlyStats:nth-child(5n+3):nth-child(odd),
+	.TableMonthlyStats:nth-child(5n+4):nth-child(even),
+	.TableMonthlyStats:nth-child(5n+5):nth-child(odd) {
+		background: var(--container-content) !important;
+	}
+
+	.TableMonthlyStats:nth-child(5n+1) {
+		color: var(--font-color) !important;
+	}
+
+	.TableMonthlyStats:nth-child(5n+2) {
+		color: var(--site-color) !important;
+	}
+
+	/* Graph */
+	#socialblade-user-content > div:nth-last-child(2) {
+		background: var(--container-content) !important;
+	}
+
+	.highcharts-background {
+		fill: var(--container-content) !important;
+	}
+
+	.highcharts-title > tspan,
+	.highcharts-axis > text,
+	.highcharts-axis-labels > text {
+		fill: var(--font-color) !important;
+	}
+
+	.highcharts-graph {
+		stroke: var(--site-color);
+	}
+
+	.highcharts-markers > path {
+		fill: var(--site-color)
+	}
+
+	.highcharts-label > path {
+		stroke: var(--site-color);
+		fill: var(--container-content);
+	}
+
+	.highcharts-label > text > tspan:nth-child(2) {
+		fill: var(--site-color) !important;
+	}
+
+	.highcharts-label > text {
+		fill: var(--font-color) !important;
+	}
+}
+
+@-moz-document regexp("https?://socialblade.com/twitch/user/.*/monthly(/.*)?") {
+	/*--------------------------------------------*/
+	/* Twitch Detailed Statistics                 */
+	/*--------------------------------------------*/
+	/* Tab Highlight */
+	#YouTubeUserMenu > a[href$="monthly"] {
+		background: var(--container-highlight);
+	}
+
+	/* Table */
+	/* Header */
+	#socialblade-user-content > div:nth-child(4) {
+		border-bottom: 2px solid var(--font-color);
+	}
+
+	/* Rows */
+	#socialblade-user-content > div:nth-child(5) > div,
+	#socialblade-user-content > div:nth-child(6) > div,
+	#socialblade-user-content > div:nth-child(7) > div {
+		color: var(--font-color) !important;
+	}
+
+	#socialblade-user-content > div:nth-child(5) > div,
+	#socialblade-user-content > div:nth-child(6),
+	#socialblade-user-content > div:nth-child(7) {
+		background: var(--container-content) !important;
+	}
+
+	#socialblade-user-content > div:nth-child(5) > div:nth-child(even) {
+		background: var(--container-highlight) !important;
+	}
+
+	/* Buttons */
+	.FacebookButton,
+	.TwitterButton,
+	.GoogleButton {
+		border: 1px solid var(--button-border-color);
+		border-radius: 0;
+	}
+
+	/* Graph */
+	#socialblade-user-content > div:nth-last-child(2) {
+		background: var(--container-content) !important;
+	}
+
+	.highcharts-background {
+		fill: var(--container-content) !important;
+	}
+
+	.highcharts-title > tspan,
+	.highcharts-axis > text,
+	.highcharts-axis-labels > text {
+		fill: var(--font-color) !important;
+	}
+
+	.highcharts-graph {
+		stroke: var(--site-color);
+	}
+
+	.highcharts-markers > path {
+		fill: var(--site-color)
+	}
+
+	.highcharts-label > path {
+		stroke: var(--site-color);
+		fill: var(--container-content);
+	}
+
+	.highcharts-label > text > tspan:nth-child(2) {
+		fill: var(--site-color) !important;
+	}
+
+	.highcharts-label > text {
+		fill: var(--font-color) !important;
+	}
+}
+
+@-moz-document regexp("https?://socialblade.com/twitter/user/.*$") {
+	/*--------------------------------------------*/
+	/* Twitter Base                               */
+	/*--------------------------------------------*/
+	/* Header */
+	#youtube-authenticated-action-menu,
+	#YouTubeUserTopInfoWrap {
+		background: var(--container-background) !important;
+	}
+
+	#youtube-authenticated-action-bars-normal,
+	#youtube-authenticated-action-menu-button,
+	#youtube-authenticated-action-menu,
+	#YouTubeUserTopInfoWrap span,
+	#youtube-user-page-country,
+	#youtube-user-page-channeltype,
+	#YouTubeUserTopInfoBlockTop div h2 {
+		color: var(--font-color) !important;
+	}
+
+	#YouTubeUserMenu {
+		border-top: 1px solid var(--font-color);
+	}
+
+	#YouTubeUserMenu > a:hover {
+		background: var(--container-background);
+	}
+
+	.anchor-sidebar,
+	.anchor-sidebar:hover {
+		background: var(--container-content);
+		color: var(--font-color);
+		border-top: 1px solid var(--container-background);
+	}
+
+	/* Favorite Feature Popup */
+	#dialog_favorite_logincheck,
+	.ui-dialog-titlebar-close,
+	.ui-dialog-titlebar-close:hover {
+		background: var(--container-content) !important;
+	}
+
+	.ui-dialog a {
+		color: var(--site-color);
+	}
+
+	#dialog_favorite_logincheck,
+	.ui-button-text {
+		color: var(--font-color);
+	}
+
+	/* Recent Tweet */
+	.EmbeddedTweet {
+		background: var(--container-content) !important;
+		border: none;
+		border-radius: 0;
+	}
+
+	.twitter-tweet {
+		background: var(--container-content) !important;
+		padding: 10px;
+	}
+
+	.twitter-tweet a {
+		color: var(--site-color);
+	}
+
+	.dt-updated,
+	.Tweet-actions a {
+		color: var(--font-color);
+	}
+}
+
+@-moz-document regexp("https?://socialblade.com/twitter/user/[^/]*/?") {
+	/*--------------------------------------------*/
+	/* Twitter User Summary                       */
+	/*--------------------------------------------*/
+	/* Tab Highlight */
+	#YouTubeUserMenu > a:first-child {
+		background: var(--container-highlight);
+	}
+
+	/* Overview*/
+	#top-menu-wrap + div + div > div {
+		background: var(--container-background) !important;
+	}
+
+	#top-menu-wrap + div + div > div > div > p:nth-child(2) {
+		color: var(--font-color) !important;
+	}
+
+	/* Table */
+	/* 1st Row */
+	#top-menu-wrap + div + div + div > div:first-child > div:nth-of-type(4) {
+		border-bottom: 2px var(--font-color) solid;
+	}
+
+	/* Rows */
+	#top-menu-wrap + div + div + div > div:first-child > div {
+		color: var(--font-color) !important;
+	}
+
+	#top-menu-wrap + div + div + div > div:first-child > div:nth-child(n+5):nth-last-child(n+7) {
+		background: var(--container-highlight) !important;
+	}
+
+	#top-menu-wrap + div + div + div > div:first-child > div:nth-child(n+5):nth-child(odd):nth-last-child(n+7),
+	#top-menu-wrap + div + div + div > div:first-child > div:nth-last-child(6),
+	#top-menu-wrap + div + div + div > div:first-child > div:nth-last-child(5) {
+		background: var(--container-content) !important;
+	}
+
+	/* Graph */
+	#top-menu-wrap + div + div + div > div:first-child > div:nth-last-child(3) {
+		background: var(--container-content) !important;
+	}
+
+	#top-menu-wrap + div + div + div > div:first-child > div:nth-last-child(2),
+	#FollowerPerMonth,
+	#TweetsPerMonth {
+		background: var(--container-content) !important;
+	}
+
+	.dygraph-axis-label {
+		color: var(--font-color);
+	}
+
+	.dygraph-ylabel {
+		margin-top: -10px;
+	}
+
+	.dygraph-legend span {
+		color: var(--site-color) !important;
+	}
+
+	.dygraph-legend > span > div {
+		border-color: var(--site-color) !important;
+	}
+
+	canvas {
+		filter: hue-rotate(206deg) brightness(250%) saturate(40%);
+	}
+
+	/* Ads */
+	#top-menu-wrap + div + div + div > div:first-child > div:first-child > div:first-child,
+	#top-menu-wrap + div + div + div > div:nth-child(2) > div:first-child,
+	#top-menu-wrap + div + div + div > div:nth-child(2) > div:nth-of-type(4) {
+		background: var(--container-background) !important;
+		display: /*[[hideAdContainers]]*/;
+	}
+
+	/* Recent Blog Posts */
+	#top-menu-wrap + div + div + div > div:nth-child(2) > div:nth-last-child(2) {
+		background-color: var(--container-background) !important;
+		color: var(--font-color) !important;
+	}
+}
+
+@-moz-document regexp("https?://socialblade.com/twitter/user/.*/futureprojections(/.*)?") {
+	/*--------------------------------------------*/
+	/* Twitter Future Projections                 */
+	/*--------------------------------------------*/
+	/* Tab Highlight */
+	#YouTubeUserMenu > a[href$="futureprojections"] {
+		background: var(--container-highlight);
+	}
+
+	/* Tabs */
+	.subsection {
+		background: var(--container-background);
+		border: none !important;
+	}
+
+	.subsection {
+		color: var(--site-color);
+	}
+
+	.activesubsection {
+		background: var(--container-content);
+	}
+
+	/* Table */
+	/* Header */
+	#InPageMenuWrap + div + div {
+		background: var(--container-content) !important;
+		border-bottom: 2px solid var(--font-color);
+	}
+
+	/* Rows */
+	#top-menu-wrap + div + div > div:nth-child(4) > div {
+		background: var(--container-content) !important;
+	}
+
+	#top-menu-wrap + div + div > div:nth-child(4) > div:nth-child(12n+1),
+	#top-menu-wrap + div + div > div:nth-child(4) > div:nth-child(12n+2),
+	#top-menu-wrap + div + div > div:nth-child(4) > div:nth-child(12n+3),
+	#top-menu-wrap + div + div > div:nth-child(4) > div:nth-child(12n+4),
+	#top-menu-wrap + div + div > div:nth-child(4) > div:nth-child(12n+5) {
+		background: var(--container-highlight) !important;
+	}
+
+	#top-menu-wrap + div + div > div:nth-child(4) > div:nth-child(6n+5) {
+		padding: 4px !important;
+	}
+
+	#top-menu-wrap + div + div > div:nth-child(4) > div:last-child {
+		background: var(--container-background) !important;
+	}
+
+	div[style*="#82a155"] {
+		color: var(--site-color) !important;
+	}
+
+	/* Ads */
+	#top-menu-wrap + div + div > div:nth-child(2),
+	#top-menu-wrap + div + div > div:first-child > div:first-child,
+	#top-menu-wrap + div + div > div:first-child > div:nth-of-type(4) {
+		background: var(--container-background) !important;
+		display: /*[[hideAdContainers]]*/;
+	}
+
+	/* Recent Blog Posts */
+	#top-menu-wrap + div + div > div:first-child > div:nth-last-child(2) {
+		background: var(--container-background) !important;
+		color: var(--font-color) !important;
+	}
+}
+
+@-moz-document regexp("https?://socialblade.com/twitter/user/.*/monthly(/.*)?") {
+	/*--------------------------------------------*/
+	/* Twitter Detailed Statistics                */
+	/*--------------------------------------------*/
+	/* Tab Highlight */
+	#YouTubeUserMenu > a[href$="monthly"] {
+		background: var(--container-highlight);
+	}
+
+	/* Table */
+	/* Header */
+	#top-menu-wrap + div + div > div:first-child > div:nth-child(4) {
+		border-bottom: 2px solid var(--font-color);
+	}
+
+	/* Rows */
+	#top-menu-wrap + div + div > div:first-child > div:nth-child(n+4):nth-last-child(n+6),
+	#top-menu-wrap + div + div > div:first-child > div:nth-last-child(5),
+	#top-menu-wrap + div + div > div:first-child > div:nth-last-child(4) {
+		background: var(--container-content) !important;
+	}
+
+	#top-menu-wrap + div + div > div:first-child > div:nth-child(n+5):nth-child(even):nth-last-child(n+6) {
+		background: var(--container-highlight) !important;
+	}
+
+	#top-menu-wrap + div + div > div:first-child > div:nth-child(n+4) {
+		color: var(--font-color) !important;
+	}
+
+	/* Graph */
+	#top-menu-wrap + div + div > div:first-child > div:nth-last-child(3) {
+		background: var(--container-background) !important;
+	}
+
+	#top-menu-wrap + div + div > div:first-child > div:nth-last-child(2) {
+		background: var(--container-content) !important;
+	}
+
+	.dygraph-axis-label {
+		color: var(--font-color);
+	}
+
+	.dygraph-ylabel {
+		margin-top: -10px;
+	}
+
+	.dygraph-legend span {
+		color: var(--site-color) !important;
+	}
+
+	.dygraph-legend > span > div {
+		border-color: var(--site-color) !important;
+	}
+
+	canvas {
+		filter: hue-rotate(206deg) brightness(250%) saturate(40%);
+	}
+
+	/* Ads */
+	#top-menu-wrap + div + div > div:first-child > div:first-child > div:first-child,
+	#top-menu-wrap + div + div > div:nth-child(2) > div:first-child,
+	#top-menu-wrap + div + div > div:nth-child(2) > div:nth-of-type(4),
+	#top-menu-wrap + div + div > div:nth-child(3) > div {
+		background: var(--container-background) !important;
+		display: /*[[hideAdContainers]]*/;
+	}
+
+	/* Recent Blog Posts */
+	#top-menu-wrap + div + div > div:nth-child(2) > div:nth-last-child(2) {
+		background: var(--container-background) !important;
+		color: var(--font-color) !important;
+	}
+}
+
+@-moz-document regexp("https?://socialblade.com/instagram/user/.*") {
+	/*--------------------------------------------*/
+	/* Instagram Base                             */
+	/*--------------------------------------------*/
+	/* Header */
+	#youtube-authenticated-action-menu,
+	#YouTubeUserTopInfoWrap {
+		background: var(--container-background) !important;
+	}
+
+	#youtube-authenticated-action-bars-normal,
+	#youtube-authenticated-action-menu-button,
+	#youtube-authenticated-action-menu,
+	#YouTubeUserTopInfoWrap span,
+	#youtube-user-page-country,
+	#youtube-user-page-channeltype,
+	#YouTubeUserTopInfoBlockTop div h2 {
+		color: var(--font-color) !important;
+	}
+
+	#YouTubeUserMenu {
+		border-top: 1px solid var(--font-color);
+	}
+
+	#YouTubeUserMenu > a:hover {
+		background: var(--container-background);
+	}
+
+	/* Favorite Feature Popup */
+	#dialog_favorite_logincheck,
+	.ui-dialog-titlebar-close,
+	.ui-dialog-titlebar-close:hover {
+		background: var(--container-content) !important;
+	}
+
+	.ui-dialog a {
+		color: var(--site-color);
+	}
+
+	#dialog_favorite_logincheck,
+	.ui-button-text {
+		color: var(--font-color);
+	}
+
+	/* Recent Blog Posts */
+	#socialblade-user-sidebar > div > div:nth-child(2) {
+		background: var(--container-background) !important;
+		color: var(--font-color) !important;
+	}
+
+	.anchor-sidebar,
+	.anchor-sidebar:hover {
+		background: var(--container-content);
+		color: var(--font-color);
+		border-top: 1px solid var(--container-background);
+	}
+
+	/* Graph */
+	.highcharts-selection-marker {
+		fill: var(--font-color) !important;
+		fill-opacity: 0.25;
+	}
+
+	/* Graph Button */
+	.highcharts-reset-zoom > rect {
+		fill: var(--site-color);
+	}
+
+	.highcharts-reset-zoom > text {
+		fill: var(--font-color) !important;
+	}
+
+	/* Ads */
+	#socialblade-user-content > div:first-child,
+	.sidebar-module {
+		background: var(--container-background) !important;
+		display: /*[[hideAdContainers]]*/;
+	}
+}
+
+@-moz-document regexp("https?://socialblade.com/instagram/user/[^/]*/?") {
+	/*--------------------------------------------*/
+	/* Instagram User Summary                     */
+	/*--------------------------------------------*/
+	/* Tab Highlight */
+	#YouTubeUserMenu > a:first-child {
+		background: var(--container-highlight);
+	}
+
+	/* Overview*/
+	#top-menu-wrap + div + div > div {
+		background: var(--container-background) !important;
+	}
+
+	#top-menu-wrap + div + div > div > div > p:nth-child(2) {
+		color: var(--font-color) !important;
+	}
+
+	/* Table */
+	/* Header */
+	#socialblade-user-content > div:nth-child(4) {
+		border-bottom: 2px solid var(--font-color);
+	}
+
+	/* Rows */
+	#socialblade-user-content > div:nth-child(5) > div,
+	#socialblade-user-content > div:nth-child(6) > div,
+	#socialblade-user-content > div:nth-child(7) > div {
+		color: var(--font-color) !important;
+	}
+
+	#socialblade-user-content > div:nth-child(5) > div,
+	#socialblade-user-content > div:nth-child(6),
+	#socialblade-user-content > div:nth-child(7) {
+		background: var(--container-content) !important;
+	}
+
+	#socialblade-user-content > div:nth-child(7) {
+		border: none !important;
+	}
+
+	#socialblade-user-content > div:nth-child(5) > div:nth-child(even) {
+		background: var(--container-highlight) !important;
+	}
+
+	/* Graph */
+	#socialblade-user-content > div:nth-last-child(2) {
+		background: var(--container-content) !important;
+	}
+
+	.highcharts-background {
+		fill: var(--container-content) !important;
+	}
+
+	.highcharts-title > tspan,
+	.highcharts-axis > text,
+	.highcharts-axis-labels > text {
+		fill: var(--font-color) !important;
+	}
+
+	.highcharts-graph {
+		stroke: var(--site-color);
+	}
+
+	.highcharts-markers > path {
+		fill: var(--site-color)
+	}
+
+	.highcharts-label > path {
+		stroke: var(--site-color);
+		fill: var(--container-content);
+	}
+
+	.highcharts-label > text > tspan:nth-child(2) {
+		fill: var(--site-color) !important;
+	}
+
+	.highcharts-label > text {
+		fill: var(--font-color) !important;
+	}
+}
+
+@-moz-document regexp("https?://socialblade.com/instagram/user/.*/legacy") {
+	/*--------------------------------------------*/
+	/* Instagram Historical Data                  */
+	/*--------------------------------------------*/
+	/* Tab Highlight */
+	#YouTubeUserMenu > a[href$="legacy"] {
+		background: var(--container-highlight);
+	}
+
+	/* Table */
+	/* Header */
+	#socialblade-user-content > div:nth-child(4) {
+		border-bottom: 2px solid var(--font-color);
+	}
+
+	/* Rows */
+	#socialblade-user-content > div:nth-child(5) > div,
+	#socialblade-user-content > div:nth-child(6) > div,
+	#socialblade-user-content > div:nth-child(7) > div {
+		color: var(--font-color) !important;
+	}
+
+	#socialblade-user-content > div:nth-child(5) > div,
+	#socialblade-user-content > div:nth-child(6),
+	#socialblade-user-content > div:nth-child(7) {
+		background: var(--container-content) !important;
+	}
+
+	#socialblade-user-content > div:nth-child(7) {
+		border: none !important;
+	}
+
+	#socialblade-user-content > div:nth-child(5) > div:nth-child(even) {
+		background: var(--container-highlight) !important;
+	}
+
+	/* Graph */
+	#socialblade-user-content > div:nth-last-child(2) {
+		background: var(--container-content) !important;
+	}
+
+	.highcharts-background {
+		fill: var(--container-content) !important;
+	}
+
+	.highcharts-title > tspan,
+	.highcharts-axis > text,
+	.highcharts-axis-labels > text {
+		fill: var(--font-color) !important;
+	}
+
+	.highcharts-graph {
+		stroke: var(--site-color);
+	}
+
+	.highcharts-markers > path {
+		fill: var(--site-color)
+	}
+
+	.highcharts-label > path {
+		stroke: var(--site-color);
+		fill: var(--container-content);
+	}
+
+	.highcharts-label > text > tspan:nth-child(2) {
+		fill: var(--site-color) !important;
+	}
+
+	.highcharts-label > text {
+		fill: var(--font-color) !important;
+	}
+}
+
+@-moz-document regexp("https?://socialblade.com/facebook/page/.*") {
+	/*--------------------------------------------*/
+	/* Facebook Base                              */
+	/*--------------------------------------------*/
+	/* Header */
+	#top-menu-wrap + div > div:first-child {
+		background: var(--container-background) !important;
+	}
+
+	#YouTubeUserMenu {
+		border-top: 1px solid var(--font-color);
+	}
+
+	#top-menu-wrap + div > div:first-child > div:nth-child(2) > div:first-child > h2 {
+		color: var(--site-color) !important;
+	}
+
+	/* Recent Blog Posts */
+	#socialblade-user-sidebar > div > div:nth-child(2) {
+		background: var(--container-background) !important;
+		color: var(--font-color) !important;
+	}
+
+	.anchor-sidebar,
+	.anchor-sidebar:hover {
+		background: var(--container-content);
+		color: var(--font-color);
+		border-top: 1px solid var(--container-background);
+	}
+
+	/* Graph */
+	.highcharts-selection-marker {
+		fill: var(--font-color) !important;
+		fill-opacity: 0.25;
+	}
+
+	/* Graph Button */
+	.highcharts-reset-zoom > rect {
+		fill: var(--site-color);
+	}
+
+	.highcharts-reset-zoom > text {
+		fill: var(--font-color) !important;
+	}
+
+	/* Ads */
+	#socialblade-user-content > div:first-child,
+	.sidebar-module {
+		background: var(--container-background) !important;
+		display: /*[[hideAdContainers]]*/;
+	}
+}
+
+@-moz-document regexp("https?://socialblade.com/facebook/page/[^/]*/?") {
+	/*--------------------------------------------*/
+	/* Facebook Page Summary                      */
+	/*--------------------------------------------*/
+	/* Tab Highlight */
+	#YouTubeUserMenu > a:first-child {
+		background: var(--container-highlight);
+	}
+
+	/* Overview*/
+	#top-menu-wrap + div + div > div {
+		background: var(--container-background) !important;
+	}
+
+	#top-menu-wrap + div + div > div > div > p:nth-child(2) {
+		color: var(--font-color) !important;
+	}
+
+	/* Table */
+	/* Header */
+	#socialblade-user-content > div:nth-child(4) {
+		border-bottom: 2px solid var(--font-color);
+	}
+
+	/* Rows */
+	#socialblade-user-content > div:nth-child(5) > div,
+	#socialblade-user-content > div:nth-child(6) > div,
+	#socialblade-user-content > div:nth-child(7) > div {
+		color: var(--font-color) !important;
+	}
+
+	#socialblade-user-content > div:nth-child(5) > div,
+	#socialblade-user-content > div:nth-child(6),
+	#socialblade-user-content > div:nth-child(7) {
+		background: var(--container-content) !important;
+	}
+
+	#socialblade-user-content > div:nth-child(7) {
+		border: none !important;
+	}
+
+	#socialblade-user-content > div:nth-child(5) > div:nth-child(even) {
+		background: var(--container-highlight) !important;
+	}
+
+	/* Graph */
+	#socialblade-user-content > div:nth-last-child(2) {
+		background: var(--container-content) !important;
+	}
+
+	.highcharts-background {
+		fill: var(--container-content) !important;
+	}
+
+	.highcharts-title > tspan,
+	.highcharts-axis > text,
+	.highcharts-axis-labels > text {
+		fill: var(--font-color) !important;
+	}
+
+	.highcharts-graph {
+		stroke: var(--site-color);
+	}
+
+	.highcharts-markers > path {
+		fill: var(--site-color)
+	}
+
+	.highcharts-label > path {
+		stroke: var(--site-color);
+		fill: var(--container-content);
+	}
+
+	.highcharts-label > text > tspan:nth-child(2) {
+		fill: var(--site-color) !important;
+	}
+
+	.highcharts-label > text {
+		fill: var(--font-color) !important;
+	}
+}
+
+@-moz-document regexp("https?://socialblade.com/dailymotion/user/.*"),
+regexp("https?://socialblade.com/mixer/user/.*") {
+	/*--------------------------------------------*/
+	/* Dailymotion Base                           */
+	/* Mixer Base                                 */
+	/*--------------------------------------------*/
+	/* Header */
+	#youtube-authenticated-action-menu,
+	#YouTubeUserTopInfoWrap {
+		background: var(--container-background) !important;
+	}
+
+	#youtube-authenticated-action-bars-normal,
+	#youtube-authenticated-action-menu-button,
+	#youtube-authenticated-action-menu,
+	#YouTubeUserTopInfoWrap span,
+	#youtube-user-page-country,
+	#youtube-user-page-channeltype,
+	#YouTubeUserTopInfoBlockTop div h2 {
+		color: var(--font-color) !important;
+	}
+
+	#youtube-authenticated-action-authenticate {
+		color: var(--site-color);
+	}
+
+	#YouTubeUserMenu {
+		border-top: 1px solid var(--font-color);
+	}
+
+	#YouTubeUserMenu > a:hover {
+		background: var(--container-background);
+	}
+
+	/* Favorite Feature Popup */
+	#dialog_favorite_logincheck,
+	.ui-dialog-titlebar-close,
+	.ui-dialog-titlebar-close:hover {
+		background: var(--container-content) !important;
+	}
+
+	.ui-dialog a {
+		color: var(--site-color);
+	}
+
+	#dialog_favorite_logincheck,
+	.ui-button-text {
+		color: var(--font-color);
+	}
+
+	/* Recent Blog Posts */
+	#socialblade-user-sidebar > div > div:nth-child(2) {
+		background: var(--container-background) !important;
+		color: var(--font-color) !important;
+	}
+
+	.anchor-sidebar,
+	.anchor-sidebar:hover {
+		background: var(--container-content);
+		color: var(--font-color);
+		border-top: 1px solid var(--container-background);
+	}
+
+	/* Graph */
+	.highcharts-selection-marker {
+		fill: var(--font-color) !important;
+		fill-opacity: 0.25;
+	}
+
+	/* Graph Button */
+	.highcharts-reset-zoom > rect {
+		fill: var(--site-color);
+	}
+
+	.highcharts-reset-zoom > text {
+		fill: var(--font-color) !important;
+	}
+
+	/* Ads */
+	#socialblade-user-content > div:first-child,
+	.sidebar-module {
+		background: var(--container-background) !important;
+		display: /*[[hideAdContainers]]*/;
+	}
+}
+
+@-moz-document regexp("https?://socialblade.com/dailymotion/user/[^/]*/?"),
+regexp("https?://socialblade.com/mixer/user/[^/]*/?") {
+	/*--------------------------------------------*/
+	/* Dailymotion User Summary                   */
+	/* Mixer User Summary                         */
+	/*--------------------------------------------*/
+	/* Tab Highlight */
+	#YouTubeUserMenu > a:first-child {
+		background: var(--container-highlight);
+	}
+
+	/* Overview*/
+	#top-menu-wrap + div + div > div {
+		background: var(--container-background) !important;
+	}
+
+	#top-menu-wrap + div + div > div > div > p:nth-child(2) {
+		color: var(--font-color) !important;
+	}
+
+	/* Table */
+	/* Header */
+	#socialblade-user-content > div:nth-child(4) {
+		border-bottom: 2px solid var(--font-color);
+	}
+
+	/* Rows */
+	#socialblade-user-content > div:nth-child(5) > div,
+	#socialblade-user-content > div:nth-child(6) > div,
+	#socialblade-user-content > div:nth-child(7) > div {
+		color: var(--font-color) !important;
+	}
+
+	#socialblade-user-content > div:nth-child(5) > div,
+	#socialblade-user-content > div:nth-child(6),
+	#socialblade-user-content > div:nth-child(7) {
+		background: var(--container-content) !important;
+	}
+
+	#socialblade-user-content > div:nth-child(7) {
+		border: none !important;
+	}
+
+	#socialblade-user-content > div:nth-child(5) > div:nth-child(even) {
+		background: var(--container-highlight) !important;
+	}
+
+	/* Graph */
+	#socialblade-user-content > div:nth-last-child(2) {
+		background: var(--container-content) !important;
+	}
+
+	.highcharts-background {
+		fill: var(--container-content) !important;
+	}
+
+	.highcharts-title > tspan,
+	.highcharts-axis > text,
+	.highcharts-axis-labels > text {
+		fill: var(--font-color) !important;
+	}
+
+	.highcharts-graph {
+		stroke: var(--site-color);
+	}
+
+	.highcharts-markers > path {
+		fill: var(--site-color)
+	}
+
+	.highcharts-label > path {
+		stroke: var(--site-color);
+		fill: var(--container-content);
+	}
+
+	.highcharts-label > text > tspan:nth-child(2) {
+		fill: var(--site-color) !important;
+	}
+
+	.highcharts-label > text {
+		fill: var(--font-color) !important;
+	}
+}
+
+@-moz-document regexp("https?://socialblade.com/dailymotion/user/.*/monthly"),
+regexp("https?://socialblade.com/mixer/user/.*/monthly") {
+	/*--------------------------------------------*/
+	/* Dailymotion User Summary                   */
+	/* Mixer User Summary                         */
+	/*--------------------------------------------*/
+	/* Tab Highlight */
+	#YouTubeUserMenu > a[href$="monthly"] {
+		background: var(--container-highlight);
+	}
+
+	#top-menu-wrap + div + div > div > div > p:nth-child(2) {
+		color: var(--font-color) !important;
+	}
+
+	/* Table */
+	/* Header */
+	#socialblade-user-content > div:nth-child(4) {
+		border-bottom: 2px solid var(--font-color);
+	}
+
+	/* Rows */
+	#socialblade-user-content > div:nth-child(5) > div,
+	#socialblade-user-content > div:nth-child(6) > div,
+	#socialblade-user-content > div:nth-child(7) > div {
+		color: var(--font-color) !important;
+	}
+
+	#socialblade-user-content > div:nth-child(5) > div,
+	#socialblade-user-content > div:nth-child(6),
+	#socialblade-user-content > div:nth-child(7) {
+		background: var(--container-content) !important;
+	}
+
+	#socialblade-user-content > div:nth-child(7) {
+		border: none !important;
+	}
+
+	#socialblade-user-content > div:nth-child(5) > div:nth-child(even) {
+		background: var(--container-highlight) !important;
+	}
+
+	/* Graph */
+	#socialblade-user-content > div:nth-last-child(2) {
+		background: var(--container-content) !important;
+	}
+
+	.highcharts-background {
+		fill: var(--container-content) !important;
+	}
+
+	.highcharts-title > tspan,
+	.highcharts-axis > text,
+	.highcharts-axis-labels > text {
+		fill: var(--font-color) !important;
+	}
+
+	.highcharts-graph {
+		stroke: var(--site-color);
+	}
+
+	.highcharts-markers > path {
+		fill: var(--site-color)
+	}
+
+	.highcharts-label > path {
+		stroke: var(--site-color);
+		fill: var(--container-content);
+	}
+
+	.highcharts-label > text > tspan:nth-child(2) {
+		fill: var(--site-color) !important;
+	}
+
+	.highcharts-label > text {
+		fill: var(--font-color) !important;
+	}
+}
+
+@-moz-document regexp("https?://socialblade.com/.*/realtime") {
+	/*--------------------------------------------*/
+	/* SocialBlade Real Time Counter              */
+	/*--------------------------------------------*/
+	.page-title,
+	.page-realtime-body {
+		background: var(--site-background) !important;
+	}
+
+	/* Header */
+	.page-title h2,
+	.page-title h4 {
+		color: var(--font-color) !important;
+	}
+
+	.highcharts-background {
+		fill: var(--site-background);
+	}
+
+	div.page-title > .containment > i,
+	div.page-title > .containment > i:hover {
+		background: var(--container-background);
+		border-radius: 0;
+	}
+
+	.share > div > a {
+		border-radius: 0;
+	}
+
+	div.share a.twitter,
+	div.share a.twitter:hover {
+		background: var(--twitter-color);
+	}
+
+	div.share a.facebook,
+	div.share a.facebook:hover {
+		background: var(--facebook-color);
+	}
+
+	div.share a.google,
+	div.share a.google:hover {
+		background: var(--google-color);
+	}
+
+	div.share a.return,
+	div.share a.return:hover {
+		background: var(--site-color);
+	}
+
+	/* Counter */
+	div.page-realtime-body .containment {
+		top: 53%;
+	}
+
+	.page-realtime-body h5.odometer {
+		font-size: 10em;
+	}
+
+	.page-realtime-body-containment h3#userName {
+		font-size: 4em;
+	}
+
+	.odometer-inside {
+		color: var(--font-color) !important;
+	}
+
+	[class^="realtime-username"] {
+		color: var(--site-color) !important;
+	}
+
+	.page-realtime-body p.realtime-watermark {
+		opacity: 0.6;
+	}
+
+	.realtime-watermark > span {
+		color: var(--site-color) !important;
+	}
+
+	/* Graph */
+	.highcharts-axis-labels text {
+		fill: var(--font-color) !important;
+	}
+
+	.highcharts-graph {
+		stroke: var(--site-color);
+	}
+
+	.highcharts-markers > path {
+		fill: var(--site-color)
+	}
+
+	.highcharts-label > path {
+		stroke: var(--font-color)!important;
+		fill: var(--site-background);
+	}
+
+	.highcharts-label > text {
+		fill: var(--font-color) !important;
+	}
+}
+
+@-moz-document url("https://socialblade.com/grow-and-brand-your-youtube-channel") {
+	#sb-consultation-box-container,
+	#sb-consultation-box-container + div + div + div {
+		background: var(--site-background) !important;
+	}
+
+	.sb-consultation-box {
+		background: var(--container-background);
+	}
+
+	.sb-consultation-box,
+	.sb-consultation-box div h4,
+	p {
+		color: var(--font-color);
+	}
+}
+
+@-moz-document regexp("https?://socialblade.com/blog.*") {
+	/*--------------------------------------------*/
+	/* SocialBlade Blog                           */
+	/*--------------------------------------------*/
+	.td-main-content-wrap,
+	.td-category-grid,
+	.post,
+	.td-category-header {
+		background: var(--site-background);
+	}
+
+	.td-header-wrap .td-header-top-menu-full {
+		background: var(--site-header-color);
+	}
+
+	.td-big-grid-post .td-module-thumb {
+		background: var(--container-background);
+	}
+
+	.td-trending-now-wrapper:hover .td-trending-now-title,
+	.td-scroll-up {
+		background: var(--site-color);
+	}
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6,
+	h1 > a,
+	h2 > a,
+	h3 > a,
+	h4 > a,
+	h5 > a,
+	h6 > a,
+	.td-post-content .twitter-tweet p,
+	.td-post-content,
+	.td-post-small-box a,
+	.td-post-next-prev-content a,
+	.td-post-author-name a,
+	header .td-post-author-name,
+	header .td-post-date,
+	.td-social-style2,
+	.widget a,
+	.td-social-style2 .td_social_type a,
+	.td-author-name a {
+		color: var(--font-color);
+	}
+
+	.td-social-style2 .td-sp::after {
+		background: var(--font-color);
+		opacity: 1;
+	}
+
+	.wpusb-square-plus .wpusb-item .wpusb-btn,
+	.wpusb-square-plus .wpusb-item .wpusb-btn:hover {
+		border-radius: 0px;
+		box-shadow: none;
+	}
+
+	a,
+	a:hover,
+	.widget a:hover,
+	.td-social-style2 .td_social_type:hover,
+	.td_social_type .td_social_button a:hover,
+	.td-post-next-prev-content a:hover,
+	.td_module_wrap:hover .entry-title a,
+	.td_mod_related_posts:hover h3 > a {
+		color: var(--site-color);
+	}
+
+	.block-title > span,
+	.td-header-style-5 .black-menu .sf-menu > .current-menu-item > a,
+	.td-header-style-5 .black-menu .sf-menu > .current-menu-ancestor > a,
+	.td-header-style-5 .black-menu .sf-menu > .current-category-ancestor > a,
+	.td-header-style-5 .black-menu .sf-menu > li > a:hover,
+	.td-header-style-5 .black-menu .sf-menu > .sfHover > a,
+	.td-post-small-box a:hover,
+	.td-next-prev-wrap a:hover {
+		background: var(--site-color);
+	}
+
+	.block-title,
+	.td-related-title,
+	.wpb_tabs .wpb_tabs_nav,
+	.woocommerce div.product .woocommerce-tabs ul.tabs::before,
+	.td-post-small-box a:hover,
+	.td-next-prev-wrap a:hover {
+		border-color: var(--site-color);
+	}
+
+	blockquote {
+		border: 1px solid var(--font-color);
+	}
+
+	.td-social-style2 .td_social_type .td-social-box {
+		background: var(--container-background);
+		border: none;
+	}
+
+	.wpusb-item .wpusb-btn i,
+	.wpusb-item .wpusb-btn span {
+		vertical-align: auto;
+	}
+
+	.wpusb-square-plus .wpusb-inside .wpusb-link span {
+		top: 3px;
+	}
+
+	.wpusb-square-plus .wpusb-item .wpusb-btn {
+		height: 33px;
+	}
+}
