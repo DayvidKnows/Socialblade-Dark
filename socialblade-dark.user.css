@@ -33,6 +33,7 @@ yes "Yes" <<<EOT
 @advanced color dailymotion-color "Dailymotion" #00aaff
 @advanced color mixer-color "Mixer" #1fbaed
 ==/UserStyle== */
+@import url('https://d1azc1qln24ryf.cloudfront.net/114779/Socicon/style-cf.css?9ukd8d');
 @-moz-document domain("socialblade.com") {
 	:root {
 		--site-background: hsl(0, 0%, 13%);
@@ -309,6 +310,10 @@ yes "Yes" <<<EOT
 		border: 1px solid var(--button-border-color) !important;
 	}
 
+	.footer-social-block > div i {
+		margin-top: 10px;
+	}
+
 	.footer-social-block[href*="youtube"] > div {
 		background: var(--youtube-color) !important;
 	}
@@ -457,6 +462,91 @@ yes "Yes" <<<EOT
 
 	#cdm-zone-06 {
 		display: /*[[hideAdContainers]]*/;
+	}
+
+	/* Icons */
+	img[src$="fav-youtube.png"],
+	img[src$="fav-twitch.png"],
+	img[src$="fav-twitter.png"],
+	img[src$="fav-instagram.png"],
+	img[src$="fav-facebook.png"],
+	img[src$="fav-dailymotion.png"],
+	img[src$="fav-mixer.png"] {
+		display: none;
+	}
+
+	input + a > label::before {
+		font: normal normal normal 14px FontAwesome;
+		margin-right: 10px;
+	}
+
+	input ~ label::before {
+		font: normal normal normal 14px FontAwesome;
+		margin-right: 10px;
+		margin-left: 5px;
+	}
+
+	#top-menu-content-charts a::before {
+		font: normal normal normal 14px FontAwesome;
+		margin-right: 8px;
+	}
+
+	input[value="youtube"] + a > label::before,
+	input[value="youtube"] ~ label::before,
+	#top-menu-content-charts a[href="/youtube"]::before {
+		content: "\f16a";
+		background: var(--youtube-color);
+		padding: 3px 3px;
+	}
+
+	input[value="twitch"] + a > label::before,
+	input[value="twitch"] ~ label::before,
+	#top-menu-content-charts a[href="/twitch"]::before {
+		content: "\f1e8";
+		background: var(--twitch-color);
+		padding: 3px 3px;
+	}
+
+	input[value="twitter"] + a > label::before,
+	input[value="twitter"] ~ label::before,
+	#top-menu-content-charts a[href="/twitter"]::before {
+		content: "\f099";
+		background: var(--twitter-color);
+		padding: 3px 3.5px;
+	}
+
+	input[value="instagram"] + a > label::before,
+	input[value="instagram"] ~ label::before,
+	#top-menu-content-charts a[href="/instagram"]::before {
+		content: "\f16d";
+		background: var(--instagram-color);
+		padding: 3px 4px;
+	}
+
+	input[value="facebook"] + a > label::before,
+	input[value="facebook"] ~ label::before,
+	#top-menu-content-charts a[href="/facebook"]::before {
+		content: "\f09a";
+		background: var(--facebook-color);
+		padding: 3px 6px;
+	}
+
+	input[value="dailymotion"] + a > label::before,
+	input[value="dailymotion"] ~ label::before,
+	#top-menu-content-charts a[href="/dailymotion"]::before {
+		content: "\e017";
+		font-family: Socicon;
+		background: var(--dailymotion-color);
+		padding: 2px 3px 4px 3px;
+	}
+
+	input[value="mixer"] + a > label::before,
+	input[value="mixer"] ~ label::before,
+	#top-menu-content-charts a[href="/mixer"]::before {
+		content: "\e00d";
+		font-family: Socicon;
+		background: var(--mixer-color);
+		padding: 2px 3px 4px 3px;
 	}
 }
 
@@ -845,7 +935,7 @@ yes "Yes" <<<EOT
 
 	/* Rows */
 	#sort-by ~ div > div:first-child,
-	#sort-by ~ div > div:nth-child(n+3) > span {
+	#sort-by ~ div > div:nth-child(n + 3) > span {
 		color: var(--font-color) !important;
 	}
 
@@ -1047,6 +1137,7 @@ regexp("https?://socialblade.com/.*") {
 		color: var(--font-color);
 	}
 
+	/* Ads */
 	#top-menu-wrap ~ div:not([id]) + div + div {
 		display: /*[[hideAds]]*/;
 	}
@@ -1068,7 +1159,7 @@ regexp("https?://socialblade.com/.*") {
 
 	#afd-header-subs-30d,
 	#afd-header-views-30d,
-	#top-menu-wrap ~ div:not([id]) > div > div:first-child > div:nth-child(2) > div > div > p:nth-child(n+2),
+	#top-menu-wrap ~ div:not([id]) > div > div:first-child > div:nth-child(2) > div > div > p:nth-child(n + 2),
 	#top-menu-wrap ~ div:not([id]) > div > div:first-child > div:nth-child(2) > div:nth-child(2) > div > p {
 		color: var(--font-color) !important;
 	}
@@ -1080,12 +1171,12 @@ regexp("https?://socialblade.com/.*") {
 	}
 
 	/* Rows */
-	#top-menu-wrap ~ div:not([id]) > div:nth-of-type(4) > div:first-child > div:first-child > div:nth-child(n+6) {
+	#top-menu-wrap ~ div:not([id]) > div:nth-of-type(4) > div:first-child > div:first-child > div:nth-child(n + 6) {
 		background: var(--container-highlight) !important;
 		color: var(--font-color) !important;
 	}
 
-	#top-menu-wrap ~ div:not([id]) > div:last-child > div:first-child > div > div:nth-child(n+6):nth-child(even),
+	#top-menu-wrap ~ div:not([id]) > div:last-child > div:first-child > div > div:nth-child(n + 6):nth-child(even),
 	#top-menu-wrap ~ div:not([id]) > div:last-child > div:first-child > div:first-child > div:last-child,
 	#top-menu-wrap ~ div:not([id]) > div:last-child > div:first-child > div:first-child > div:nth-last-child(2) {
 		background: var(--container-content) !important;
@@ -1168,19 +1259,19 @@ regexp("https?://socialblade.com/.*") {
 		color: var(--font-color);
 	}
 
-	.TableMonthlyStats:nth-child(5n+1):nth-child(odd),
-	.TableMonthlyStats:nth-child(5n+2):nth-child(even),
-	.TableMonthlyStats:nth-child(5n+3):nth-child(odd),
-	.TableMonthlyStats:nth-child(5n+4):nth-child(even),
-	.TableMonthlyStats:nth-child(5n+5):nth-child(odd) {
+	.TableMonthlyStats:nth-child(5n + 1):nth-child(odd),
+	.TableMonthlyStats:nth-child(5n + 2):nth-child(even),
+	.TableMonthlyStats:nth-child(5n + 3):nth-child(odd),
+	.TableMonthlyStats:nth-child(5n + 4):nth-child(even),
+	.TableMonthlyStats:nth-child(5n + 5):nth-child(odd) {
 		background: var(--container-content) !important;
 	}
 
-	.TableMonthlyStats:nth-child(5n+1) {
+	.TableMonthlyStats:nth-child(5n + 1) {
 		color: var(--font-color) !important;
 	}
 
-	.TableMonthlyStats:nth-child(5n+2) {
+	.TableMonthlyStats:nth-child(5n + 2) {
 		color: var(--site-color) !important;
 	}
 
@@ -1235,12 +1326,12 @@ regexp("https?://socialblade.com/.*") {
 		border-bottom: 2px solid var(--font-color);
 	}
 
-	#top-menu-wrap ~ div:not([id]) > div:first-child > div:first-child > div:nth-child(n+5):nth-last-child(n+10):nth-child(even) {
+	#top-menu-wrap ~ div:not([id]) > div:first-child > div:first-child > div:nth-child(n + 5):nth-last-child(n + 10):nth-child(even) {
 		background: var(--container-highlight) !important;
 		color: var(--font-color) !important;
 	}
 
-	#top-menu-wrap ~ div:not([id]) > div:first-child > div:first-child > div:nth-child(n+5):nth-last-child(n+7) {
+	#top-menu-wrap ~ div:not([id]) > div:first-child > div:first-child > div:nth-child(n + 5):nth-last-child(n + 7) {
 		background: var(--container-content) !important;
 		color: var(--font-color) !important;
 	}
@@ -1267,9 +1358,9 @@ regexp("https?://socialblade.com/.*") {
 		color: var(--font-color) !important;
 	}
 
-	.TableMonthlyStats:nth-child(3n+1):nth-child(odd),
-	.TableMonthlyStats:nth-child(3n+2):nth-child(even),
-	.TableMonthlyStats:nth-child(3n+3):nth-child(odd) {
+	.TableMonthlyStats:nth-child(3n + 1):nth-child(odd),
+	.TableMonthlyStats:nth-child(3n + 2):nth-child(even),
+	.TableMonthlyStats:nth-child(3n + 3):nth-child(odd) {
 		background: var(--container-content) !important;
 	}
 
@@ -1392,13 +1483,13 @@ regexp("https?://socialblade.com/.*") {
 		color: var(--font-color) !important;
 	}
 
-	.TableMonthlyStats:nth-child(7n+13):nth-child(odd),
-	.TableMonthlyStats:nth-child(7n+14):nth-child(even),
-	.TableMonthlyStats:nth-child(7n+15):nth-child(odd),
-	.TableMonthlyStats:nth-child(7n+16):nth-child(even),
-	.TableMonthlyStats:nth-child(7n+17):nth-child(odd),
-	.TableMonthlyStats:nth-child(7n+18):nth-child(even),
-	.TableMonthlyStats:nth-child(7n+19):nth-child(odd) {
+	.TableMonthlyStats:nth-child(7n + 13):nth-child(odd),
+	.TableMonthlyStats:nth-child(7n + 14):nth-child(even),
+	.TableMonthlyStats:nth-child(7n + 15):nth-child(odd),
+	.TableMonthlyStats:nth-child(7n + 16):nth-child(even),
+	.TableMonthlyStats:nth-child(7n + 17):nth-child(odd),
+	.TableMonthlyStats:nth-child(7n + 18):nth-child(even),
+	.TableMonthlyStats:nth-child(7n + 19):nth-child(odd) {
 		background: var(--container-content) !important;
 	}
 
@@ -1663,19 +1754,19 @@ regexp("https?://socialblade.com/.*") {
 		color: var(--font-color);
 	}
 
-	.TableMonthlyStats:nth-child(5n+1):nth-child(odd),
-	.TableMonthlyStats:nth-child(5n+2):nth-child(even),
-	.TableMonthlyStats:nth-child(5n+3):nth-child(odd),
-	.TableMonthlyStats:nth-child(5n+4):nth-child(even),
-	.TableMonthlyStats:nth-child(5n+5):nth-child(odd) {
+	.TableMonthlyStats:nth-child(5n + 1):nth-child(odd),
+	.TableMonthlyStats:nth-child(5n + 2):nth-child(even),
+	.TableMonthlyStats:nth-child(5n + 3):nth-child(odd),
+	.TableMonthlyStats:nth-child(5n + 4):nth-child(even),
+	.TableMonthlyStats:nth-child(5n + 5):nth-child(odd) {
 		background: var(--container-content) !important;
 	}
 
-	.TableMonthlyStats:nth-child(5n+1) {
+	.TableMonthlyStats:nth-child(5n + 1) {
 		color: var(--font-color) !important;
 	}
 
-	.TableMonthlyStats:nth-child(5n+2) {
+	.TableMonthlyStats:nth-child(5n + 2) {
 		color: var(--site-color) !important;
 	}
 
@@ -1895,11 +1986,11 @@ regexp("https?://socialblade.com/.*") {
 		color: var(--font-color) !important;
 	}
 
-	#top-menu-wrap + div + div + div > div:first-child > div:nth-child(n+5):nth-last-child(n+7) {
+	#top-menu-wrap + div + div + div > div:first-child > div:nth-child(n + 5):nth-last-child(n + 7) {
 		background: var(--container-highlight) !important;
 	}
 
-	#top-menu-wrap + div + div + div > div:first-child > div:nth-child(n+5):nth-child(odd):nth-last-child(n+7),
+	#top-menu-wrap + div + div + div > div:first-child > div:nth-child(n + 5):nth-child(odd):nth-last-child(n + 7),
 	#top-menu-wrap + div + div + div > div:first-child > div:nth-last-child(6),
 	#top-menu-wrap + div + div + div > div:first-child > div:nth-last-child(5) {
 		background: var(--container-content) !important;
@@ -1986,15 +2077,15 @@ regexp("https?://socialblade.com/.*") {
 		background: var(--container-content) !important;
 	}
 
-	#top-menu-wrap + div + div > div:nth-child(4) > div:nth-child(12n+1),
-	#top-menu-wrap + div + div > div:nth-child(4) > div:nth-child(12n+2),
-	#top-menu-wrap + div + div > div:nth-child(4) > div:nth-child(12n+3),
-	#top-menu-wrap + div + div > div:nth-child(4) > div:nth-child(12n+4),
-	#top-menu-wrap + div + div > div:nth-child(4) > div:nth-child(12n+5) {
+	#top-menu-wrap + div + div > div:nth-child(4) > div:nth-child(12n + 1),
+	#top-menu-wrap + div + div > div:nth-child(4) > div:nth-child(12n + 2),
+	#top-menu-wrap + div + div > div:nth-child(4) > div:nth-child(12n + 3),
+	#top-menu-wrap + div + div > div:nth-child(4) > div:nth-child(12n + 4),
+	#top-menu-wrap + div + div > div:nth-child(4) > div:nth-child(12n + 5) {
 		background: var(--container-highlight) !important;
 	}
 
-	#top-menu-wrap + div + div > div:nth-child(4) > div:nth-child(6n+5) {
+	#top-menu-wrap + div + div > div:nth-child(4) > div:nth-child(6n + 5) {
 		padding: 4px !important;
 	}
 
@@ -2037,17 +2128,17 @@ regexp("https?://socialblade.com/.*") {
 	}
 
 	/* Rows */
-	#top-menu-wrap + div + div > div:first-child > div:nth-child(n+4):nth-last-child(n+6),
+	#top-menu-wrap + div + div > div:first-child > div:nth-child(n + 4):nth-last-child(n + 6),
 	#top-menu-wrap + div + div > div:first-child > div:nth-last-child(5),
 	#top-menu-wrap + div + div > div:first-child > div:nth-last-child(4) {
 		background: var(--container-content) !important;
 	}
 
-	#top-menu-wrap + div + div > div:first-child > div:nth-child(n+5):nth-child(even):nth-last-child(n+6) {
+	#top-menu-wrap + div + div > div:first-child > div:nth-child(n + 5):nth-child(even):nth-last-child(n + 6) {
 		background: var(--container-highlight) !important;
 	}
 
-	#top-menu-wrap + div + div > div:first-child > div:nth-child(n+4) {
+	#top-menu-wrap + div + div > div:first-child > div:nth-child(n + 4) {
 		color: var(--font-color) !important;
 	}
 
