@@ -33,7 +33,6 @@ yes "Yes" <<<EOT
 @advanced color dailymotion-color "Dailymotion" #00aaff
 @advanced color mixer-color "Mixer" #1fbaed
 ==/UserStyle== */
-@import url('https://d1azc1qln24ryf.cloudfront.net/114779/Socicon/style-cf.css?9ukd8d');
 @-moz-document domain("socialblade.com") {
 	:root {
 		--site-background: hsl(0, 0%, 13%);
@@ -469,9 +468,9 @@ yes "Yes" <<<EOT
 	img[src$="fav-twitch.png"],
 	img[src$="fav-twitter.png"],
 	img[src$="fav-instagram.png"],
-	img[src$="fav-facebook.png"],
+	img[src$="fav-facebook.png"]/*,
 	img[src$="fav-dailymotion.png"],
-	img[src$="fav-mixer.png"] {
+	img[src$="fav-mixer.png"]*/ {
 		display: none;
 	}
 
@@ -531,11 +530,24 @@ yes "Yes" <<<EOT
 		padding: 3px 6px;
 	}
 
-	input[value="dailymotion"] + a > label::before,
+	.dd-selected-text{
+		margin-top: 0;
+	}
+	
+	input.dd-selected-value + a > label.dd-selected-text::before{
+		font-size: 16px;
+	}	
+	
+	input.dd-option-value ~ label.dd-option-text::before{
+		font-size: 12px;
+	}
+	
+	
+	/* For when Font Awesome finally includes them */
+	/*input[value="dailymotion"] + a > label::before,
 	input[value="dailymotion"] ~ label::before,
 	#top-menu-content-charts a[href="/dailymotion"]::before {
-		content: "\e017";
-		font-family: Socicon;
+		content: "";
 		background: var(--dailymotion-color);
 		padding: 2px 3px 4px 3px;
 	}
@@ -543,11 +555,10 @@ yes "Yes" <<<EOT
 	input[value="mixer"] + a > label::before,
 	input[value="mixer"] ~ label::before,
 	#top-menu-content-charts a[href="/mixer"]::before {
-		content: "\e00d";
-		font-family: Socicon;
+		content: "";
 		background: var(--mixer-color);
 		padding: 2px 3px 4px 3px;
-	}
+	}*/
 }
 
 @-moz-document regexp("https?://socialblade.com/?") {
