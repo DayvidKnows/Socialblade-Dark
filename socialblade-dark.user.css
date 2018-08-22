@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           SocialBlade Dark 
 @namespace      github.com/openstyles/stylus
-@version        1.0.2
+@version        1.0.3
 @homepageURL    https://github.com/DayvidKnows/Socialblade-Dark
 @updateURL      https://raw.githubusercontent.com/DayvidKnows/Socialblade-Dark/master/socialblade-dark.user.css
 @license        CC BY-ND 4.0
@@ -1214,10 +1214,6 @@ regexp("https?://socialblade.com/.*") {
 		display: /*[[hideAdContainers]]*/;
 	}
 
-	/* User Tags */
-	#top-menu-wrap ~ div:not([id]) > div:last-child > div:nth-child(2) > div:first-child > div:last-child {
-		background: var(--container-content) !important;
-	}
 
 	/* Recent Blog Posts */
 	#top-menu-wrap ~ div:not([id]) > div:last-child > div:last-child > div:nth-last-child(2) {
@@ -1225,7 +1221,12 @@ regexp("https?://socialblade.com/.*") {
 		color: var(--font-color) !important;
 	}
 }
-
+@-moz-document regexp("^https?://socialblade.com/youtube/user/[^/]*/?$") {
+		/* User Tags */
+	#top-menu-wrap ~ div:not([id]) > div:last-child > div:nth-child(2) > div:first-child > div:last-child {
+		background: var(--container-content) !important;
+	}
+}
 @-moz-document regexp("https?://socialblade.com/youtube/(user|c|channel)/.*/futureprojections(/.*)?") {
 	/*--------------------------------------------*/
 	/* Youtube Future Projections                 */
@@ -1312,10 +1313,6 @@ regexp("https?://socialblade.com/.*") {
 		display: /*[[hideAdContainers]]*/;
 	}
 
-	/* User Tags */
-	#top-menu-wrap ~ div:not([id]) > div:first-child > div:last-child > div:first-child > div:last-child {
-		background: var(--container-content) !important;
-	}
 
 	#top-menu-wrap ~ div:not([id]) > div:first-child > div:last-child > div:nth-last-child(2) {
 		background: var(--container-background) !important;
@@ -1323,6 +1320,13 @@ regexp("https?://socialblade.com/.*") {
 	}
 }
 
+@-moz-document regexp("https?://socialblade.com/youtube/user/.*/futureprojections(/.*)?") {
+	
+	/* User Tags */
+	#top-menu-wrap ~ div:not([id]) > div:first-child > div:last-child > div:first-child > div:last-child {
+		background: var(--container-content) !important;
+	}
+}
 @-moz-document regexp("https?://socialblade.com/youtube/(user|c|channel)/.*/monthly") {
 	/*--------------------------------------------*/
 	/* Youtube Detailed Statistics                */
@@ -1382,17 +1386,19 @@ regexp("https?://socialblade.com/.*") {
 		display: /*[[hideAdContainers]]*/;
 	}
 
-	/* User Tags */
-	#top-menu-wrap ~ div:not([id]) > div:first-child > div:nth-child(2) > div:first-child > div:nth-child(3) {
-		background: var(--container-content) !important;
-	}
+
 
 	#top-menu-wrap ~ div:not([id]) > div:first-child > div:last-child > div:nth-last-child(2) {
 		background: var(--container-background) !important;
 		color: var(--font-color) !important;
 	}
 }
-
+@-moz-document regexp("https?://socialblade.com/youtube/user/.*/monthly") {
+		/* User Tags */
+	#top-menu-wrap ~ div:not([id]) > div:first-child > div:nth-child(2) > div:first-child > div:nth-child(3) {
+		background: var(--container-content) !important;
+	}
+}
 @-moz-document regexp("https?://socialblade.com/youtube/(user|c|channel)/.*/otherchans/?.*") {
 	/*--------------------------------------------*/
 	/* Youtube Featured Box                       */
@@ -1449,17 +1455,19 @@ regexp("https?://socialblade.com/.*") {
 		display: /*[[hideAdContainers]]*/;
 	}
 
-	/* User Tags */
-	#top-menu-wrap ~ div:not([id]) > div:first-child > div:first-child > div:first-child > div:nth-child(3) {
-		background: var(--container-content) !important;
-	}
+
 
 	#top-menu-wrap ~ div:not([id]) > div:first-child > div:first-child > div:nth-last-child(2) {
 		background: var(--container-background) !important;
 		color: var(--font-color) !important;
 	}
 }
-
+@-moz-document regexp("https?://socialblade.com/youtube/user/.*/otherchans/?.*") {
+		/* User Tags */
+	#top-menu-wrap ~ div:not([id]) > div:first-child > div:first-child > div:first-child > div:nth-child(3) {
+		background: var(--container-content) !important;
+	}
+}
 @-moz-document regexp("https?://socialblade.com/youtube/(user|c|channel)/.*/similarrank/?.*") {
 	/*--------------------------------------------*/
 	/* Youtube Similar Channels                   */
@@ -1510,17 +1518,19 @@ regexp("https?://socialblade.com/.*") {
 		background: var(--container-background) !important;
 	}
 
-	/* User Tags */
-	#top-menu-wrap ~ div:not([id]) > div:first-child > div:nth-child(2) > div:first-child > div:nth-child(3) {
-		background: var(--container-content) !important;
-	}
+
 
 	#top-menu-wrap ~ div:not([id]) > div:last-child > div:last-child > div:nth-last-child(2) {
 		background: var(--container-background) !important;
 		color: var(--font-color) !important;
 	}
 }
-
+@-moz-document regexp("https?://socialblade.com/youtube/user/.*/similarrank/?.*") {
+		/* User Tags */
+	#top-menu-wrap ~ div:not([id]) > div:first-child > div:nth-child(2) > div:first-child > div:nth-child(3) {
+		background: var(--container-content) !important;
+	}
+}
 @-moz-document regexp("https?://socialblade.com/youtube/(user|c|channel)/.*/videos/?.*") {
 	/*--------------------------------------------*/
 	/* Youtube User Videos                        */
@@ -1569,17 +1579,19 @@ regexp("https?://socialblade.com/.*") {
 		display: /*[[hideAdContainers]]*/;
 	}
 
-	/* User Tags */
-	#top-menu-wrap ~ div:not([id]) > div:first-child > div:first-child > div:first-child > div:nth-child(3) {
-		background: var(--container-content) !important;
-	}
+
 
 	#top-menu-wrap ~ div:not([id]) > div:first-child > div:last-child > div:nth-last-child(2) {
 		background: var(--container-background) !important;
 		color: var(--font-color) !important;
 	}
 }
-
+@-moz-document regexp("https?://socialblade.com/youtube/user/.*/videos/?.*") {
+		/* User Tags */
+	#top-menu-wrap ~ div:not([id]) > div:first-child > div:first-child > div:first-child > div:nth-child(3) {
+		background: var(--container-content) !important;
+	}
+}
 @-moz-document regexp("https?://socialblade.com/twitch/user/.*") {
 	/*--------------------------------------------*/
 	/* Twitch User Base                           */
