@@ -1221,7 +1221,7 @@ regexp("https?://socialblade.com/.*") {
 		color: var(--font-color) !important;
 	}
 }
-@-moz-document regexp("^https?://socialblade.com/youtube/user/[^/]*/?$") {
+@-moz-document regexp("^https?://socialblade.com/youtube/(user|c)/[^/]*/?$") {
 		/* User Tags */
 	#top-menu-wrap ~ div:not([id]) > div:last-child > div:nth-child(2) > div:first-child > div:last-child {
 		background: var(--container-content) !important;
@@ -1320,7 +1320,7 @@ regexp("https?://socialblade.com/.*") {
 	}
 }
 
-@-moz-document regexp("https?://socialblade.com/youtube/user/.*/futureprojections(/.*)?") {
+@-moz-document regexp("https?://socialblade.com/youtube/(user|c)/.*/futureprojections(/.*)?") {
 	
 	/* User Tags */
 	#top-menu-wrap ~ div:not([id]) > div:first-child > div:last-child > div:first-child > div:last-child {
@@ -1393,7 +1393,7 @@ regexp("https?://socialblade.com/.*") {
 		color: var(--font-color) !important;
 	}
 }
-@-moz-document regexp("https?://socialblade.com/youtube/user/.*/monthly") {
+@-moz-document regexp("https?://socialblade.com/youtube/(user|c)/.*/monthly") {
 		/* User Tags */
 	#top-menu-wrap ~ div:not([id]) > div:first-child > div:nth-child(2) > div:first-child > div:nth-child(3) {
 		background: var(--container-content) !important;
@@ -1462,7 +1462,7 @@ regexp("https?://socialblade.com/.*") {
 		color: var(--font-color) !important;
 	}
 }
-@-moz-document regexp("https?://socialblade.com/youtube/user/.*/otherchans/?.*") {
+@-moz-document regexp("https?://socialblade.com/youtube/(user|c)/.*/otherchans/?.*") {
 		/* User Tags */
 	#top-menu-wrap ~ div:not([id]) > div:first-child > div:first-child > div:first-child > div:nth-child(3) {
 		background: var(--container-content) !important;
@@ -1525,7 +1525,7 @@ regexp("https?://socialblade.com/.*") {
 		color: var(--font-color) !important;
 	}
 }
-@-moz-document regexp("https?://socialblade.com/youtube/user/.*/similarrank/?.*") {
+@-moz-document regexp("https?://socialblade.com/youtube/(user|c)/.*/similarrank/?.*") {
 		/* User Tags */
 	#top-menu-wrap ~ div:not([id]) > div:first-child > div:nth-child(2) > div:first-child > div:nth-child(3) {
 		background: var(--container-content) !important;
@@ -1586,7 +1586,7 @@ regexp("https?://socialblade.com/.*") {
 		color: var(--font-color) !important;
 	}
 }
-@-moz-document regexp("https?://socialblade.com/youtube/user/.*/videos/?.*") {
+@-moz-document regexp("https?://socialblade.com/youtube/(user|c)/.*/videos/?.*") {
 		/* User Tags */
 	#top-menu-wrap ~ div:not([id]) > div:first-child > div:first-child > div:first-child > div:nth-child(3) {
 		background: var(--container-content) !important;
