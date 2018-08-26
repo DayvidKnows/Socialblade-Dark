@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           SocialBlade Dark 
 @namespace      github.com/openstyles/stylus
-@version        1.0.3
+@version        1.0.4
 @homepageURL    https://github.com/DayvidKnows/Socialblade-Dark
 @updateURL      https://raw.githubusercontent.com/DayvidKnows/Socialblade-Dark/master/socialblade-dark.user.css
 @license        CC BY-ND 4.0
@@ -470,7 +470,8 @@ yes "Yes" <<<EOT
 	img[src$="fav-instagram.png"],
 	img[src$="fav-facebook.png"]/*,
 	img[src$="fav-dailymotion.png"],
-	img[src$="fav-mixer.png"]*/ {
+	img[src$="fav-mixer.png"]*/
+	{
 		display: none;
 	}
 
@@ -530,19 +531,19 @@ yes "Yes" <<<EOT
 		padding: 3px 6px;
 	}
 
-	.dd-selected-text{
+	.dd-selected-text {
 		margin-top: 0;
 	}
-	
-	input.dd-selected-value + a > label.dd-selected-text::before{
+
+	input.dd-selected-value + a > label.dd-selected-text::before {
 		font-size: 16px;
-	}	
-	
-	input.dd-option-value ~ label.dd-option-text::before{
+	}
+
+	input.dd-option-value ~ label.dd-option-text::before {
 		font-size: 12px;
 	}
-	
-	
+
+
 	/* For when Font Awesome finally includes them */
 	/*input[value="dailymotion"] + a > label::before,
 	input[value="dailymotion"] ~ label::before,
@@ -559,6 +560,25 @@ yes "Yes" <<<EOT
 		background: var(--mixer-color);
 		padding: 2px 3px 4px 3px;
 	}*/
+	
+	/*--------------------------------------------*/
+	/* 404 Page                                   */
+	/*--------------------------------------------*/
+	.border-box {
+		background: var(--container-background);
+	}
+
+	#error-404-symbol-container {
+		background: var(--site-color)
+	}
+
+	#error-404-title-container h2 {
+		color: var(--site-color);
+	}
+
+	#error-404-title-container p {
+		color: var(--font-color);
+	}
 }
 
 @-moz-document regexp("https?://socialblade.com/?") {
@@ -1066,27 +1086,6 @@ yes "Yes" <<<EOT
 	}
 }
 
-@-moz-document regexp("https?://socialblade.com/404\?URI=.*"),
-regexp("https?://socialblade.com/.*") {
-	/*--------------------------------------------*/
-	/* 404 Page                                   */
-	/*--------------------------------------------*/
-	.border-box {
-		background: var(--container-background);
-	}
-
-	#error-404-symbol-container {
-		background: var(--site-color)
-	}
-
-	#error-404-title-container h2 {
-		color: var(--site-color);
-	}
-
-	#error-404-title-container p {
-		color: var(--font-color);
-	}
-}
 
 @-moz-document regexp("https?://socialblade.com/youtube/(user|c|channel)/.*") {
 	/*--------------------------------------------*/
@@ -1214,6 +1213,11 @@ regexp("https?://socialblade.com/.*") {
 		display: /*[[hideAdContainers]]*/;
 	}
 
+	/* User Tags */
+	#top-menu-wrap ~ div:not([id]) > div:last-child > div:nth-child(2) > div:first-child > div:last-child {
+		background: var(--container-content) !important;
+	}
+
 
 	/* Recent Blog Posts */
 	#top-menu-wrap ~ div:not([id]) > div:last-child > div:last-child > div:nth-last-child(2) {
@@ -1221,12 +1225,7 @@ regexp("https?://socialblade.com/.*") {
 		color: var(--font-color) !important;
 	}
 }
-@-moz-document regexp("^https?://socialblade.com/youtube/(user|c)/[^/]*/?$") {
-		/* User Tags */
-	#top-menu-wrap ~ div:not([id]) > div:last-child > div:nth-child(2) > div:first-child > div:last-child {
-		background: var(--container-content) !important;
-	}
-}
+
 @-moz-document regexp("https?://socialblade.com/youtube/(user|c|channel)/.*/futureprojections(/.*)?") {
 	/*--------------------------------------------*/
 	/* Youtube Future Projections                 */
@@ -1313,20 +1312,19 @@ regexp("https?://socialblade.com/.*") {
 		display: /*[[hideAdContainers]]*/;
 	}
 
+	/* User Tags */
+	#top-menu-wrap ~ div:not([id]) > div:first-child > div:last-child > div:first-child > div:last-child {
+		background: var(--container-content) !important;
+	}
 
+	/* Recent Blog Posts */
 	#top-menu-wrap ~ div:not([id]) > div:first-child > div:last-child > div:nth-last-child(2) {
 		background: var(--container-background) !important;
 		color: var(--font-color) !important;
 	}
 }
 
-@-moz-document regexp("https?://socialblade.com/youtube/(user|c)/.*/futureprojections(/.*)?") {
-	
-	/* User Tags */
-	#top-menu-wrap ~ div:not([id]) > div:first-child > div:last-child > div:first-child > div:last-child {
-		background: var(--container-content) !important;
-	}
-}
+
 @-moz-document regexp("https?://socialblade.com/youtube/(user|c|channel)/.*/monthly") {
 	/*--------------------------------------------*/
 	/* Youtube Detailed Statistics                */
@@ -1386,19 +1384,18 @@ regexp("https?://socialblade.com/.*") {
 		display: /*[[hideAdContainers]]*/;
 	}
 
+	/* User Tags */
+	#top-menu-wrap ~ div:not([id]) > div:first-child > div:nth-child(2) > div:first-child > div:nth-child(3) {
+		background: var(--container-content) !important;
+	}
 
-
+	/* Recent Blog Posts */
 	#top-menu-wrap ~ div:not([id]) > div:first-child > div:last-child > div:nth-last-child(2) {
 		background: var(--container-background) !important;
 		color: var(--font-color) !important;
 	}
 }
-@-moz-document regexp("https?://socialblade.com/youtube/(user|c)/.*/monthly") {
-		/* User Tags */
-	#top-menu-wrap ~ div:not([id]) > div:first-child > div:nth-child(2) > div:first-child > div:nth-child(3) {
-		background: var(--container-content) !important;
-	}
-}
+
 @-moz-document regexp("https?://socialblade.com/youtube/(user|c|channel)/.*/otherchans/?.*") {
 	/*--------------------------------------------*/
 	/* Youtube Featured Box                       */
@@ -1451,23 +1448,22 @@ regexp("https?://socialblade.com/.*") {
 
 	/* Ads */
 	#top-menu-wrap ~ div:not([id]) > div:first-child > div:first-child > div:first-child > div:first-child {
-		background: var(--container-content) !important;
+		background: var(--container-background) !important;
 		display: /*[[hideAdContainers]]*/;
 	}
 
+	/* User Tags */
+	#top-menu-wrap ~ div:not([id]) > div:first-child > div:first-child > div:first-child > div:nth-child(3) {
+		background: var(--container-content) !important;
+	}
 
-
+	/* Recent Blog Posts */
 	#top-menu-wrap ~ div:not([id]) > div:first-child > div:first-child > div:nth-last-child(2) {
 		background: var(--container-background) !important;
 		color: var(--font-color) !important;
 	}
 }
-@-moz-document regexp("https?://socialblade.com/youtube/(user|c)/.*/otherchans/?.*") {
-		/* User Tags */
-	#top-menu-wrap ~ div:not([id]) > div:first-child > div:first-child > div:first-child > div:nth-child(3) {
-		background: var(--container-content) !important;
-	}
-}
+
 @-moz-document regexp("https?://socialblade.com/youtube/(user|c|channel)/.*/similarrank/?.*") {
 	/*--------------------------------------------*/
 	/* Youtube Similar Channels                   */
@@ -1512,25 +1508,26 @@ regexp("https?://socialblade.com/.*") {
 		background: var(--container-content) !important;
 	}
 
-	/*Ads*/
+	/* Ads */
 	#top-menu-wrap ~ div:not([id]) > div:first-child > div:first-child > div:first-child,
 	#top-menu-wrap ~ div:not([id]) > div:first-child > div:nth-child(2) > div:first-child > div:first-child {
 		background: var(--container-background) !important;
+		display: /*[[hideAdContainers]]*/;
 	}
 
+	/* User Tags */
+	#top-menu-wrap ~ div:not([id]) > div:first-child > div:nth-child(2) > div:first-child > div:nth-child(3) {
+		background: var(--container-content) !important;
+	}
 
-
+	/* Recent Blog Posts */
 	#top-menu-wrap ~ div:not([id]) > div:last-child > div:last-child > div:nth-last-child(2) {
 		background: var(--container-background) !important;
 		color: var(--font-color) !important;
 	}
 }
-@-moz-document regexp("https?://socialblade.com/youtube/(user|c)/.*/similarrank/?.*") {
-		/* User Tags */
-	#top-menu-wrap ~ div:not([id]) > div:first-child > div:nth-child(2) > div:first-child > div:nth-child(3) {
-		background: var(--container-content) !important;
-	}
-}
+
+
 @-moz-document regexp("https?://socialblade.com/youtube/(user|c|channel)/.*/videos/?.*") {
 	/*--------------------------------------------*/
 	/* Youtube User Videos                        */
@@ -1572,26 +1569,25 @@ regexp("https?://socialblade.com/.*") {
 		background: var(--container-highlight) !important;
 	}
 
-	/*Ads*/
+	/* Ads */
 	#top-menu-wrap ~ div:not([id]) > div:nth-child(2) > div:first-child,
 	#top-menu-wrap ~ div:not([id]) > div:first-child > div:first-child > div:first-child > div:first-child {
 		background: var(--container-background) !important;
 		display: /*[[hideAdContainers]]*/;
 	}
 
+	/* User Tags */
+	#top-menu-wrap ~ div:not([id]) > div:first-child > div:first-child > div:first-child > div:nth-child(3) {
+		background: var(--container-content) !important;
+	}
 
-
+	/* Recent Blog Posts */
 	#top-menu-wrap ~ div:not([id]) > div:first-child > div:last-child > div:nth-last-child(2) {
 		background: var(--container-background) !important;
 		color: var(--font-color) !important;
 	}
 }
-@-moz-document regexp("https?://socialblade.com/youtube/(user|c)/.*/videos/?.*") {
-		/* User Tags */
-	#top-menu-wrap ~ div:not([id]) > div:first-child > div:first-child > div:first-child > div:nth-child(3) {
-		background: var(--container-content) !important;
-	}
-}
+
 @-moz-document regexp("https?://socialblade.com/twitch/user/.*") {
 	/*--------------------------------------------*/
 	/* Twitch User Base                           */
