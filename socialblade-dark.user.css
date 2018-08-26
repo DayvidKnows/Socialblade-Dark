@@ -1214,7 +1214,7 @@ yes "Yes" <<<EOT
 	}
 
 	/* User Tags */
-	#top-menu-wrap ~ div:not([id]) > div:last-child > div:nth-child(2) > div:first-child > div:last-child {
+	#top-menu-wrap ~ div:not([id]) > div:last-child > div:nth-child(2) > div:first-child > div:nth-child(3) {
 		background: var(--container-content) !important;
 	}
 
@@ -1313,7 +1313,7 @@ yes "Yes" <<<EOT
 	}
 
 	/* User Tags */
-	#top-menu-wrap ~ div:not([id]) > div:first-child > div:last-child > div:first-child > div:last-child {
+	#top-menu-wrap ~ div:not([id]) > div:first-child > div:last-child > div:first-child > div:nth-child(3) {
 		background: var(--container-content) !important;
 	}
 
