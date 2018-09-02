@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           SocialBlade Dark 
 @namespace      github.com/openstyles/stylus
-@version        1.0.4
+@version        1.1.0
 @homepageURL    https://github.com/DayvidKnows/Socialblade-Dark
 @updateURL      https://raw.githubusercontent.com/DayvidKnows/Socialblade-Dark/master/socialblade-dark.user.css
 @license        CC BY-ND 4.0
@@ -29,7 +29,7 @@ yes "Yes" <<<EOT
 @advanced color twitch-color "Twitch" #7550b9
 @advanced color twitter-color "Twitter" #53abee
 @advanced color instagram-color "Instagram" #e1306c
-@advanced color facebook-color "Facebook" #2c52a5
+@advanced color facebook-color "Facebook" #3b5998
 @advanced color dailymotion-color "Dailymotion" #00aaff
 @advanced color mixer-color "Mixer" #1fbaed
 ==/UserStyle== */
@@ -41,22 +41,22 @@ yes "Yes" <<<EOT
 		--container-highlight: hsl(0, 0%, 35%);
 		--graph-line: hsl(0, 0%, 47%);
 		--font-color: hsl(0, 0%, 93%);
+		--font-color-darker: hsl(0, 0%, 69%);
 		--site-header-color: rgb(47, 44, 44);
 		--button-border-color: var(--site-background);
 		--text-shadow-color: var(--site-background);
 		--default-site-color: /*[[defaultSiteColor]]*/;
 		--site-color: var(--default-site-color);
-		/*  hsl(300, 100%, 30%) */
 	}
 
 	:root {
-		--youtube-color: #e52d27;
-		--twitch-color: #7550b9;
-		--twitter-color: #53abee;
-		--instagram-color: #e1306c;
-		--facebook-color: #2c52a5;
-		--dailymotion-color: #00aaff;
-		--mixer-color: #1fbaed;
+		--youtube-color: /*[[youtube-color]]*/;
+		--twitch-color: /*[[twitch-color]]*/;
+		--twitter-color: /*[[twitter-color]]*/;
+		--instagram-color: /*[[instagram-color]]*/;
+		--facebook-color: /*[[facebook-color]]*/;
+		--dailymotion-color: /*[[dailymotion-color]]*/;
+		--mixer-color: /*[[mixer-color]]*/;
 		--google-color: #d34836;
 	}
 }
@@ -277,10 +277,11 @@ yes "Yes" <<<EOT
 	}
 
 	/* Buttons */
+	.OrangeButton,
 	.FacebookButton,
 	.TwitterButton,
 	.GoogleButton,
-	.OrangeButtonWrap > a > div,
+	.SocialButton,
 	.core-button,
 	.core-button:hover {
 		border: 1px solid var(--button-border-color) !important;
@@ -288,6 +289,7 @@ yes "Yes" <<<EOT
 	}
 
 	.OrangeButton,
+	.SocialButton,
 	.core-button,
 	.core-button:hover {
 		background: var(--site-color) !important;
@@ -560,7 +562,6 @@ yes "Yes" <<<EOT
 		background: var(--mixer-color);
 		padding: 2px 3px 4px 3px;
 	}*/
-	
 	/*--------------------------------------------*/
 	/* 404 Page                                   */
 	/*--------------------------------------------*/
@@ -669,11 +670,16 @@ yes "Yes" <<<EOT
 	}
 }
 
-@-moz-document regexp("https?://socialblade.com/(.*/)*compare") {
+@-moz-document regexp("https?://socialblade.com/compare") {
 	/*--------------------------------------------*/
-	/* Compare Main Page and Subpages             */
+	/* Compare Main Page                          */
 	/*--------------------------------------------*/
-	/* Main Page Buttons*/
+	/* Buttons*/
+	.compare-section-bottom {
+		padding: 2.5px;
+		margin-right: 25px;
+	}
+
 	.compare-anchor-button {
 		border: 1px solid var(--site-background);
 	}
@@ -694,12 +700,54 @@ yes "Yes" <<<EOT
 		background: var(--twitter-color);
 	}
 
+	.compare-section-top {
+		background: var(--container-content);
+	}
+
 	#about-wrap {
 		background: var(--container-background);
 	}
 
-	/* Subpage */
-	.compare-section-top,
+	#alpha-h1,
+	#alpha-summary,
+	.compare-h2,
+	.compare-paragraph,
+	.alpha-h2,
+	.alpha-p,
+	.alpha-h3 {
+		color: var(--font-color);
+	}
+
+	.compare-paragraph {
+		height: 168px;
+	}
+}
+
+@-moz-document regexp("https?://socialblade.com/(youtube|twitch|twitter)/compare.*") {
+	/*--------------------------------------------*/
+	/* Platform Compare Pages                     */
+	/*--------------------------------------------*/
+	:root {
+		--user1-color: #dd2323;
+		--user2-color: #3289b2;
+		--user3-color: #7a32b2;
+		--user1-highlight: hsl(0, 73%, 58%);
+		--user2-highlight: hsl(199, 56%, 53%);
+		--user3-highlight: hsl(274, 56%, 53%);
+	}
+
+
+	#about-wrap {
+		background: var(--container-background);
+	}
+
+	#alpha-h1,
+	.alpha-h2,
+	.alpha-p,
+	.alpha-h3 {
+		color: var(--font-color);
+	}
+
 	#compareUser1,
 	#compareUser2,
 	#compareUser3 {
@@ -712,16 +760,6 @@ yes "Yes" <<<EOT
 		border: none;
 		color: var(--font-color) !important;
 		margin-top: -3px;
-	}
-
-	#alpha-h1,
-	#alpha-summary,
-	.compare-h2,
-	.compare-paragraph,
-	.alpha-h2,
-	.alpha-p,
-	.alpha-h3 {
-		color: var(--font-color);
 	}
 
 	button[id^="compare"][id$="Button-Submit"] {
@@ -741,6 +779,414 @@ yes "Yes" <<<EOT
 	#share-buttons > a > img {
 		border: 1px solid var(--button-border-color);
 		border-radius: 50%;
+	}
+
+	/* Results */
+	.compare-wrap {
+		display: flex;
+	}
+
+	.compare-wrap > div {
+		background: var(--container-content) !important;
+	}
+
+	.compare-wrap > div:nth-last-of-type(2) {
+		border-left: 1px solid;
+	}
+
+	.compare-wrap > div {
+		border-color: var(--font-color) !important;
+	}
+
+	#comparitive-wrap h1 {
+		color: var(--site-color);
+	}
+
+	.compare-wrap > div > div > div > h3 > a {
+		color: var(--font-color);
+	}
+
+	.compare-wrap > div > div > div > h4 > a {
+		color: var(--font-color-darker) !important;
+	}
+
+	.compare-wrap > div:nth-child(2) {
+		background: var(--user1-color) !important;
+	}
+
+	.compare-wrap > div:nth-child(3) {
+		background: var(--user2-color) !important;
+	}
+
+	.compare-wrap > div:nth-child(4) {
+		background: var(--user3-color) !important;
+	}
+
+	/* Ads */
+	.compare-wrap + div {
+		display: /*[[hideAdContainers]]*/;
+		background: var(--container-content) !important;
+	}
+
+	/* Rank Information and Basic Data Container */
+	.dark-header {
+		background: var(--container-background) !important;
+	}
+
+	/* Graph */
+	.dark-header + div,
+	.dark-header + div > div,
+	.compare-inner-header {
+		background: var(--container-content) !important;
+	}
+
+	.dygraph-axis-label {
+		color: var(--font-color);
+	}
+
+	#compare-switch-subs,
+	#compare-switch-views,
+	#compare-switch-daily-subs,
+	#compare-switch-daily-views,
+	#compare-switch-future-subs,
+	#compare-switch-future-views {
+		color: var(--font-color) !important;
+		background: var(--container-background) !important;
+	}
+
+	/* Table */
+	.compare-inner-header + .compare-inner-header {
+		border-bottom: 1px solid var(--font-color);
+	}
+
+	.compare-inner-header > div,
+	.compare-inner-header p {
+		color: var(--font-color);
+		background: var(--container-content) !important;
+	}
+
+	.compare-inner-header p[style*="#666"] {
+		color: var(--font-color) !important;
+	}
+
+	.compare-inner-header > div:nth-child(2) p {
+		background: var(--user1-color) !important;
+	}
+
+	.compare-inner-header > div:nth-child(3) p {
+		background: var(--user2-color) !important;
+	}
+
+	.compare-inner-header > div:nth-child(4) p {
+		background: var(--user3-color) !important;
+	}
+
+	.compare-inner-header > div:nth-child(1) > p:nth-child(odd) {
+		background: var(--container-highlight) !important;
+	}
+
+	.compare-inner-header > div:nth-child(2) > p:nth-child(odd) {
+		background: var(--user1-highlight) !important;
+	}
+
+	.compare-inner-header > div:nth-child(3) > p:nth-child(odd) {
+		background: var(--user2-highlight) !important;
+	}
+
+	.compare-inner-header > div:nth-child(4) > p:nth-child(odd) {
+		background: var(--user3-highlight) !important;
+	}
+
+	.dark-header + div + div,
+	.dark-header + div + div div,
+	.dark-header + div + div p {
+		background: var(--container-content) !important;
+	}
+
+	.dark-header + div + div p {
+		color: var(--font-color);
+	}
+
+	.dark-header + div + div p[style*="#666"] {
+		color: var(--font-color) !important;
+	}
+
+	.dark-header + div + div h4 {
+		color: var(--site-color) !important;
+	}
+
+	.dark-header + div + div:not(.compare-inner-header) > div:nth-child(2) p {
+		background: var(--user1-color) !important;
+	}
+
+	.dark-header + div + div:not(.compare-inner-header) > div:nth-child(3) p {
+		background: var(--user2-color) !important;
+	}
+
+	.dark-header + div + div:not(.compare-inner-header) > div:nth-child(4) p {
+		background: var(--user3-color) !important;
+	}
+
+	.dark-header + div + div:not(.compare-inner-header) > div:nth-child(1) > p:nth-child(even) {
+		background: var(--container-highlight) !important;
+	}
+
+	.dark-header + div + div:not(.compare-inner-header) > div:nth-child(2) > p:nth-child(even) {
+		background: var(--user1-highlight) !important;
+	}
+
+	.dark-header + div + div:not(.compare-inner-header) > div:nth-child(3) > p:nth-child(even) {
+		background: var(--user2-highlight) !important;
+	}
+
+	.dark-header + div + div:not(.compare-inner-header) > div:nth-child(4) > p:nth-child(even) {
+		background: var(--user3-highlight) !important;
+	}
+
+	div > div p:first-of-type:not([id]) {
+		border-top: 1px solid var(--font-color-darker)
+	}
+
+	div > div p:last-of-type:not([id]) {
+		border-bottom: 1px solid var(--font-color-darker)
+	}
+}
+
+@-moz-document regexp("https?://socialblade.com/youtube/compare.*") {
+	/*--------------------------------------------*/
+	/* Youtube Compare Page                       */
+	/*--------------------------------------------*/
+	/* Estimated Potential Earnings and Information Container */
+	/* Header */
+	.compare-inner-header + div:not(.compare-inner-header) {
+		background: var(--container-background) !important;
+	}
+
+	/* Content */
+	.compare-inner-header + div:not(.compare-inner-header) + div,
+	.compare-inner-header + div:not(.compare-inner-header) + div div {
+		background: var(--container-content) !important;
+	}
+
+	.compare-inner-header + div:not(.compare-inner-header) + div h4 {
+		color: var(--site-color) !important;
+	}
+
+	.compare-inner-header + div:not(.compare-inner-header) + div div p {
+		color: var(--font-color)
+	}
+
+	.compare-inner-header + div:not(.compare-inner-header) + div div p {
+		background: var(--container-content);
+	}
+
+	.compare-inner-header + div:not(.compare-inner-header) + div > div:nth-child(2) p {
+		background: var(--user1-color);
+	}
+
+	.compare-inner-header + div:not(.compare-inner-header) + div > div:nth-child(3) p {
+		background: var(--user2-color);
+	}
+
+	.compare-inner-header + div:not(.compare-inner-header) + div > div:nth-child(4) p {
+		background: var(--user3-color);
+	}
+
+	.compare-inner-header + div:not(.compare-inner-header) + div > div:nth-child(1) > p:nth-child(even) {
+		background: var(--container-highlight);
+	}
+
+	.compare-inner-header + div:not(.compare-inner-header) + div > div:nth-child(2) > p:nth-child(even) {
+		background: var(--user1-highlight);
+	}
+
+	.compare-inner-header + div:not(.compare-inner-header) + div > div:nth-child(3) > p:nth-child(even) {
+		background: var(--user2-highlight);
+	}
+
+	.compare-inner-header + div:not(.compare-inner-header) + div > div:nth-child(4) > p:nth-child(even) {
+		background: var(--user3-highlight);
+	}
+
+	.compare-inner-header + div:not(.compare-inner-header) + div + div + div {
+		background: var(--container-content) !important;
+	}
+
+	.compare-inner-header + div:not(.compare-inner-header) + div + div + div span {
+		color: var(--font-color) !important;
+	}
+
+	.compare-inner-header + div:not(.compare-inner-header) + div + div + div a {
+		color: var(--site-color);
+	}
+
+	/* Daily Averages (Views and Subscribers) Container  */
+	/* Header */
+	.compare-inner-header + div:not(.compare-inner-header) + div + div + div + div {
+		background: var(--container-background) !important;
+	}
+
+	/* Content */
+	.compare-inner-header + div:not(.compare-inner-header) + div + div + div + div + div,
+	.compare-inner-header + div:not(.compare-inner-header) + div + div + div + div + div > div,
+	.compare-inner-header + div:not(.compare-inner-header) + div + div + div + div + div + div,
+	.compare-inner-header + div:not(.compare-inner-header) + div + div + div + div + div + div > div {
+		background: var(--container-content) !important;
+	}
+
+	.compare-inner-header + div:not(.compare-inner-header) + div + div + div + div + div + div h4 {
+		color: var(--site-color) !important;
+	}
+
+	.compare-inner-header + div:not(.compare-inner-header) + div + div + div + div + div + div div p {
+		color: var(--font-color)
+	}
+
+	.compare-inner-header + div:not(.compare-inner-header) + div + div + div + div + div + div div p {
+		background: var(--container-content);
+	}
+
+	.compare-inner-header + div:not(.compare-inner-header) + div + div + div + div + div + div > div:nth-child(2) p {
+		background: var(--user1-color);
+	}
+
+	.compare-inner-header + div:not(.compare-inner-header) + div + div + div + div + div + div > div:nth-child(3) p {
+		background: var(--user2-color);
+	}
+
+	.compare-inner-header + div:not(.compare-inner-header) + div + div + div + div + div + div > div:nth-child(4) p {
+		background: var(--user3-color);
+	}
+
+	.compare-inner-header + div:not(.compare-inner-header) + div + div + div + div + div + div > div:nth-child(1) > p:nth-child(even) {
+		background: var(--container-highlight);
+	}
+
+	.compare-inner-header + div:not(.compare-inner-header) + div + div + div + div + div + div > div:nth-child(2) > p:nth-child(even) {
+		background: var(--user1-highlight);
+	}
+
+	.compare-inner-header + div:not(.compare-inner-header) + div + div + div + div + div + div > div:nth-child(3) > p:nth-child(even) {
+		background: var(--user2-highlight);
+	}
+
+	.compare-inner-header + div:not(.compare-inner-header) + div + div + div + div + div + div > div:nth-child(4) > p:nth-child(even) {
+		background: var(--user3-highlight);
+	}
+
+
+	/* Ads */
+	.compare-inner-header + div:not(.compare-inner-header) + div + div {
+		display: /*[[hideAdContainers]]*/;
+	}
+
+	.compare-inner-header + div:not(.compare-inner-header) + div + div {
+		background: var(--container-content) !important;
+	}
+
+
+	/* Future Predictions / Projections Footer */
+	.compare-inner-header + div:not(.compare-inner-header) + div + div + div + div + div + div + div + div + div + div {
+		color: var(--font-color) !important;
+		background: var(--container-content) !important;
+	}
+}
+
+@-moz-document regexp("https?://socialblade.com/(twitch|twitter)/compare.*") {
+	/*--------------------------------------------*/
+	/* Twitch And Compare Page Specialties        */
+	/*--------------------------------------------*/
+	/* Daily Averages (Views and Subscribers) Container  */
+	/* Header */
+	.compare-inner-header + div:not(.compare-inner-header) {
+		background: var(--container-background) !important;
+	}
+
+	/* Content */
+	.compare-inner-header + div:not(.compare-inner-header) + div,
+	.compare-inner-header + div:not(.compare-inner-header) + div > div,
+	.compare-inner-header + div:not(.compare-inner-header) + div + div,
+	.compare-inner-header + div:not(.compare-inner-header) + div + div > div {
+		background: var(--container-content) !important;
+	}
+
+	.compare-inner-header + div:not(.compare-inner-header) + div + div h4 {
+		color: var(--site-color) !important;
+	}
+
+	.compare-inner-header + div:not(.compare-inner-header) + div + div div p {
+		color: var(--font-color) !important;
+	}
+
+	.compare-inner-header + div:not(.compare-inner-header) + div + div div p {
+		background: var(--container-content)!important;
+	}
+
+	.compare-inner-header + div:not(.compare-inner-header) + div + div > div:nth-child(2) p {
+		background: var(--user1-color)!important;
+	}
+
+	.compare-inner-header + div:not(.compare-inner-header) + div + div > div:nth-child(3) p {
+		background: var(--user2-color)!important;
+	}
+
+	.compare-inner-header + div:not(.compare-inner-header) + div + div > div:nth-child(4) p {
+		background: var(--user3-color)!important;
+	}
+
+	.compare-inner-header + div:not(.compare-inner-header) + div + div > div:nth-child(1) > p:nth-child(even) {
+		background: var(--container-highlight)!important;
+	}
+
+	.compare-inner-header + div:not(.compare-inner-header) + div + div > div:nth-child(2) > p:nth-child(even) {
+		background: var(--user1-highlight)!important;
+	}
+
+	.compare-inner-header + div:not(.compare-inner-header) + div + div > div:nth-child(3) > p:nth-child(even) {
+		background: var(--user2-highlight)!important;
+	}
+
+	.compare-inner-header + div:not(.compare-inner-header) + div + div > div:nth-child(4) > p:nth-child(even) {
+		background: var(--user3-highlight)!important;
+	}
+
+	/* Ads */
+	.compare-inner-header + div:not(.compare-inner-header) + div + div + div {
+		display: /*[[hideAdContainers]]*/;
+	}
+
+	.compare-inner-header + div:not(.compare-inner-header) + div + div + div {
+		border-top: 1px solid var(--font-color);
+		background: var(--container-content) !important;
+	}
+
+
+	/* Future Predictions / Projections Footer */
+	.compare-inner-header + div:not(.compare-inner-header) + div + div + div + div + div + div + div {
+		color: var(--font-color) !important;
+		background: var(--container-content) !important;
+	}
+}
+
+@-moz-document regexp("https?://socialblade.com/twitter/compare.*") {
+	/*--------------------------------------------*/
+	/* Twitter Compare Page Specialties           */
+	/*--------------------------------------------*/
+	/* Ads */
+	.compare-inner-header + div:not(.compare-inner-header) + div + div + div {
+		display: /*[[hideAdContainers]]*/;
+	}
+
+	.compare-inner-header + div:not(.compare-inner-header) + div + div + div {
+		border-top: 1px solid var(--font-color);
+		background: var(--container-content) !important;
+	}
+
+
+	/* Future Predictions / Projections Footer */
+	.compare-inner-header + div:not(.compare-inner-header) + div + div + div + div + div + div + div {
+		color: var(--font-color) !important;
+		background: var(--container-content) !important;
 	}
 }
 
@@ -1026,11 +1472,6 @@ yes "Yes" <<<EOT
 		border: none;
 	}
 
-	.section-search-btn,
-	.section-search-btn:hover {
-		background: var(--site-color) !important;
-	}
-
 	.section-panel > h1 {
 		color: var(--site-color);
 	}
@@ -1083,6 +1524,71 @@ yes "Yes" <<<EOT
 
 	.section-full-width .table-body:nth-child(even) {
 		background: var(--container-highlight);
+	}
+
+	.section-panel > form {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.section-panel > form::before {
+		font: normal normal normal 20px FontAwesome;
+		display: inline-block;
+		text-align: center;
+		line-height: 37px;
+		height: 37px;
+		width: 37px;
+	}
+
+	.section-panel > form[action^="/youtube"]::before,
+	.section-panel > form[action^="/youtube"] > .section-search-btn,
+	.section-panel > form[action^="/youtube"] > .section-search-btn:hover {
+		background: var(--site-color);
+	}
+
+	.section-panel > form[action^="/twitch"]::before,
+	.section-panel > form[action^="/twitch"] > .section-search-btn,
+	.section-panel > form[action^="/twitch"] > .section-search-btn:hover {
+		background: var(--site-color);
+	}
+
+	.section-panel > form[action^="/twitter"]::before,
+	.section-panel > form[action^="/twitter"] > .section-search-btn,
+	.section-panel > form[action^="/twitter"] > .section-search-btn:hover {
+		background: var(--site-color);
+	}
+
+	.section-panel > form[action^="/instagram"]::before,
+	.section-panel > form[action^="/instagram"] > .section-search-btn,
+	.section-panel > form[action^="/instagram"] > .section-search-btn:hover {
+		background: var(--site-color);
+	}
+
+	.section-panel > form[action^="/facebook"]::before,
+	.section-panel > form[action^="/facebook"] > .section-search-btn,
+	.section-panel > form[action^="/facebook"] > .section-search-btn:hover {
+		background: var(--site-color);
+	}
+
+	.section-panel > form[action^="/youtube"]::before {
+		content: "\f16a";
+	}
+
+	.section-panel > form[action^="/twitch"]::before {
+		content: "\f1e8";
+	}
+
+	.section-panel > form[action^="/twitter"]::before {
+		content: "\f099";
+	}
+
+	.section-panel > form[action^="/instagram"]::before {
+		content: "\f16d";
+	}
+
+	.section-panel > form[action^="/facebook"]::before {
+		content: "\f09a";
 	}
 }
 
@@ -1291,8 +1797,13 @@ yes "Yes" <<<EOT
 		background: var(--container-content) !important;
 	}
 
-	.highcharts-background {
+	.highcharts-background,
+	.highcharts-tooltip > path:last-of-type {
 		fill: var(--container-content);
+	}
+
+	.highcharts-tooltip > path:last-of-type {
+		opacity: 0.85;
 	}
 
 	.highcharts-yaxis-grid .highcharts-grid-line {
@@ -1301,7 +1812,8 @@ yes "Yes" <<<EOT
 
 	.highcharts-title,
 	.highcharts-axis-title,
-	.highcharts-axis-labels text {
+	.highcharts-axis-labels text,
+	.highcharts-tooltip text {
 		fill: var(--font-color) !important;
 	}
 
@@ -1588,6 +2100,48 @@ yes "Yes" <<<EOT
 	}
 }
 
+@-moz-document regexp("https?://socialblade.com/youtube/youtube-money-calculator") {
+	#about-wrap {
+		background: var(--container-background);
+	}
+
+	#alpha-h1,
+	#about-wrap > .alpha-summary,
+	#alpha-summary > div {
+		color: var(--font-color) !important;
+	}
+
+
+	#money-calc-wrap p,
+	#money-calc-wrap h3,
+	.alpha-summary > div {
+		color: var(--font-color) !important;
+	}
+
+	.noUi-connect,
+	#cpm-range-slider > div > div:nth-child(1) {
+		background: var(--site-color);
+	}
+
+	#cpm-range-slider > div > div:nth-child(2) {
+		background: #fff;
+	}
+
+	#calc-user,
+	#calc-daily-views {
+		background: var(--site-background);
+		border: none !important;
+		color: var(--font-color) !important;
+		margin-top: -4px;
+	}
+
+	#calc-user-button {
+		background: var(--site-color) !important;
+		border-radius: 0px !important;
+		padding: 10px 20px !important;
+	}
+}
+
 @-moz-document regexp("https?://socialblade.com/twitch/user/.*") {
 	/*--------------------------------------------*/
 	/* Twitch User Base                           */
@@ -1707,7 +2261,8 @@ yes "Yes" <<<EOT
 
 	.highcharts-title > tspan,
 	.highcharts-axis > text,
-	.highcharts-axis-labels > text {
+	.highcharts-axis-labels > text,
+	.highcharts-tooltip > text {
 		fill: var(--font-color) !important;
 	}
 
@@ -1719,17 +2274,14 @@ yes "Yes" <<<EOT
 		fill: var(--site-color)
 	}
 
-	.highcharts-label > path {
+	.highcharts-label > path:last-of-type {
 		stroke: var(--site-color);
 		fill: var(--container-content);
+		opacity: 0.85;
 	}
 
 	.highcharts-label > text > tspan:nth-child(2) {
 		fill: var(--site-color) !important;
-	}
-
-	.highcharts-label > text {
-		fill: var(--font-color) !important;
 	}
 }
 
@@ -1800,7 +2352,8 @@ yes "Yes" <<<EOT
 
 	.highcharts-title > tspan,
 	.highcharts-axis > text,
-	.highcharts-axis-labels > text {
+	.highcharts-axis-labels > text,
+	.highcharts-tooltip > text {
 		fill: var(--font-color) !important;
 	}
 
@@ -1812,17 +2365,14 @@ yes "Yes" <<<EOT
 		fill: var(--site-color)
 	}
 
-	.highcharts-label > path {
+	.highcharts-label > path:last-of-type {
 		stroke: var(--site-color);
 		fill: var(--container-content);
+		opacity: 0.85;
 	}
 
 	.highcharts-label > text > tspan:nth-child(2) {
 		fill: var(--site-color) !important;
-	}
-
-	.highcharts-label > text {
-		fill: var(--font-color) !important;
 	}
 }
 
@@ -1858,14 +2408,6 @@ yes "Yes" <<<EOT
 		background: var(--container-highlight) !important;
 	}
 
-	/* Buttons */
-	.FacebookButton,
-	.TwitterButton,
-	.GoogleButton {
-		border: 1px solid var(--button-border-color);
-		border-radius: 0;
-	}
-
 	/* Graph */
 	#socialblade-user-content > div:nth-last-child(2) {
 		background: var(--container-content) !important;
@@ -1877,7 +2419,8 @@ yes "Yes" <<<EOT
 
 	.highcharts-title > tspan,
 	.highcharts-axis > text,
-	.highcharts-axis-labels > text {
+	.highcharts-axis-labels > text,
+	.highcharts-tooltip > text {
 		fill: var(--font-color) !important;
 	}
 
@@ -1889,17 +2432,14 @@ yes "Yes" <<<EOT
 		fill: var(--site-color)
 	}
 
-	.highcharts-label > path {
+	.highcharts-label > path:last-of-type {
 		stroke: var(--site-color);
 		fill: var(--container-content);
+		opacity: 0.85;
 	}
 
 	.highcharts-label > text > tspan:nth-child(2) {
 		fill: var(--site-color) !important;
-	}
-
-	.highcharts-label > text {
-		fill: var(--font-color) !important;
 	}
 }
 
@@ -2342,7 +2882,8 @@ yes "Yes" <<<EOT
 
 	.highcharts-title > tspan,
 	.highcharts-axis > text,
-	.highcharts-axis-labels > text {
+	.highcharts-axis-labels > text,
+	.highcharts-tooltip > text {
 		fill: var(--font-color) !important;
 	}
 
@@ -2354,17 +2895,14 @@ yes "Yes" <<<EOT
 		fill: var(--site-color)
 	}
 
-	.highcharts-label > path {
+	.highcharts-label > path:last-of-type {
 		stroke: var(--site-color);
 		fill: var(--container-content);
+		opacity: 0.85;
 	}
 
 	.highcharts-label > text > tspan:nth-child(2) {
 		fill: var(--site-color) !important;
-	}
-
-	.highcharts-label > text {
-		fill: var(--font-color) !important;
 	}
 }
 
@@ -2415,7 +2953,8 @@ yes "Yes" <<<EOT
 
 	.highcharts-title > tspan,
 	.highcharts-axis > text,
-	.highcharts-axis-labels > text {
+	.highcharts-axis-labels > text,
+	.highcharts-tooltip > text {
 		fill: var(--font-color) !important;
 	}
 
@@ -2427,17 +2966,14 @@ yes "Yes" <<<EOT
 		fill: var(--site-color)
 	}
 
-	.highcharts-label > path {
+	.highcharts-label > path:last-of-type {
 		stroke: var(--site-color);
 		fill: var(--container-content);
+		opacity: 0.85;
 	}
 
 	.highcharts-label > text > tspan:nth-child(2) {
 		fill: var(--site-color) !important;
-	}
-
-	.highcharts-label > text {
-		fill: var(--font-color) !important;
 	}
 }
 
@@ -2550,7 +3086,8 @@ yes "Yes" <<<EOT
 
 	.highcharts-title > tspan,
 	.highcharts-axis > text,
-	.highcharts-axis-labels > text {
+	.highcharts-axis-labels > text,
+	.highcharts-tooltip > text {
 		fill: var(--font-color) !important;
 	}
 
@@ -2562,17 +3099,14 @@ yes "Yes" <<<EOT
 		fill: var(--site-color)
 	}
 
-	.highcharts-label > path {
+	.highcharts-label > path:last-of-type {
 		stroke: var(--site-color);
 		fill: var(--container-content);
+		opacity: 0.85;
 	}
 
 	.highcharts-label > text > tspan:nth-child(2) {
 		fill: var(--site-color) !important;
-	}
-
-	.highcharts-label > text {
-		fill: var(--font-color) !important;
 	}
 }
 
@@ -2720,7 +3254,8 @@ regexp("https?://socialblade.com/mixer/user/[^/]*/?") {
 
 	.highcharts-title > tspan,
 	.highcharts-axis > text,
-	.highcharts-axis-labels > text {
+	.highcharts-axis-labels > text,
+	.highcharts-tooltip > text {
 		fill: var(--font-color) !important;
 	}
 
@@ -2732,17 +3267,14 @@ regexp("https?://socialblade.com/mixer/user/[^/]*/?") {
 		fill: var(--site-color)
 	}
 
-	.highcharts-label > path {
+	.highcharts-label > path:last-of-type {
 		stroke: var(--site-color);
 		fill: var(--container-content);
+		opacity: 0.85;
 	}
 
 	.highcharts-label > text > tspan:nth-child(2) {
 		fill: var(--site-color) !important;
-	}
-
-	.highcharts-label > text {
-		fill: var(--font-color) !important;
 	}
 }
 
@@ -2799,7 +3331,8 @@ regexp("https?://socialblade.com/mixer/user/.*/monthly") {
 
 	.highcharts-title > tspan,
 	.highcharts-axis > text,
-	.highcharts-axis-labels > text {
+	.highcharts-axis-labels > text,
+	.highcharts-tooltip > text {
 		fill: var(--font-color) !important;
 	}
 
@@ -2811,17 +3344,14 @@ regexp("https?://socialblade.com/mixer/user/.*/monthly") {
 		fill: var(--site-color)
 	}
 
-	.highcharts-label > path {
+	.highcharts-label > path:last-of-type {
 		stroke: var(--site-color);
 		fill: var(--container-content);
+		opacity: 0.85;
 	}
 
 	.highcharts-label > text > tspan:nth-child(2) {
 		fill: var(--site-color) !important;
-	}
-
-	.highcharts-label > text {
-		fill: var(--font-color) !important;
 	}
 }
 
@@ -2930,6 +3460,10 @@ regexp("https?://socialblade.com/mixer/user/.*/monthly") {
 	#sb-consultation-box-container,
 	#sb-consultation-box-container + div + div + div {
 		background: var(--site-background) !important;
+	}
+
+	#sb-consultation-box-container + div {
+		background: var(--site-color) !important;
 	}
 
 	.sb-consultation-box {
@@ -3055,5 +3589,21 @@ regexp("https?://socialblade.com/mixer/user/.*/monthly") {
 
 	.wpusb-square-plus .wpusb-item .wpusb-btn {
 		height: 33px;
+	}
+
+	.td-social-font-icons .td_social_facebook .td-sp::before {
+		color: var(--facebook-color)
+	}
+
+	.td-social-font-icons .td_social_instagram .td-sp::before {
+		color: var(--instagram-color)
+	}
+
+	.td-social-font-icons .td_social_twitter .td-sp::before {
+		color: var(--twitter-color)
+	}
+
+	.td-social-font-icons .td_social_youtube .td-sp::before {
+		color: var(--youtube-color)
 	}
 }
