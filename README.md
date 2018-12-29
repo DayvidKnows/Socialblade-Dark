@@ -14,6 +14,33 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
+## [1.2.0] - 2018-12-29
+### Added:
+- Social network buttons keep their color independent of the page color
+- Pages:
+  - SocialBlase: Account
+  - SocialBlase: Authenticate (and subpages)
+  - SocialBlase: Dashboard
+  - SocialBlase: Favorites (and subpages)
+  - SocialBlase: Info (and subpages)
+  - SocialBlase: Products (and subpages)
+  - SocialBlase: Reports (and subpages)
+  - SocialBlase: Settings
+  - SocialBlase: Tools
+  - Youtube: Education
+  - Youtube: FAQs
+- Network:  
+  - Instagram
+
+### Changed:
+- Ads are not hidden by default
+
+### Fixed:
+- Link hover effect
+- Several buttons
+- Diagram colors
+- Hardened element selectors (against insertion of new elements before page content)
+
 ## [1.1.0] - 2018-09-02
 ### Added:
 - Compare Pages when they are actually comparing users
