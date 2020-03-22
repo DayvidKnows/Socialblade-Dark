@@ -1,9 +1,10 @@
 /* ==UserStyle==
 @name           SocialBlade Dark 
 @namespace      github.com/openstyles/stylus
-@version        1.2.0
+@version        2.0.0
 @homepageURL    https://github.com/DayvidKnows/Socialblade-Dark
 @updateURL      https://raw.githubusercontent.com/DayvidKnows/Socialblade-Dark/master/socialblade-dark.user.css
+@description    A dark theme for SocialBlade
 @license        CC BY-ND 4.0
 @author         DayvidKnows
 @advanced dropdown hideAds "Hide Ads?" {
@@ -18,12 +19,12 @@
  yes "Yes" <<<EOT
  none EOT;
 }
-@advanced color defaultSiteColor "SocialBlade" #b3382c
-@advanced dropdown serviceOverrideColor "Use Platform colors instead?" {
+@advanced color socialblade-color "SocialBlade" #b3382c
+@advanced dropdown platformOverrideColor "Color site based on platform?" {
  yes "Yes" <<<EOT
  var() EOT;
  no "No" <<<EOT
- var(--default-site-color) EOT;
+ var(--socialblade-color) EOT;
 }
 @advanced color youtube-color "Youtube" #e52d27
 @advanced color twitch-color "Twitch" #7550b9
@@ -32,6 +33,8 @@
 @advanced color facebook-color "Facebook" #3b5998
 @advanced color dailymotion-color "Dailymotion" #00aaff
 @advanced color mixer-color "Mixer" #1fbaed
+@advanced color dlive-color "Dlive" #ffd300
+@advanced color storyfire-color "StoryFire" #f0441f
 ==/UserStyle== */
 @-moz-document domain("socialblade.com") {
     :root {
@@ -45,14 +48,13 @@
         --site-header-color: rgb(47, 44, 44);
         --button-border-color: var(--site-background);
         --text-shadow-color: var(--site-background);
-        --default-site-color: /*[[defaultSiteColor]]*/;
-        --site-color: var(--default-site-color);
-        --good: #41a200;
-        --bad: #e53b00;
-        --special: #0089f7;
+        --site-color: /*[[socialblade-color]]*/;
+        --good: #6f0;
+        --bad: #ff4200;
     }
 
     :root {
+        --socialblade-color: /*[[socialblade-color]]*/;
         --youtube-color: /*[[youtube-color]]*/;
         --twitch-color: /*[[twitch-color]]*/;
         --twitter-color: /*[[twitter-color]]*/;
@@ -60,7 +62,8 @@
         --facebook-color: /*[[facebook-color]]*/;
         --dailymotion-color: /*[[dailymotion-color]]*/;
         --mixer-color: /*[[mixer-color]]*/;
-        --google-color: #d34836;
+        --dlive-color: /*[[dlive-color]]*/;
+        --storyfire-color: /*[[storyfire-color]]*/;
     }
 }
 
@@ -113,16 +116,31 @@ regexp("https?://socialblade.com/favorites/mixer") {
     }
 }
 
+@-moz-document regexp("https?://socialblade.com/dlive/.*"),
+regexp("https?://socialblade.com/favorites/dlive") {
+    :root {
+        --site-color: /*[[dlive-color]]*/;
+    }
+}
+
+@-moz-document regexp("https?://socialblade.com/storyfire/.*"),
+regexp("https?://socialblade.com/favorites/storyfire") {
+    :root {
+        --site-color: /*[[storyfire-color]]*/;
+    }
+}
+
 @-moz-document domain("socialblade.com") {
     :root {
-        --site-color: /*[[serviceOverrideColor]]*/;
+        --site-color: /*[[platformOverrideColor]]*/;
     }
 }
 
 @-moz-document domain("socialblade.com") {
     /*--------------------------------------------------*/
     /* General Background, Site Header and Footer       */
-    /* Header Menues, Cookie Settings                   */
+    /* Header Menus, Cookie Settings, 404, Cloudflare   */
+    /* Graphs                                           */
     /*--------------------------------------------------*/
     body {
         color: var(--font-color) !important;
@@ -152,9 +170,13 @@ regexp("https?://socialblade.com/favorites/mixer") {
         color: var(--site-color) !important;
     }
 
+    /* Substitute colors */
+    *[style*="color:#41a200;"] {
+        color: var(--good) !important;
+    }
 
-    .fa {
-        color: var(--font-color) !important;
+    *[style*="color:#e53b00;"] {
+        color: var(--bad) !important;
     }
 
     /* Site Header */
@@ -241,9 +263,12 @@ regexp("https?://socialblade.com/favorites/mixer") {
     }
 
     /* Top Lists Menu*/
-    .top-menu-top-charts-content > a,
-    .top-menu-top-charts-content > a:hover {
+    .top-menu-top-charts-content > a {
         color: var(--font-color);
+    }
+
+    .top-menu-category-button:hover {
+        background: var(--container-highlight) !important;
     }
 
     .top-menu-category-button[data-rolechange="youtube"] {
@@ -274,6 +299,10 @@ regexp("https?://socialblade.com/favorites/mixer") {
         border-color: var(--facebook-color) !important;
     }
 
+    .top-menu-category-button[data-rolechange="dlive"] {
+        border-color: var(--dlive-color) !important;
+    }
+
     #top-menu-content-youtube .top-menu-top-charts-header {
         color: var(--youtube-color);
     }
@@ -300,6 +329,10 @@ regexp("https?://socialblade.com/favorites/mixer") {
 
     #top-menu-content-facebook .top-menu-top-charts-header {
         color: var(--facebook-color) !important;
+    }
+
+    #top-menu-content-dlive .top-menu-top-charts-header {
+        color: var(--dlive-color) !important;
     }
 
     /* Buttons */
@@ -338,10 +371,6 @@ regexp("https?://socialblade.com/favorites/mixer") {
         background: var(--twitter-color);
     }
 
-    .GoogleButton {
-        background: var(--google-color);
-    }
-
     .footer-social-block > div {
         border: 1px solid var(--button-border-color) !important;
     }
@@ -366,11 +395,6 @@ regexp("https?://socialblade.com/favorites/mixer") {
         background: var(--instagram-color) !important;
     }
 
-    .footer-social-block[href*="google"] > div {
-        background: var(--google-color) !important;
-    }
-
-
     .core-button[href*="facebook.com"] {
         background: var(--facebook-color) !important;
     }
@@ -387,11 +411,7 @@ regexp("https?://socialblade.com/favorites/mixer") {
         background: var(--instagram-color) !important;
     }
 
-    .core-button[href*="plus.google.com"] {
-        background: var(--google-color) !important;
-    }
-
-    /* Search selection*/
+    /* Search selection */
     .dd-options {
         border: none;
         width: 160px !important;
@@ -411,6 +431,10 @@ regexp("https?://socialblade.com/favorites/mixer") {
     .dd-option:hover {
         background: var(--container-highlight);
         color: var(--font-color);
+    }
+
+    .dd-selected {
+        padding-top: 0;
     }
 
     .dd-select {
@@ -455,66 +479,23 @@ regexp("https?://socialblade.com/favorites/mixer") {
     }
 
     /* Cookie Disclaimer */
-    div[class^="banner_banner"] {
+    div[style="z-index: 9999999;"] div {
         background: var(--container-background);
         color: var(--font-color);
-        box-shadow: 0 0 0 5px var(--site-color);
     }
 
-    div[class^="banner_banner"] a,
-    div[class^="banner_banner"] a:hover {
-        color: var(--site-color);
-    }
-
-    div[class^="banner_banner"]::before {
-        box-shadow: 0 0 30px var(--site-color);
-    }
-
-    a[class^="banner_continue"] {
-        background: var(--site-color) !important;
-        border: none !important;
-        border-radius: 0 !important;
-    }
-
-    a[class^="banner_learnMore"] {
-        color: var(--site-color) !important;
-    }
-
-    /* Cookie Popup */
-    div[class^="popup_content"] {
-        background: var(--container-background);
-    }
-
-    div[class^="details_description"] {
-        color: var(--font-color);
-    }
-
-    div[class^="app_gdpr"] a,
-    div[class^="app_gdpr"] a:hover {
-        color: var(--site-color);
-    }
-
-    a[class^="summary_learnMore"],
-    button[class*="details_back"] {
-        color: var(--site-color) !important;
-    }
-
-    span[class*="switch_isSelected"] > span[class^="switch_visualizationContainer"],
-    span[class^="switch_switch"] > span[class^="switch_visualizationGlow"] {
-        background: var(--site-color) !important;
-    }
-
-    button[class*="details_save"] {
-        background: var(--site-color) !important;
-    }
-
-    a[class^="vendors_policy"] svg {
-        fill: var(--site-color);
+    div[style="z-index: 9999999;"] a {
+        color: var(--socialblade-color) !important;
     }
 
     /* Ads */
     iframe[id^="google_ads_iframe"] {
         display: /*[[hideAds]]*/;
+    }
+
+    div[id^="pa-container"] {
+        display: /*[[hideAds]]*/
+        !important;
     }
 
     #cdm-zone-06 {
@@ -526,11 +507,15 @@ regexp("https?://socialblade.com/favorites/mixer") {
     img[src$="fav-twitch.png"],
     img[src$="fav-twitter.png"],
     img[src$="fav-instagram.png"],
-    img[src$="fav-facebook.png"]/*,
-    img[src$="fav-dailymotion.png"],
-    img[src$="fav-mixer.png"]*/
-    {
+    img[src$="fav-facebook.png"] {
         display: none;
+    }
+
+    img[src$="fav-dailymotion.png"],
+    img[src$="fav-mixer.png"],
+    img[src$="fav-dlive.png"],
+    img[src$="fav-storyfire.png"] {
+        padding-top: 5px;
     }
 
     input + a > label::before {
@@ -589,6 +574,24 @@ regexp("https?://socialblade.com/favorites/mixer") {
         padding: 3px 6px;
     }
 
+    /* When SocialBlade updates their FontAwesome library*/
+    /*
+    input[value="dailymotion"] + a > label::before,
+    input[value="dailymotion"] ~ label::before,
+    #top-menu-content-charts a[href="/dailymotion"]::before {
+        content: "\f952";
+        background: var(--dailymotion-color);
+        padding: 2px 3px 4px 3px;
+    }
+
+    input[value="mixer"] + a > label::before,
+    input[value="mixer"] ~ label::before,
+    #top-menu-content-charts a[href="/mixer"]::before {
+        content: "\f956";
+        background: var(--mixer-color);
+        padding: 2px 3px 4px 3px;
+    }
+    */
     .dd-selected-text {
         margin-top: 0;
     }
@@ -601,29 +604,103 @@ regexp("https?://socialblade.com/favorites/mixer") {
         font-size: 12px;
     }
 
-
-    /* For when Font Awesome finally includes them */
-    /*input[value="dailymotion"] + a > label::before,
-    input[value="dailymotion"] ~ label::before,
-    #top-menu-content-charts a[href="/dailymotion"]::before {
-        content: "";
-        background: var(--dailymotion-color);
-        padding: 2px 3px 4px 3px;
-    }
-
-    input[value="mixer"] + a > label::before,
-    input[value="mixer"] ~ label::before,
-    #top-menu-content-charts a[href="/mixer"]::before {
-        content: "";
-        background: var(--mixer-color);
-        padding: 2px 3px 4px 3px;
-    }*/
     .global-notification {
         background: var(--site-color);
         border-bottom-color: var(--site-color);
         border-top: 1px solid var(--site-header-color);
     }
 
+    /* Recent Blog Posts */
+    .anchor-sidebar {
+        background: var(--container-content);
+        color: var(--font-color);
+        border-top: 1px solid var(--container-background);
+    }
+
+    .anchor-sidebar:hover {
+        background: var(--container-highlight);
+    }
+
+    /* Graphs */
+    .highcharts-background,
+    .highcharts-tooltip > path:last-of-type {
+        fill: var(--container-content);
+    }
+
+    .highcharts-tooltip > path:last-of-type {
+        opacity: 0.85;
+    }
+
+    .highcharts-yaxis-grid .highcharts-grid-line {
+        stroke: var(--graph-line);
+    }
+
+    .highcharts-title,
+    .highcharts-axis-title,
+    .highcharts-axis-labels text,
+    .highcharts-tooltip text {
+        fill: var(--font-color) !important;
+    }
+
+    .highcharts-title > tspan,
+    .highcharts-axis > text,
+    .highcharts-axis-labels > text,
+    .highcharts-tooltip > text {
+        fill: var(--font-color) !important;
+    }
+
+    .highcharts-graph {
+        stroke: var(--site-color);
+    }
+
+    .highcharts-markers > path {
+        fill: var(--site-color)
+    }
+
+    .highcharts-label > path:last-of-type {
+        stroke: var(--site-color);
+        fill: var(--container-content);
+        opacity: 0.85;
+    }
+
+    .highcharts-area {
+        fill: var(--site-color);
+        fill-opacity: 0.4;
+    }
+
+    .highcharts-tooltip > text > tspan:nth-of-type(2) {
+        fill: var(--site-color) !important;
+    }
+
+    .highcharts-selection-marker {
+        fill: var(--font-color) !important;
+        fill-opacity: 0.25;
+    }
+
+    /* Graph Button */
+    .highcharts-reset-zoom > rect {
+        fill: var(--site-color);
+    }
+
+    .highcharts-reset-zoom > text {
+        fill: var(--font-color) !important;
+    }
+
+    /* Favorite Feature Popup */
+    #dialog_favorite_logincheck,
+    .ui-dialog-titlebar-close,
+    .ui-dialog-titlebar-close:hover {
+        background: var(--container-content) !important;
+    }
+
+    .ui-dialog a {
+        color: var(--site-color);
+    }
+
+    #dialog_favorite_logincheck,
+    .ui-button-text {
+        color: var(--font-color);
+    }
 
     /*--------------------------------------------------*/
     /* 404 Page                                         */
@@ -643,6 +720,27 @@ regexp("https?://socialblade.com/favorites/mixer") {
     #error-404-title-container p {
         color: var(--font-color);
     }
+
+    /*--------------------------------------------------*/
+    /* Cloudflare error                                 */
+    /*--------------------------------------------------*/
+    .cf-error-details ~ div h1,
+    .cf-error-details ~ div p[style*="color:#55"] {
+        color: var(--font-color) !important;
+    }
+
+    .cf-error-details ~ div:nth-child(4) {
+        background: var(--container-background) !important;
+    }
+
+    * [style*="color:#7cca29"] {
+        color: var(--good) !important;
+    }
+
+    * [style*="color:#b3382c"],
+    * [style*="color:#52b9ff"] {
+        color: var(--bad) !important;
+    }
 }
 
 @-moz-document regexp("https?://socialblade.com/?") {
@@ -654,14 +752,14 @@ regexp("https?://socialblade.com/favorites/mixer") {
     }
 
     /* Search */
-    #homepage-meta-search-input {
+    input[name="query"] {
         background: var(--container-background) !important;
         border: none;
         color: var(--font-color);
         height: 60px !important;
     }
 
-    #homepage-meta-search-button {
+    form > button {
         background: var(--site-color) !important;
     }
 
@@ -723,11 +821,16 @@ regexp("https?://socialblade.com/favorites/mixer") {
     }
 
     #email {
-        background: var(--site-background);
+        margin: 0px 10px !important;
+        width: 230px !important;
+        background: var(--site-background) !important;
         color: var(--font-color);
     }
 
     #submit {
+        margin: 2px !important;
+        padding: 10px 0px !important;
+        width: 250px !important;
         border-radius: 0 !important;
         background: var(--site-color) !important;
     }
@@ -797,10 +900,7 @@ regexp("https?://socialblade.com/favorites/mixer") {
         --user1-highlight: hsl(0, 73%, 58%);
         --user2-highlight: hsl(199, 56%, 53%);
         --user3-highlight: hsl(274, 56%, 53%);
-    }
-
-
-    #about-wrap {
+    }    #about-wrap {
         background: var(--container-background);
     }
 
@@ -1137,7 +1237,6 @@ regexp("https?://socialblade.com/favorites/mixer") {
         background: var(--user3-highlight);
     }
 
-
     /* Ads */
     .compare-inner-header + div:not(.compare-inner-header) + div + div {
         display: /*[[hideAdContainers]]*/;
@@ -1146,7 +1245,6 @@ regexp("https?://socialblade.com/favorites/mixer") {
     .compare-inner-header + div:not(.compare-inner-header) + div + div {
         background: var(--container-content) !important;
     }
-
 
     /* Future Predictions / Projections Footer */
     .compare-inner-header + div:not(.compare-inner-header) + div + div + div + div + div + div + div + div + div + div {
@@ -1223,7 +1321,6 @@ regexp("https?://socialblade.com/favorites/mixer") {
         background: var(--container-content) !important;
     }
 
-
     /* Future Predictions / Projections Footer */
     .compare-inner-header + div:not(.compare-inner-header) + div + div + div + div + div + div + div {
         color: var(--font-color) !important;
@@ -1244,7 +1341,6 @@ regexp("https?://socialblade.com/favorites/mixer") {
         border-top: 1px solid var(--font-color);
         background: var(--container-content) !important;
     }
-
 
     /* Future Predictions / Projections Footer */
     .compare-inner-header + div:not(.compare-inner-header) + div + div + div + div + div + div + div {
@@ -1526,7 +1622,7 @@ regexp("https?://socialblade.com/favorites/mixer") {
     }
 }
 
-@-moz-document regexp("^https?://socialblade.com/(youtube|twitch|twitter|instagram|facebook|dailymotion|mixer)/?") {
+@-moz-document regexp("^https?://socialblade.com/(youtube|twitch|twitter|instagram|facebook|dailymotion|mixer|dlive|storyfire)/?") {
     /*--------------------------------------------------*/
     /* Service Overview Pages                           */
     /*--------------------------------------------------*/
@@ -1539,6 +1635,7 @@ regexp("https?://socialblade.com/favorites/mixer") {
         background: var(--container-content);
         color: var(--font-color);
         border: none;
+        height: 17px;
     }
 
     .section-panel > h1 {
@@ -1578,11 +1675,6 @@ regexp("https?://socialblade.com/favorites/mixer") {
         font-weight: bold;
     }
 
-    .table-cell.section-grade > span,
-    .table-cell > a {
-        text-shadow: -1px -1px 0 var(--site-background), 1px -1px 0 var(--site-background), -1px 1px 0 var(--site-background), 1px 1px 0 var(--site-background);
-    }
-
     .table-cell {
         color: var(--font-color);
     }
@@ -1610,33 +1702,9 @@ regexp("https?://socialblade.com/favorites/mixer") {
         width: 37px;
     }
 
-    .section-panel > form[action^="/youtube"]::before,
-    .section-panel > form[action^="/youtube"] > .section-search-btn,
-    .section-panel > form[action^="/youtube"] > .section-search-btn:hover {
-        background: var(--site-color);
-    }
-
-    .section-panel > form[action^="/twitch"]::before,
-    .section-panel > form[action^="/twitch"] > .section-search-btn,
-    .section-panel > form[action^="/twitch"] > .section-search-btn:hover {
-        background: var(--site-color);
-    }
-
-    .section-panel > form[action^="/twitter"]::before,
-    .section-panel > form[action^="/twitter"] > .section-search-btn,
-    .section-panel > form[action^="/twitter"] > .section-search-btn:hover {
-        background: var(--site-color);
-    }
-
-    .section-panel > form[action^="/instagram"]::before,
-    .section-panel > form[action^="/instagram"] > .section-search-btn,
-    .section-panel > form[action^="/instagram"] > .section-search-btn:hover {
-        background: var(--site-color);
-    }
-
-    .section-panel > form[action^="/facebook"]::before,
-    .section-panel > form[action^="/facebook"] > .section-search-btn,
-    .section-panel > form[action^="/facebook"] > .section-search-btn:hover {
+    .section-panel > form::before,
+    .section-panel > form > .section-search-btn,
+    .section-panel > form > .section-search-btn:hover {
         background: var(--site-color);
     }
 
@@ -1659,8 +1727,15 @@ regexp("https?://socialblade.com/favorites/mixer") {
     .section-panel > form[action^="/facebook"]::before {
         content: "\f09a";
     }
-}
 
+    .section-search-icon[src$="dailymotion.png"],
+    .section-search-icon[src$="mixer.png"],
+    .section-search-icon[src$="dlive.png"],
+    .section-search-icon[src$="storyfire.png"] {
+        padding-top: 0;
+        margin-right: 0px;
+    }
+}
 
 @-moz-document regexp("https?://socialblade.com/youtube/(user|c|channel)/.*") {
     /*--------------------------------------------------*/
@@ -1695,37 +1770,28 @@ regexp("https?://socialblade.com/favorites/mixer") {
     }
 
     #YouTubeUserMenu > a:hover {
-        background: var(--container-background);
-    }
-
-
-    /* Recent Blog Posts */
-    .anchor-sidebar,
-    .anchor-sidebar:hover {
         background: var(--container-content);
-        color: var(--font-color);
-        border-top: 1px solid var(--container-background);
     }
 
-    /* Favorite Feature Popup */
-    #dialog_favorite_logincheck,
-    .ui-dialog-titlebar-close,
-    .ui-dialog-titlebar-close:hover {
+    /* Sidebar */
+    #socialblade-user-sidebar > div > div {
+        color: var(--font-color) !important;
+        background: var(--container-background) !important;
+    }
+
+    /* User Tags */
+    #socialblade-user-sidebar > div > div:nth-child(5) {
         background: var(--container-content) !important;
     }
 
-    .ui-dialog a {
-        color: var(--site-color);
-    }
-
-    #dialog_favorite_logincheck,
-    .ui-button-text {
-        color: var(--font-color);
-    }
-
     /* Ads */
-    #top-menu-wrap ~ div:not([id]) + div + div {
-        display: /*[[hideAds]]*/;
+    #socialblade-user-sidebar > div > div:nth-child(3) {
+        display: /*[[hideAdContainers]]*/;
+    }
+
+    #socialblade-user-container + div {
+        background: var(--container-background) !important;
+        display: /*[[hideAdContainers]]*/;
     }
 }
 
@@ -1739,66 +1805,51 @@ regexp("https?://socialblade.com/favorites/mixer") {
     }
 
     /* Overview */
-    #top-menu-wrap ~ div:not([id]) > div {
-        background: var(--container-background) !important;
+    #socialblade-user-content > div:first-child > div:nth-of-type(2),
+    #socialblade-user-content > div:nth-of-type(3) > div,
+    #socialblade-user-content > div:nth-of-type(6) > div:first-child > div {
+        background: var(--container-content) !important;
     }
 
-    #afd-header-subs-30d,
-    #afd-header-views-30d,
-    #top-menu-wrap ~ div:not([id]) > div > div:first-child > div:nth-child(2) > div > div > p:nth-child(n + 2),
-    #top-menu-wrap ~ div:not([id]) > div > div:first-child > div:nth-child(2) > div:nth-child(2) > div > p {
+    #socialblade-user-content > div:first-child span,
+    #socialblade-user-content > div:nth-of-type(3) > div:nth-of-type(2n+1) > p,
+    #socialblade-user-content > div:nth-of-type(3) > div > p:nth-child(2),
+    #socialblade-user-content > div:nth-of-type(6) > div > div > p:nth-child(2) {
         color: var(--font-color) !important;
     }
 
     /* Table */
-    /* 1st Row */
-    #top-menu-wrap ~ div:not([id]) > div:nth-of-type(4) > div:first-child > div:first-child > div:nth-child(5) {
+    #socialblade-user-content > div:nth-of-type(6) > div:first-child > div {
+        margin-bottom: 20px;
+    }
+
+    /* Header Spacer */
+    #socialblade-user-content > div:nth-of-type(7) {
         border-bottom: 2px var(--font-color) solid;
     }
 
     /* Rows */
-    #top-menu-wrap ~ div:not([id]) > div:nth-of-type(4) > div:first-child > div:first-child > div:nth-child(n + 6) {
+    #socialblade-user-content > div:nth-child(n + 10):nth-last-child(n+7) {
         background: var(--container-highlight) !important;
         color: var(--font-color) !important;
     }
 
-    #top-menu-wrap ~ div:not([id]) > div:last-child > div:first-child > div > div:nth-child(n + 6):nth-child(even),
-    #top-menu-wrap ~ div:not([id]) > div:last-child > div:first-child > div:first-child > div:last-child,
-    #top-menu-wrap ~ div:not([id]) > div:last-child > div:first-child > div:first-child > div:nth-last-child(2) {
+    /* Footer Rows */
+    #socialblade-user-content > div:nth-child(n + 10):nth-last-child(n+7):nth-child(even),
+    #socialblade-user-content > div:nth-last-child(8),
+    #socialblade-user-content > div:nth-last-child(7) {
         background: var(--container-content) !important;
     }
 
     /* Graph */
-    #top-menu-wrap ~ div:not([id]) > div:last-child > div > div:nth-last-of-type(2) {
+    #socialblade-user-content > div:nth-last-child(2) {
         background: var(--container-content) !important;
-        color: var(--font-color) !important;
-    }
-
-    .dygraph-axis-label {
-        color: var(--font-color);
-    }
-
-    .dygraph-ylabel {
-        margin-top: -10px;
     }
 
     /* Ads */
-    #top-menu-wrap ~ div:not([id]) > div:nth-child(6) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1),
-    #top-menu-wrap ~ div:not([id]) > div:nth-child(6) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) {
+    #socialblade-user-content > div:nth-of-type(6) > div:nth-child(3) {
         background: var(--container-background) !important;
         display: /*[[hideAdContainers]]*/;
-    }
-
-    /* User Tags */
-    #top-menu-wrap ~ div:not([id]) > div:last-child > div:nth-child(2) > div:first-child > div:nth-child(3) {
-        background: var(--container-content) !important;
-    }
-
-
-    /* Recent Blog Posts */
-    #top-menu-wrap ~ div:not([id]) > div:last-child > div:last-child > div:nth-last-child(2) {
-        background: var(--container-background) !important;
-        color: var(--font-color) !important;
     }
 }
 
@@ -1806,30 +1857,36 @@ regexp("https?://socialblade.com/favorites/mixer") {
     /*--------------------------------------------------*/
     /* Youtube Future Projections                       */
     /*--------------------------------------------------*/
-    a,
-    a:hover {
-        color: var(--site-color);
-    }
-
     /* Tab Highlight */
     #YouTubeUserMenu > a[href$="futureprojections"] {
         background: var(--container-highlight);
     }
 
     /* Prediction errors */
-    #top-menu-wrap ~ div:not([id]) > div:first-child > div:first-child > div:nth-child(4) {
+    #socialblade-user-content > div:first-child > div:nth-of-type(4) {
         background: var(--container-background) !important;
         color: var(--font-color) !important;
     }
 
     /* Tabs */
+    #InPageMenuWrap {
+        margin-left: 20px;
+        font-size: 11pt !important;
+    }
+
     .subsection {
+        color: var(--font-color);
         background: var(--container-background);
         border: none !important;
     }
 
-    .activesubsection {
+    .subsection:hover {
         background: var(--container-content);
+    }
+
+    .subsection.activesubsection {
+        color: var(--site-color);
+        background: var(--container-highlight);
     }
 
     /* Table */
@@ -1839,6 +1896,7 @@ regexp("https?://socialblade.com/favorites/mixer") {
 
     .TableHeader {
         border-bottom: 2px solid var(--font-color);
+        background: var(--container-highlight)
     }
 
     .TableMonthlyStats {
@@ -1854,6 +1912,10 @@ regexp("https?://socialblade.com/favorites/mixer") {
         background: var(--container-content) !important;
     }
 
+    .TableMonthlyStats:nth-child(5n + 5) {
+        width: 285px !important;
+    }
+
     .TableMonthlyStats:nth-child(5n + 1) {
         color: var(--font-color) !important;
     }
@@ -1863,49 +1925,20 @@ regexp("https?://socialblade.com/favorites/mixer") {
     }
 
     /* Graph */
-    #top-menu-wrap ~ div:not([id]) > div:first-child > div:first-child > div:nth-last-of-type(2) {
+    #socialblade-user-content > div:first-child > div:nth-last-of-type(3) {
+        background: var(--container-background) !important;
+    }
+
+    #socialblade-user-content > div:first-child > div:nth-last-of-type(2) {
         background: var(--container-content) !important;
-    }
-
-    .highcharts-background,
-    .highcharts-tooltip > path:last-of-type {
-        fill: var(--container-content);
-    }
-
-    .highcharts-tooltip > path:last-of-type {
-        opacity: 0.85;
-    }
-
-    .highcharts-yaxis-grid .highcharts-grid-line {
-        stroke: var(--graph-line);
-    }
-
-    .highcharts-title,
-    .highcharts-axis-title,
-    .highcharts-axis-labels text,
-    .highcharts-tooltip text {
-        fill: var(--font-color) !important;
     }
 
     /* Ads */
-    #top-menu-wrap ~ div:not([id]) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1),
-    #top-menu-wrap ~ div:not([id]) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) {
+    #socialblade-user-content > div > div:first-child {
         background: var(--container-background) !important;
         display: /*[[hideAdContainers]]*/;
     }
-
-    /* User Tags */
-    #top-menu-wrap ~ div:not([id]) > div:first-child > div:last-child > div:first-child > div:nth-child(3) {
-        background: var(--container-content) !important;
-    }
-
-    /* Recent Blog Posts */
-    #top-menu-wrap ~ div:not([id]) > div:first-child > div:last-child > div:nth-last-child(2) {
-        background: var(--container-background) !important;
-        color: var(--font-color) !important;
-    }
 }
-
 
 @-moz-document regexp("https?://socialblade.com/youtube/(user|c|channel)/.*/monthly") {
     /*--------------------------------------------------*/
@@ -1917,64 +1950,33 @@ regexp("https?://socialblade.com/favorites/mixer") {
     }
 
     /* Main Table */
-    #top-menu-wrap ~ div:not([id]) > div:first-child > div:first-child > div:nth-child(4) {
+    #socialblade-user-content > div:nth-of-type(2) {
         border-bottom: 2px solid var(--font-color);
     }
 
-    #top-menu-wrap ~ div:not([id]) > div:first-child > div:first-child > div:nth-child(n + 5):nth-last-child(n + 10):nth-child(even) {
+    #socialblade-user-content > div:nth-of-type(n + 3):nth-last-of-type(n + 21) {
+        background: var(--container-content) !important;
+        color: var(--font-color) !important;
+    }
+
+    #socialblade-user-content > div:nth-of-type(n + 3):nth-last-of-type(n + 21):nth-child(even) {
         background: var(--container-highlight) !important;
         color: var(--font-color) !important;
     }
 
-    #top-menu-wrap ~ div:not([id]) > div:first-child > div:first-child > div:nth-child(n + 5):nth-last-child(n + 7) {
+    #socialblade-user-content > div:nth-last-of-type(-3n+17) {
         background: var(--container-content) !important;
+    }
+
+    #socialblade-user-content > div:nth-last-of-type(-3n+18) {
+        background: var(--container-background) !important;
         color: var(--font-color) !important;
-    }
-
-    /* Graphs */
-    #DailySubscribers,
-    #TotalSubscribers,
-    #DailyVideoViews,
-    #TotalVideoViews,
-    #AverageViewsPerDay,
-    #AverageViewsPerMonth,
-    #top-menu-wrap ~ div:not([id]) > div:first-child > div:first-child > div:nth-last-of-type(1) {
-        background: var(--container-content) !important;
-        color: var(--font-color);
-    }
-
-    .dygraph-axis-label {
-        color: var(--font-color) !important;
-    }
-
-    /* Side Table */
-    .TableMonthlyStats {
-        background: var(--container-highlight) !important;
-        color: var(--font-color) !important;
-    }
-
-    .TableMonthlyStats:nth-child(3n + 1):nth-child(odd),
-    .TableMonthlyStats:nth-child(3n + 2):nth-child(even),
-    .TableMonthlyStats:nth-child(3n + 3):nth-child(odd) {
-        background: var(--container-content) !important;
     }
 
     /* Ads */
-    #top-menu-wrap ~ div:not([id]) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1),
-    #top-menu-wrap ~ div:not([id]) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) {
+    #socialblade-user-content > div:first-child > div:first-child {
         background: var(--container-background) !important;
         display: /*[[hideAdContainers]]*/;
-    }
-
-    /* User Tags */
-    #top-menu-wrap ~ div:not([id]) > div:first-child > div:nth-child(2) > div:first-child > div:nth-child(3) {
-        background: var(--container-content) !important;
-    }
-
-    /* Recent Blog Posts */
-    #top-menu-wrap ~ div:not([id]) > div:first-child > div:last-child > div:nth-last-child(2) {
-        background: var(--container-background) !important;
-        color: var(--font-color) !important;
     }
 }
 
@@ -1982,11 +1984,6 @@ regexp("https?://socialblade.com/favorites/mixer") {
     /*--------------------------------------------------*/
     /* Youtube Featured Box                             */
     /*--------------------------------------------------*/
-    a,
-    a:hover {
-        color: var(--site-color)
-    }
-
     /* Tab Highlight */
     #YouTubeUserMenu > a[href$="otherchans/sbrank"] {
         background: var(--container-highlight);
@@ -1994,12 +1991,18 @@ regexp("https?://socialblade.com/favorites/mixer") {
 
     /* Tabs */
     .subsection {
+        color: var(--font-color);
         background: var(--container-background);
         border: none !important;
     }
 
-    .activesubsection {
+    .subsection:hover {
         background: var(--container-content);
+    }
+
+    .subsection.activesubsection {
+        color: var(--site-color);
+        background: var(--container-highlight);
     }
 
     #InPageMenuWrap + h3 {
@@ -2007,42 +2010,26 @@ regexp("https?://socialblade.com/favorites/mixer") {
     }
 
     /* Table */
-    #top-menu-wrap ~ div:not([id]) > div:nth-child(3) {
-        background: var(--container-content) !important;
+    #socialblade-user-content > div:nth-child(2) {
+        background: var(--container-highlight) !important;
     }
 
     .TableHeader {
         border-bottom: 2px solid var(--font-color);
+        background: var(--container-highlight);
     }
 
-    #top-menu-wrap ~ div:not([id]) > div:last-child > div,
-    #top-menu-wrap ~ div:not([id]) > div:last-child > div > div {
+    #socialblade-user-content > div:last-child > div,
+    #socialblade-user-content > div:last-child > div > div {
         color: var(--font-color) !important;
     }
 
-    #top-menu-wrap ~ div:not([id]) > div:last-child > div:nth-child(odd) {
+    #socialblade-user-content > div:last-child > div:nth-child(odd) {
         background: var(--container-content) !important;
     }
 
-    #top-menu-wrap ~ div:not([id]) > div:last-child > div:nth-child(even) {
+    #socialblade-user-content > div:last-child > div:nth-child(even) {
         background: var(--container-highlight) !important;
-    }
-
-    /* Ads */
-    #top-menu-wrap ~ div:not([id]) > div:first-child > div:first-child > div:first-child > div:first-child {
-        background: var(--container-background) !important;
-        display: /*[[hideAdContainers]]*/;
-    }
-
-    /* User Tags */
-    #top-menu-wrap ~ div:not([id]) > div:first-child > div:first-child > div:first-child > div:nth-child(3) {
-        background: var(--container-content) !important;
-    }
-
-    /* Recent Blog Posts */
-    #top-menu-wrap ~ div:not([id]) > div:first-child > div:first-child > div:nth-last-child(2) {
-        background: var(--container-background) !important;
-        color: var(--font-color) !important;
     }
 }
 
@@ -2050,11 +2037,6 @@ regexp("https?://socialblade.com/favorites/mixer") {
     /*--------------------------------------------------*/
     /* Youtube Similar Channels                         */
     /*--------------------------------------------------*/
-    a,
-    a:hover {
-        color: var(--site-color);
-    }
-
     /* Tab Highlight */
     #YouTubeUserMenu > a[href$="similarrank"] {
         background: var(--container-highlight);
@@ -2062,17 +2044,24 @@ regexp("https?://socialblade.com/favorites/mixer") {
 
     /* Tabs */
     .subsection {
+        color: var(--font-color);
         background: var(--container-background);
         border: none !important;
     }
 
-    .activesubsection {
+    .subsection:hover {
         background: var(--container-content);
+    }
+
+    .subsection.activesubsection {
+        color: var(--site-color);
+        background: var(--container-highlight);
     }
 
     /* Table */
     .TableHeader {
         border-bottom: 2px solid var(--font-color);
+        background: var(--container-highlight);
     }
 
     .TableMonthlyStats {
@@ -2080,45 +2069,39 @@ regexp("https?://socialblade.com/favorites/mixer") {
         color: var(--font-color) !important;
     }
 
-    .TableMonthlyStats:nth-child(7n + 13):nth-child(odd),
-    .TableMonthlyStats:nth-child(7n + 14):nth-child(even),
-    .TableMonthlyStats:nth-child(7n + 15):nth-child(odd),
-    .TableMonthlyStats:nth-child(7n + 16):nth-child(even),
-    .TableMonthlyStats:nth-child(7n + 17):nth-child(odd),
-    .TableMonthlyStats:nth-child(7n + 18):nth-child(even),
-    .TableMonthlyStats:nth-child(7n + 19):nth-child(odd) {
+    .TableMonthlyStats:nth-child(7n + 4):nth-child(odd),
+    .TableMonthlyStats:nth-child(7n + 5):nth-child(even),
+    .TableMonthlyStats:nth-child(7n + 6):nth-child(odd),
+    .TableMonthlyStats:nth-child(7n + 7):nth-child(even),
+    .TableMonthlyStats:nth-child(7n + 8):nth-child(odd),
+    .TableMonthlyStats:nth-child(7n + 9):nth-child(even),
+    .TableMonthlyStats:nth-child(7n + 10):nth-child(odd) {
         background: var(--container-content) !important;
-    }
-
-    /* Ads */
-    #top-menu-wrap ~ div:not([id]) > div:first-child > div:first-child > div:first-child,
-    #top-menu-wrap ~ div:not([id]) > div:first-child > div:nth-child(2) > div:first-child > div:first-child {
-        background: var(--container-background) !important;
-        display: /*[[hideAdContainers]]*/;
-    }
-
-    /* User Tags */
-    #top-menu-wrap ~ div:not([id]) > div:first-child > div:nth-child(2) > div:first-child > div:nth-child(3) {
-        background: var(--container-content) !important;
-    }
-
-    /* Recent Blog Posts */
-    #top-menu-wrap ~ div:not([id]) > div:last-child > div:last-child > div:nth-last-child(2) {
-        background: var(--container-background) !important;
-        color: var(--font-color) !important;
     }
 }
 
+@-moz-document regexp("https?://socialblade.com/youtube/(user|c|channel)/.*/similarrank") {
+    #socialblade-user-content div:nth-of-type(9) {
+        color: var(--site-color)
+    }
+}
+
+@-moz-document regexp("https?://socialblade.com/youtube/(user|c|channel)/.*/similarrank/views") {
+    #socialblade-user-content div:nth-of-type(10) {
+        color: var(--site-color)
+    }
+}
+
+@-moz-document regexp("https?://socialblade.com/youtube/(user|c|channel)/.*/similarrank/sbscore") {
+    #socialblade-user-content div:nth-of-type(5) {
+        color: var(--site-color)
+    }
+}
 
 @-moz-document regexp("https?://socialblade.com/youtube/(user|c|channel)/.*/videos/?.*") {
     /*--------------------------------------------------*/
     /* Youtube User Videos                              */
     /*--------------------------------------------------*/
-    a,
-    a:hover {
-        color: var(--site-color)
-    }
-
     /* Tab Highlight */
     #YouTubeUserMenu > a[href$="videos"] {
         background: var(--container-highlight);
@@ -2126,17 +2109,23 @@ regexp("https?://socialblade.com/favorites/mixer") {
 
     /* Tabs */
     .subsection {
+        color: var(--font-color);
         background: var(--container-background);
         border: none !important;
     }
 
-    .activesubsection {
+    .subsection:hover {
         background: var(--container-content);
     }
 
     /* Table */
     .TableHeader {
         border-bottom: 2px solid var(--font-color);
+        background: var(--container-highlight)
+    }
+
+    #socialblade-user-content > div:nth-child(6) {
+        color: var(--site-color);
     }
 
     .RowRecentTable > div {
@@ -2152,25 +2141,98 @@ regexp("https?://socialblade.com/favorites/mixer") {
     }
 
     /* Ads */
-    #top-menu-wrap ~ div:not([id]) > div:nth-child(2) > div:first-child,
-    #top-menu-wrap ~ div:not([id]) > div:first-child > div:first-child > div:first-child > div:first-child {
+    #socialblade-user-content > div:first-child {
         background: var(--container-background) !important;
         display: /*[[hideAdContainers]]*/;
     }
+}
 
-    /* User Tags */
-    #top-menu-wrap ~ div:not([id]) > div:first-child > div:first-child > div:first-child > div:nth-child(3) {
-        background: var(--container-content) !important;
-    }
-
-    /* Recent Blog Posts */
-    #top-menu-wrap ~ div:not([id]) > div:first-child > div:last-child > div:nth-last-child(2) {
-        background: var(--container-background) !important;
-        color: var(--font-color) !important;
+@-moz-document regexp("https?://socialblade.com/youtube/(user|c|channel)/.*/videos") {
+    /*--------------------------------------------------*/
+    /* Youtube User Videos Latest Videos                */
+    /*--------------------------------------------------*/
+    #InPageMenuWrap > a:nth-child(1) > div {
+        color: var(--site-color);
+        background: var(--container-highlight);
     }
 }
 
-@-moz-document regexp("https?://socialblade.com/youtube/youtube-money-calculator") {
+@-moz-document regexp("https?://socialblade.com/youtube/(user|c|channel)/.*/videos/mostviewed") {
+    /*--------------------------------------------------*/
+    /* Youtube User Videos Most Viewed                  */
+    /*--------------------------------------------------*/
+    #InPageMenuWrap > a:nth-child(2) > div {
+        color: var(--site-color);
+        background: var(--container-highlight);
+    }
+}
+
+@-moz-document regexp("https?://socialblade.com/youtube/(user|c|channel)/.*/videos/highestrated") {
+    /*--------------------------------------------------*/
+    /* Youtube User Videos Most Relevant                */
+    /*--------------------------------------------------*/
+    #InPageMenuWrap > a:nth-child(3) > div {
+        color: var(--site-color);
+        background: var(--container-highlight);
+    }
+}
+
+@-moz-document regexp("https?://socialblade.com/youtube/(user|c|channel)/.*/videos/relevant") {
+    /*--------------------------------------------------*/
+    /* Youtube User Videos Highest Rated                */
+    /*--------------------------------------------------*/
+    #InPageMenuWrap > a:nth-child(4) > div {
+        color: var(--site-color);
+        background: var(--container-highlight);
+    }
+}
+
+@-moz-document regexp("https?://socialblade.com/youtube/(user|c|channel)/.*/achievements") {
+    /*--------------------------------------------------*/
+    /* Youtube User Achievements                        */
+    /*--------------------------------------------------*/
+    /* Tab Highlight */
+    #YouTubeUserMenu > a[href$="achievements"] {
+        background: var(--container-highlight);
+    }
+
+    h4 {
+        color: var(--font-color);
+    }
+
+    #socialblade-user-content > div p {
+        color: var(--font-color) !important;
+    }
+
+    /* In Progress */
+    #socialblade-user-content > div[style*="background: #f8f8f8"] {
+        background: var(--container-background) !important;
+    }
+
+    #socialblade-user-content > div[style*="background: #f8f8f8"] > div:last-child {
+        background: var(--container-highlight) !important;
+        height: 0px !important;
+        border-bottom-width: 65px !important;
+        opacity: 0.5;
+    }
+
+    /* Complete */
+    #socialblade-user-content > div[style*="background: #f8f8f8; border-bottom"]:nth-child(2n) {
+        background: var(--container-content) !important;
+    }
+
+    #socialblade-user-content > div[style*="background: #f8f8f8; border-bottom"]:nth-child(2n+1) {
+        background: var(--container-highlight) !important;
+    }
+
+    /* Ads */
+    #socialblade-user-content > div:first-child {
+        background: var(--container-background) !important;
+        display: /*[[hideAdContainers]]*/;
+    }
+}
+
+@-moz-document regexp("https?://socialblade.com/youtube/youtube-money-calculator#?") {
     /*--------------------------------------------------*/
     /* Youtube Money Calculator                         */
     /*--------------------------------------------------*/
@@ -2183,7 +2245,6 @@ regexp("https?://socialblade.com/favorites/mixer") {
     #alpha-summary > div {
         color: var(--font-color) !important;
     }
-
 
     #money-calc-wrap p,
     #money-calc-wrap h3,
@@ -2215,7 +2276,7 @@ regexp("https?://socialblade.com/favorites/mixer") {
     }
 }
 
-@-moz-document regexp("https://socialblade.com/youtube/education/?.*") {
+@-moz-document regexp("https?://socialblade.com/youtube/education/?.*") {
     /*--------------------------------------------------*/
     /* Youtube Education                                */
     /*--------------------------------------------------*/
@@ -2250,6 +2311,7 @@ regexp("https?://socialblade.com/favorites/mixer") {
         background: var(--container-background);
     }
 }
+
 @-moz-document regexp("https?://socialblade.com/youtube/help.*") {
     /*--------------------------------------------------*/
     /* Youtube FAQ                                      */
@@ -2258,6 +2320,7 @@ regexp("https?://socialblade.com/favorites/mixer") {
         background: var(--container-background) !important;
     }
 }
+
 @-moz-document regexp("https?://socialblade.com/twitch/user/.*") {
     /*--------------------------------------------------*/
     /* Twitch User Base                                 */
@@ -2275,17 +2338,12 @@ regexp("https?://socialblade.com/favorites/mixer") {
         color: var(--site-color) !important;
     }
 
-    #fav-bubble {
-        background: var(--site-color);
-        border: 1px solid var(--button-border-color);
-    }
-
     #fav-twitch {
         color: var(--font-color) !important;
     }
 
     #YouTubeUserMenu > a:hover {
-        background: var(--container-background);
+        background: var(--container-content);
     }
 
     /* Recent Blog Posts */
@@ -2294,33 +2352,10 @@ regexp("https?://socialblade.com/favorites/mixer") {
         color: var(--font-color) !important;
     }
 
-    .anchor-sidebar,
-    .anchor-sidebar:hover {
-        background: var(--container-content);
-        color: var(--font-color);
-        border-top: 1px solid var(--container-background);
-    }
-
     /* Ads */
-    #socialblade-user-content > div:first-child,
     .sidebar-module {
         background: var(--container-background) !important;
         display: /*[[hideAdContainers]]*/;
-    }
-
-    /* Graph */
-    .highcharts-selection-marker {
-        fill: var(--font-color) !important;
-        fill-opacity: 0.25;
-    }
-
-    /* Graph Button */
-    .highcharts-reset-zoom > rect {
-        fill: var(--site-color);
-    }
-
-    .highcharts-reset-zoom > text {
-        fill: var(--font-color) !important;
     }
 }
 
@@ -2333,31 +2368,45 @@ regexp("https?://socialblade.com/favorites/mixer") {
         background: var(--container-highlight);
     }
 
-    #top-menu-wrap ~ div:not([id]):not([class]) div:first-child > p:first-child,
-    #top-menu-wrap ~ div:not([id]):not([class]) div:first-child > p:last-child {
+    /* Overview */
+    #socialblade-user-content > div:first-child > div:nth-of-type(2),
+    #socialblade-user-content > div:nth-of-type(3) > div,
+    #socialblade-user-content > div:nth-of-type(5) > div,
+    #socialblade-user-content > div:nth-of-type(7) > div,
+    #socialblade-user-content > div:nth-of-type(9) {
+        background: var(--container-content) !important;
+    }
+
+    #socialblade-user-content > div:first-child span,
+    #socialblade-user-content > div:nth-of-type(3) span,
+    #socialblade-user-content > div:nth-of-type(5) p {
         color: var(--font-color) !important;
+    }
+
+    #socialblade-user-content > div:nth-child(4) {
+        display: none;
     }
 
     /* Table */
     /* Header */
-    #socialblade-user-content > div:nth-child(4) {
+    #socialblade-user-content > div:nth-child(12) {
         border-bottom: 2px solid var(--font-color);
     }
 
     /* Rows */
-    #socialblade-user-content > div:nth-child(5) > div,
-    #socialblade-user-content > div:nth-child(6) > div,
-    #socialblade-user-content > div:nth-child(7) > div {
+    #socialblade-user-content > div:nth-child(13) > div,
+    #socialblade-user-content > div:nth-child(14),
+    #socialblade-user-content > div:nth-child(15) {
         color: var(--font-color) !important;
     }
 
-    #socialblade-user-content > div:nth-child(5) > div,
-    #socialblade-user-content > div:nth-child(6),
-    #socialblade-user-content > div:nth-child(7) {
+    #socialblade-user-content > div:nth-child(13) > div,
+    #socialblade-user-content > div:nth-child(14) {
         background: var(--container-content) !important;
     }
 
-    #socialblade-user-content > div:nth-child(5) > div:nth-child(even) {
+    #socialblade-user-content > div:nth-child(13) > div:nth-child(even),
+    #socialblade-user-content > div:nth-child(15) {
         background: var(--container-highlight) !important;
     }
 
@@ -2366,33 +2415,9 @@ regexp("https?://socialblade.com/favorites/mixer") {
         background: var(--container-content) !important;
     }
 
-    .highcharts-background {
-        fill: var(--container-content) !important;
-    }
-
-    .highcharts-title > tspan,
-    .highcharts-axis > text,
-    .highcharts-axis-labels > text,
-    .highcharts-tooltip > text {
-        fill: var(--font-color) !important;
-    }
-
-    .highcharts-graph {
-        stroke: var(--site-color);
-    }
-
-    .highcharts-markers > path {
-        fill: var(--site-color)
-    }
-
-    .highcharts-label > path:last-of-type {
-        stroke: var(--site-color);
-        fill: var(--container-content);
-        opacity: 0.85;
-    }
-
-    .highcharts-label > text > tspan:nth-child(2) {
-        fill: var(--site-color) !important;
+    /* Ads */
+    #socialblade-user-content > div:nth-of-type(9) {
+        display: /*[[hideAdContainers]]*/;
     }
 }
 
@@ -2418,15 +2443,26 @@ regexp("https?://socialblade.com/favorites/mixer") {
 
     /* Tabs */
     .subsection {
+        color: var(--font-color);
         background: var(--container-background);
         border: none !important;
     }
 
-    .activesubsection {
+    .subsection:hover {
         background: var(--container-content);
     }
 
+    .subsection.activesubsection {
+        color: var(--site-color);
+        background: var(--container-highlight);
+    }
+
     /* Table */
+    .TableHeader {
+        border-bottom: 2px solid var(--font-color);
+        background: var(--container-highlight);
+    }
+
     .TableHeader[style$="#D1C4E9"] {
         color: var(--site-color) !important;
     }
@@ -2457,33 +2493,10 @@ regexp("https?://socialblade.com/favorites/mixer") {
         background: var(--container-content) !important;
     }
 
-    .highcharts-background {
-        fill: var(--container-content) !important;
-    }
-
-    .highcharts-title > tspan,
-    .highcharts-axis > text,
-    .highcharts-axis-labels > text,
-    .highcharts-tooltip > text {
-        fill: var(--font-color) !important;
-    }
-
-    .highcharts-graph {
-        stroke: var(--site-color);
-    }
-
-    .highcharts-markers > path {
-        fill: var(--site-color)
-    }
-
-    .highcharts-label > path:last-of-type {
-        stroke: var(--site-color);
-        fill: var(--container-content);
-        opacity: 0.85;
-    }
-
-    .highcharts-label > text > tspan:nth-child(2) {
-        fill: var(--site-color) !important;
+    /* Ads */
+    #socialblade-user-content > div:first-child {
+        background: var(--container-background) !important;
+        display: /*[[hideAdContainers]]*/;
     }
 }
 
@@ -2520,42 +2533,25 @@ regexp("https?://socialblade.com/favorites/mixer") {
     }
 
     /* Graph */
-    #socialblade-user-content > div:nth-last-child(2) {
+    #socialblade-user-content > div:nth-last-child(-3n+17) {
         background: var(--container-content) !important;
     }
 
-    .highcharts-background {
-        fill: var(--container-content) !important;
+    #socialblade-user-content > div:nth-last-child(-3n+18) {
+        background: var(--container-background) !important;
     }
 
-    .highcharts-title > tspan,
-    .highcharts-axis > text,
-    .highcharts-axis-labels > text,
-    .highcharts-tooltip > text {
-        fill: var(--font-color) !important;
-    }
-
-    .highcharts-graph {
-        stroke: var(--site-color);
-    }
-
-    .highcharts-markers > path {
-        fill: var(--site-color)
-    }
-
-    .highcharts-label > path:last-of-type {
-        stroke: var(--site-color);
-        fill: var(--container-content);
-        opacity: 0.85;
-    }
-
-    .highcharts-label > text > tspan:nth-child(2) {
-        fill: var(--site-color) !important;
+    /* Ads */
+    #socialblade-user-content > div:first-child {
+        background: var(--container-background) !important;
+        display: /*[[hideAdContainers]]*/;
     }
 }
 
-@-moz-document regexp("https?://socialblade.com/twitter/user/.*$") {
+@-moz-document regexp("https?://socialblade.com/instagram/user/.*"),
+regexp("https?://socialblade.com/twitter/user/.*") {
     /*--------------------------------------------------*/
+    /* Instagram Base                                   */
     /* Twitter Base                                     */
     /*--------------------------------------------------*/
     /* Header */
@@ -2579,56 +2575,26 @@ regexp("https?://socialblade.com/favorites/mixer") {
     }
 
     #YouTubeUserMenu > a:hover {
-        background: var(--container-background);
-    }
-
-    .anchor-sidebar,
-    .anchor-sidebar:hover {
         background: var(--container-content);
-        color: var(--font-color);
-        border-top: 1px solid var(--container-background);
     }
 
-    /* Favorite Feature Popup */
-    #dialog_favorite_logincheck,
-    .ui-dialog-titlebar-close,
-    .ui-dialog-titlebar-close:hover {
-        background: var(--container-content) !important;
+    /* Sidebar */
+    #socialblade-user-sidebar > div > div {
+        color: var(--font-color) !important;
+        background: var(--container-background) !important;
     }
 
-    .ui-dialog a {
-        color: var(--site-color);
-    }
-
-    #dialog_favorite_logincheck,
-    .ui-button-text {
-        color: var(--font-color);
-    }
-
-    /* Recent Tweet */
-    .EmbeddedTweet {
-        background: var(--container-content) !important;
-        border: none;
-        border-radius: 0;
-    }
-
-    .twitter-tweet {
-        background: var(--container-content) !important;
-        padding: 10px;
-    }
-
-    .twitter-tweet a {
-        color: var(--site-color);
-    }
-
-    .dt-updated,
-    .Tweet-actions a {
-        color: var(--font-color);
+    /* Ads */
+    .sidebar-module {
+        background: var(--container-background) !important;
+        display: /*[[hideAdContainers]]*/;
     }
 }
 
-@-moz-document regexp("https?://socialblade.com/twitter/user/[^/]*/?") {
+@-moz-document regexp("https?://socialblade.com/instagram/user/[^/]*/?"),
+regexp("https?://socialblade.com/twitter/user/[^/]*/?") {
     /*--------------------------------------------------*/
+    /* Instagram User Summary                           */
     /* Twitter User Summary                             */
     /*--------------------------------------------------*/
     /* Tab Highlight */
@@ -2636,80 +2602,90 @@ regexp("https?://socialblade.com/favorites/mixer") {
         background: var(--container-highlight);
     }
 
-
-    /* Overview*/
-    #top-menu-wrap ~ div:not([id]):not([class]) > [style*="background-color: #fff"] {
-        background: var(--container-background) !important;
+    /* Overview */
+    #socialblade-user-content > div:first-child > div:nth-of-type(2),
+    #socialblade-user-content > div:nth-of-type(3) > div,
+    #socialblade-user-content > div:nth-of-type(5) > div {
+        background: var(--container-content) !important;
     }
 
-    #top-menu-wrap ~ div:not([id]):not([class]) + div > div > div > p:nth-child(2) {
+    #socialblade-user-content > div:first-child span,
+    #socialblade-user-content > div:nth-of-type(3) > div > p {
         color: var(--font-color) !important;
     }
 
     /* Table */
-    /* 1st Row */
-    #top-menu-wrap ~ div:not([id]):not([class]) + div + div > div:first-child > div:nth-of-type(4) {
+    /* Header Spacer */
+    #socialblade-user-content > div:nth-of-type(10) {
         border-bottom: 2px var(--font-color) solid;
     }
 
     /* Rows */
-    #top-menu-wrap ~ div:not([id]):not([class]) + div + div > div:first-child > div {
+    #socialblade-user-content > div:nth-of-type(11) > div,
+    #socialblade-user-content > div:nth-last-child(8),
+    #socialblade-user-content > div:nth-last-child(7) {
+        background: var(--container-content) !important;
         color: var(--font-color) !important;
     }
 
-    #top-menu-wrap ~ div:not([id]):not([class]) + div + div > div:first-child > div:nth-child(n + 5):nth-last-child(n + 7) {
+    #socialblade-user-content > div:nth-of-type(11) > div:nth-child(even),
+    #socialblade-user-content > div:nth-last-child(7) {
         background: var(--container-highlight) !important;
     }
 
-    #top-menu-wrap ~ div:not([id]):not([class]) + div + div > div:first-child > div:nth-child(n + 5):nth-child(odd):nth-last-child(n + 7),
-    #top-menu-wrap ~ div:not([id]):not([class]) + div + div > div:first-child > div:nth-last-child(6),
-    #top-menu-wrap ~ div:not([id]):not([class]) + div + div > div:first-child > div:nth-last-child(5) {
-        background: var(--container-content) !important;
-    }
-
     /* Graph */
-    #top-menu-wrap ~ div:not([id]):not([class]) + div + div > div:first-child > div:nth-last-child(3) {
+    #socialblade-user-content > div:nth-last-child(2) {
         background: var(--container-content) !important;
-    }
-
-    #top-menu-wrap ~ div:not([id]):not([class]) + div + div > div:first-child > div:nth-last-child(2),
-    #FollowerPerMonth,
-    #TweetsPerMonth {
-        background: var(--container-content) !important;
-    }
-
-    .dygraph-axis-label {
-        color: var(--font-color);
-    }
-
-    .dygraph-ylabel {
-        margin-top: -10px;
-    }
-
-    .dygraph-legend span {
-        color: var(--site-color) !important;
-    }
-
-    .dygraph-legend > span > div {
-        border-color: var(--site-color) !important;
-    }
-
-    canvas {
-        filter: hue-rotate(213deg) saturate(35%) brightness(210%);
     }
 
     /* Ads */
-    #top-menu-wrap ~ div:not([id]):not([class]) + div + div > div:first-child > div:first-child > div:first-child,
-    #top-menu-wrap ~ div:not([id]):not([class]) + div + div > div:nth-child(2) > div:first-child,
-    #top-menu-wrap ~ div:not([id]):not([class]) + div + div > div:nth-child(2) > div:nth-of-type(4) {
+    #socialblade-user-content > div:nth-of-type(7) {
         background: var(--container-background) !important;
         display: /*[[hideAdContainers]]*/;
     }
+}
 
-    /* Recent Blog Posts */
-    #top-menu-wrap ~ div:not([id]):not([class]) + div + div > div:nth-child(2) > div:nth-last-child(2) {
-        background-color: var(--container-background) !important;
+@-moz-document regexp("https?://socialblade.com/instagram/user/.*/monthly"),
+regexp("https?://socialblade.com/twitter/user/.*/monthly") {
+    /*--------------------------------------------------*/
+    /* Instagram User Details Statistics                */
+    /* Twitter User Details Statistics                  */
+    /*--------------------------------------------------*/
+    #stats-top-menu-wrap > a[href$="monthly"] {
+        background: var(--container-highlight);
+    }
+
+    /* Table */
+    #socialblade-user-content > div:nth-child(4) {
+        border-bottom: 2px var(--font-color) solid;
+    }
+
+    #socialblade-user-content > div:nth-child(5) > div,
+    #socialblade-user-content > div:nth-child(6) {
+        background: var(--container-content) !important;
         color: var(--font-color) !important;
+    }
+
+    #socialblade-user-content > div:nth-child(5) > div:nth-child(even),
+    #socialblade-user-content > div:nth-child(7) {
+        background: var(--container-highlight) !important;
+        color: var(--font-color) !important;
+    }
+
+    /* Graphs */
+    #socialblade-user-content > div:nth-last-of-type(-3n+17) {
+        background: var(--container-content) !important;
+    }
+
+    #socialblade-user-content > div:nth-last-of-type(-3n+18) {
+        background: var(--container-background) !important;
+        color: var(--font-color) !important;
+    }
+
+    /* Ads */
+    #socialblade-user-content > div:nth-of-type(1) {
+        background: var(--container-background) !important;
+        display: /*[[hideAdContainers]]*/;
     }
 }
 
@@ -2724,48 +2700,51 @@ regexp("https?://socialblade.com/favorites/mixer") {
 
     /* Tabs */
     .subsection {
+        color: var(--font-color);
         background: var(--container-background);
         border: none !important;
     }
 
-    .subsection {
-        color: var(--site-color);
-    }
-
-    .activesubsection {
+    .subsection:hover {
         background: var(--container-content);
     }
 
+    .subsection.activesubsection {
+        color: var(--site-color);
+        background: var(--container-highlight);
+    }
+
     /* Table */
-    /* Header */
-    #InPageMenuWrap + div + div {
-        background: var(--container-content) !important;
+    #socialblade-user-content > div:nth-child(1) > div:nth-last-child(1) {
         border-bottom: 2px solid var(--font-color);
-    }
-
-    /* Rows */
-    #top-menu-wrap ~ div:not([id]):not([class]) + div > div:nth-child(4) > div {
-        background: var(--container-content) !important;
-    }
-
-    #top-menu-wrap ~ div:not([id]):not([class]) + div > div:nth-child(4) > div:nth-child(12n + 1),
-    #top-menu-wrap ~ div:not([id]):not([class]) + div > div:nth-child(4) > div:nth-child(12n + 2),
-    #top-menu-wrap ~ div:not([id]):not([class]) + div > div:nth-child(4) > div:nth-child(12n + 3),
-    #top-menu-wrap ~ div:not([id]):not([class]) + div > div:nth-child(4) > div:nth-child(12n + 4),
-    #top-menu-wrap ~ div:not([id]):not([class]) + div > div:nth-child(4) > div:nth-child(12n + 5) {
         background: var(--container-highlight) !important;
     }
 
-    #top-menu-wrap ~ div:not([id]):not([class]) + div > div:nth-child(4) > div:nth-child(6n + 5) {
-        padding: 4px !important;
+    #socialblade-user-content > div:nth-child(2) > div:nth-last-child(n+1) {
+        background: var(--container-highlight) !important;
+        color: var(--font-color);
     }
 
-    #top-menu-wrap ~ div:not([id]):not([class]) + div > div:nth-child(4) > div:last-child {
-        background: var(--container-background) !important;
+    #socialblade-user-content > div:nth-child(2) > div:nth-child(12n + 1),
+    #socialblade-user-content > div:nth-child(2) > div:nth-child(12n + 2),
+    #socialblade-user-content > div:nth-child(2) > div:nth-child(12n + 3),
+    #socialblade-user-content > div:nth-child(2) > div:nth-child(12n + 4),
+    #socialblade-user-content > div:nth-child(2) > div:nth-child(12n + 5) {
+        background: var(--container-content) !important;
     }
 
-    div[style*="#82a155"] {
+    #socialblade-user-content > div:nth-child(2) > div:nth-child(6n + 2) > div {
         color: var(--site-color) !important;
+    }
+
+    #socialblade-user-content > div:nth-child(2) > div:nth-child(6n + 2) > div > span {
+        color: var(--bad) !important;
+    }
+
+    /* Social buttons*/
+    #socialblade-user-content > div:nth-child(2) > div:nth-last-child(1) {
+        background: var(--site-background) !important;
+        padding: 0px !important;
     }
 
     /* Ads */
@@ -2775,251 +2754,25 @@ regexp("https?://socialblade.com/favorites/mixer") {
         background: var(--container-background) !important;
         display: /*[[hideAdContainers]]*/;
     }
-
-    /* Recent Blog Posts */
-    #top-menu-wrap ~ div:not([id]):not([class]) + div > div:first-child > div:nth-last-child(2) {
-        background: var(--container-background) !important;
-        color: var(--font-color) !important;
-    }
 }
 
-@-moz-document regexp("https?://socialblade.com/twitter/user/.*/monthly(/.*)?") {
-    /*--------------------------------------------------*/
-    /* Twitter Detailed Statistics                      */
-    /*--------------------------------------------------*/
-    /* Tab Highlight */
-    #YouTubeUserMenu > a[href$="monthly"] {
-        background: var(--container-highlight);
-    }
-
-    /* Table */
-    /* Header */
-    #top-menu-wrap ~ div:not([id]):not([class]) + div > div:first-child > div:nth-child(4) {
-        border-bottom: 2px solid var(--font-color);
-    }
-
-    /* Rows */
-    #top-menu-wrap ~ div:not([id]):not([class]) + div > div:first-child > div:nth-child(n + 4):nth-last-child(n + 6),
-    #top-menu-wrap ~ div:not([id]):not([class]) + div > div:first-child > div:nth-last-child(5),
-    #top-menu-wrap ~ div:not([id]):not([class]) + div > div:first-child > div:nth-last-child(4) {
-        background: var(--container-content) !important;
-    }
-
-    #top-menu-wrap ~ div:not([id]):not([class]) + div > div:first-child > div:nth-child(n + 5):nth-child(even):nth-last-child(n + 6) {
-        background: var(--container-highlight) !important;
-    }
-
-    #top-menu-wrap ~ div:not([id]):not([class]) + div > div:first-child > div:nth-child(n + 4) {
-        color: var(--font-color) !important;
-    }
-
-    /* Graph */
-    #top-menu-wrap ~ div:not([id]):not([class]) + div > div:first-child > div:nth-last-child(3) {
-        background: var(--container-background) !important;
-    }
-
-    #top-menu-wrap ~ div:not([id]):not([class]) + div > div:first-child > div:nth-last-child(2) {
-        background: var(--container-content) !important;
-    }
-
-    .dygraph-axis-label {
-        color: var(--font-color);
-    }
-
-    .dygraph-ylabel {
-        margin-top: -10px;
-    }
-
-    .dygraph-legend span {
-        color: var(--site-color) !important;
-    }
-
-    .dygraph-legend > span > div {
-        border-color: var(--site-color) !important;
-    }
-
-    canvas {
-        filter: hue-rotate(213deg) saturate(35%) brightness(210%);
-    }
-
-    /* Ads */
-    #top-menu-wrap ~ div:not([id]):not([class]) + div > div:first-child > div:first-child > div:first-child,
-    #top-menu-wrap ~ div:not([id]):not([class]) + div > div:nth-child(2) > div:first-child,
-    #top-menu-wrap ~ div:not([id]):not([class]) + div > div:nth-child(2) > div:nth-of-type(4),
-    #top-menu-wrap ~ div:not([id]):not([class]) + div > div:nth-child(3) > div {
-        background: var(--container-background) !important;
-        display: /*[[hideAdContainers]]*/;
-    }
-
-    /* Recent Blog Posts */
-    #top-menu-wrap ~ div:not([id]):not([class]) + div > div:nth-child(2) > div:nth-last-child(2) {
-        background: var(--container-background) !important;
-        color: var(--font-color) !important;
-    }
-}
-
-@-moz-document regexp("https?://socialblade.com/instagram/user/.*") {
-    /*--------------------------------------------------*/
-    /* Instagram Base                                   */
-    /*--------------------------------------------------*/
-    /* Header */
-    #youtube-authenticated-action-menu,
-    #YouTubeUserTopInfoWrap {
-        background: var(--container-background) !important;
-    }
-
-    #youtube-authenticated-action-bars-normal,
-    #youtube-authenticated-action-menu-button,
-    #youtube-authenticated-action-menu,
-    #YouTubeUserTopInfoWrap span,
-    #youtube-user-page-country,
-    #youtube-user-page-channeltype,
-    #YouTubeUserTopInfoBlockTop div h2 {
-        color: var(--font-color) !important;
-    }
-
-    #YouTubeUserMenu {
-        border-top: 1px solid var(--font-color);
-    }
-
-    #YouTubeUserMenu > a:hover {
-        background: var(--container-background);
-    }
-
-    /* Favorite Feature Popup */
-    #dialog_favorite_logincheck,
-    .ui-dialog-titlebar-close,
-    .ui-dialog-titlebar-close:hover {
-        background: var(--container-content) !important;
-    }
-
-    .ui-dialog a {
+@-moz-document regexp("https?://socialblade.com/twitter/user/.*/futureprojections") {
+    #socialblade-user-content > div:nth-child(1) > div:nth-last-child(1) > div:nth-child(2) {
         color: var(--site-color);
     }
+}
 
-    #dialog_favorite_logincheck,
-    .ui-button-text {
-        color: var(--font-color);
-    }
-
-    /* Recent Blog Posts */
-    div[style*="background: #263238"],
-    div[style*="background:#263238"] {
-        background: var(--container-background) !important;
-        color: var(--font-color) !important;
-    }
-
-    .anchor-sidebar,
-    .anchor-sidebar:hover {
-        background: var(--container-content);
-        color: var(--font-color);
-        border-top: 1px solid var(--container-background);
-    }
-
-    /* Graph */
-    .highcharts-selection-marker {
-        fill: var(--font-color) !important;
-        fill-opacity: 0.25;
-    }
-
-    /* Graph Button */
-    .highcharts-reset-zoom > rect {
-        fill: var(--site-color);
-    }
-
-    .highcharts-reset-zoom > text {
-        fill: var(--font-color) !important;
-    }
-
-    /* Ads */
-    #socialblade-user-content > div:first-child,
-    .sidebar-module {
-        background: var(--container-background) !important;
-        display: /*[[hideAdContainers]]*/;
+@-moz-document regexp("https?://socialblade.com/twitter/user/.*/futureprojections/tweets") {
+    #socialblade-user-content > div:nth-child(1) > div:nth-last-child(1) > div:nth-child(4) {
+        color: var(--site-color);
     }
 }
 
-
-@-moz-document regexp("https?://socialblade.com/instagram/user/[^/]*/?") {
-    /*--------------------------------------------------*/
-    /* Instagram User Summary                           */
-    /*--------------------------------------------------*/
-    /* Tab Highlight */
-    #YouTubeUserMenu > a:first-child {
-        background: var(--container-highlight);
-    }
-
-    /* Overview*/
-    #top-menu-wrap ~ div:not([id]):not([class]) > [style*="background-color: #fff"] {
-        background: var(--container-background) !important;
-    }
-
-    #top-menu-wrap ~ div:not([id]):not([class]) + div > div > div > p:nth-child(2) {
-        color: var(--font-color) !important;
-    }
-
-    /* Table */
-    /* Header */
-    #socialblade-user-content > div:nth-child(4) {
-        border-bottom: 2px solid var(--font-color);
-    }
-
-    /* Rows */
-    #socialblade-user-content > div:nth-child(5) > div,
-    #socialblade-user-content > div:nth-child(6) > div,
-    #socialblade-user-content > div:nth-child(7) > div {
-        color: var(--font-color) !important;
-    }
-
-    #socialblade-user-content > div:nth-child(5) > div,
-    #socialblade-user-content > div:nth-child(6),
-    #socialblade-user-content > div:nth-child(7) {
-        background: var(--container-content) !important;
-    }
-
-    #socialblade-user-content > div:nth-child(7) {
-        border: none !important;
-    }
-
-    #socialblade-user-content > div:nth-child(5) > div:nth-child(even) {
-        background: var(--container-highlight) !important;
-    }
-
-    /* Graph */
-    #socialblade-user-content > div:nth-last-child(2) {
-        background: var(--container-content) !important;
-    }
-
-    .highcharts-background {
-        fill: var(--container-content) !important;
-    }
-
-    .highcharts-title > tspan,
-    .highcharts-axis > text,
-    .highcharts-axis-labels > text,
-    .highcharts-tooltip > text {
-        fill: var(--font-color) !important;
-    }
-
-    .highcharts-graph {
-        stroke: var(--site-color);
-    }
-
-    .highcharts-markers > path {
-        fill: var(--site-color)
-    }
-
-    .highcharts-label > path:last-of-type {
-        stroke: var(--site-color);
-        fill: var(--container-content);
-        opacity: 0.85;
-    }
-
-    .highcharts-label > text > tspan:nth-child(2) {
-        fill: var(--site-color) !important;
+@-moz-document regexp("https?://socialblade.com/twitter/user/.*/futureprojections/followers") {
+    #socialblade-user-content > div:nth-child(1) > div:nth-last-child(1) > div:nth-child(3) {
+        color: var(--site-color);
     }
 }
-
 
 @-moz-document regexp("https?://socialblade.com/instagram/user/.*/legacy") {
     /*--------------------------------------------------*/
@@ -3033,28 +2786,19 @@ regexp("https?://socialblade.com/favorites/mixer") {
     /* Table */
     /* Header */
     #socialblade-user-content > div:nth-child(4) {
-        border-bottom: 2px solid var(--font-color);
+        border-bottom: 2px var(--font-color) solid;
     }
 
-    /* Rows */
     #socialblade-user-content > div:nth-child(5) > div,
-    #socialblade-user-content > div:nth-child(6) > div,
-    #socialblade-user-content > div:nth-child(7) > div {
+    #socialblade-user-content > div:nth-child(6) {
+        background: var(--container-content) !important;
         color: var(--font-color) !important;
     }
 
-    #socialblade-user-content > div:nth-child(5) > div,
-    #socialblade-user-content > div:nth-child(6),
+    #socialblade-user-content > div:nth-child(5) > div:nth-child(even),
     #socialblade-user-content > div:nth-child(7) {
-        background: var(--container-content) !important;
-    }
-
-    #socialblade-user-content > div:nth-child(7) {
-        border: none !important;
-    }
-
-    #socialblade-user-content > div:nth-child(5) > div:nth-child(even) {
         background: var(--container-highlight) !important;
+        color: var(--font-color) !important;
     }
 
     /* Graph */
@@ -3062,191 +2806,10 @@ regexp("https?://socialblade.com/favorites/mixer") {
         background: var(--container-content) !important;
     }
 
-    .highcharts-background {
-        fill: var(--container-content) !important;
-    }
-
-    .highcharts-title > tspan,
-    .highcharts-axis > text,
-    .highcharts-axis-labels > text,
-    .highcharts-tooltip > text {
-        fill: var(--font-color) !important;
-    }
-
-    .highcharts-graph {
-        stroke: var(--site-color);
-    }
-
-    .highcharts-markers > path {
-        fill: var(--site-color)
-    }
-
-    .highcharts-label > path:last-of-type {
-        stroke: var(--site-color);
-        fill: var(--container-content);
-        opacity: 0.85;
-    }
-
-    .highcharts-label > text > tspan:nth-child(2) {
-        fill: var(--site-color) !important;
-    }
-}
-
-@-moz-document regexp("https?://socialblade.com/instagram/user/.*") {
-    /*--------------------------------------------------*/
-    /* Instagram Base                                   */
-    /*--------------------------------------------------*/
-    a,
-    a:hover {
-        color: var(--site-color);
-    }
-
-    div[style*="background: #fff"],
-    div[style*="background:#fff"] {
+    /* Ads */
+    #socialblade-user-content > div:nth-of-type(1) {
         background: var(--container-background) !important;
-    }
-
-
-    /* Header */
-    div[style*="background: #cc33cc"] {
-        background: var(--container-highlight) !important;
-    }
-
-    .full-module {
-        background: var(--container-background);
-    }
-
-    .stats-top-data-header,
-    .stats-top-data-content {
-        color: var(--font-color);
-    }
-
-    /* Content */
-    .ContentHeader {
-        background: var(--container-background);
-    }
-
-    .content-module {
-        background: var(--container-background);
-    }
-
-    .content-module > span:last-of-type {
-        color: var(--font-color) !important;
-    }
-
-    /* Table */
-    .TableHeader {
-        background: var(--container-content);
-        border-bottom: 1px solid var(--font-color);
-    }
-
-    .TableMonthlyStats {
-        color: var(--font-color);
-    }
-
-    .TableMonthlyStats {
-        background: var(--container-content) !important;
-    }
-
-
-    .TableAverages {
-        background: var(--container-content) !important;
-        color: var(--font-color);
-    }
-
-    /* Graphs */
-    .dygraph-axis-label {
-        color: var(--font-color);
-    }
-
-    .dygraph-legend span {
-        color: var(--site-color) !important;
-    }
-
-    .dygraph-legend > span > div {
-        border-color: var(--site-color) !important;
-    }
-
-    canvas {
-        filter: hue-rotate(337deg) saturate(91%) brightness(106%);
-    }
-
-
-    /* Recent Blog Posts */
-    #stats-top-menu-wrap {
-        background: var(--container-background)
-    }
-}
-
-@-moz-document regexp("https?://socialblade.com/instagram/user/[^/]*/?") {
-    /*--------------------------------------------------*/
-    /* Instagram User Summary                           */
-    /*--------------------------------------------------*/
-    #stats-top-menu-wrap > a:first-child {
-        background: var(--container-highlight);
-    }
-
-    .twitch-summary-ordinal,
-    .twitch-summary-ordinal > div:last-child {
-        color: var(--font-color) !important;
-    }
-
-    a[href*="instagram.com"] > div {
-        background: var(--site-color);
-    }
-
-    /* Table */
-    .TableMonthlyStats:nth-child(8n+11),
-    .TableMonthlyStats:nth-child(8n+12),
-    .TableMonthlyStats:nth-child(8n+13),
-    .TableMonthlyStats:nth-child(8n+14) {
-        background: var(--container-highlight) !important;
-    }
-}
-
-@-moz-document regexp("https?://socialblade.com/instagram/user/.*/monthly") {
-    #stats-top-menu-wrap > a[href$="monthly"] {
-        background: var(--container-highlight);
-    }
-
-    /* Table */
-    .TableMonthlyStats:nth-child(8n+10),
-    .TableMonthlyStats:nth-child(8n+11),
-    .TableMonthlyStats:nth-child(8n+12),
-    .TableMonthlyStats:nth-child(8n+13) {
-        background: var(--container-highlight) !important;
-    }
-}
-
-@-moz-document regexp("https?://socialblade.com/instagram/user/.*/futureprojections/?.*") {
-    #stats-top-menu-wrap > a[href$="futureprojections"] {
-        background: var(--container-highlight);
-    }
-
-    .subsection {
-        background: var(--container-background);
-        border: none !important;
-    }
-
-    .activesubsection {
-        background: var(--container-content);
-    }
-
-    /* Table */
-    .TableMonthlyStats:nth-child(10n+11),
-    .TableMonthlyStats:nth-child(10n+12),
-    .TableMonthlyStats:nth-child(10n+13),
-    .TableMonthlyStats:nth-child(10n+14),
-    .TableMonthlyStats:nth-child(10n+15) {
-        background: var(--container-highlight) !important;
-    }
-
-    div[style*="color:#82a155"] {
-        color: var(--site-color) !important;
-    }
-
-    a[href*="instagram.com"] > div {
-        background: var(--site-color);
+        display: /*[[hideAdContainers]]*/;
     }
 }
 
@@ -3271,28 +2834,6 @@ regexp("https?://socialblade.com/favorites/mixer") {
     #socialblade-user-sidebar > div > div:nth-child(2) {
         background: var(--container-background) !important;
         color: var(--font-color) !important;
-    }
-
-    .anchor-sidebar,
-    .anchor-sidebar:hover {
-        background: var(--container-content);
-        color: var(--font-color);
-        border-top: 1px solid var(--container-background);
-    }
-
-    /* Graph */
-    .highcharts-selection-marker {
-        fill: var(--font-color) !important;
-        fill-opacity: 0.25;
-    }
-
-    /* Graph Button */
-    .highcharts-reset-zoom > rect {
-        fill: var(--site-color);
-    }
-
-    .highcharts-reset-zoom > text {
-        fill: var(--font-color) !important;
     }
 
     /* Ads */
@@ -3335,16 +2876,12 @@ regexp("https?://socialblade.com/favorites/mixer") {
     }
 
     #socialblade-user-content > div:nth-child(5) > div,
-    #socialblade-user-content > div:nth-child(6),
-    #socialblade-user-content > div:nth-child(7) {
+    #socialblade-user-content > div:nth-child(6) {
         background: var(--container-content) !important;
     }
 
+    #socialblade-user-content > div:nth-child(5) > div:nth-child(even),
     #socialblade-user-content > div:nth-child(7) {
-        border: none !important;
-    }
-
-    #socialblade-user-content > div:nth-child(5) > div:nth-child(even) {
         background: var(--container-highlight) !important;
     }
 
@@ -3352,42 +2889,15 @@ regexp("https?://socialblade.com/favorites/mixer") {
     #socialblade-user-content > div:nth-last-child(2) {
         background: var(--container-content) !important;
     }
-
-    .highcharts-background {
-        fill: var(--container-content) !important;
-    }
-
-    .highcharts-title > tspan,
-    .highcharts-axis > text,
-    .highcharts-axis-labels > text,
-    .highcharts-tooltip > text {
-        fill: var(--font-color) !important;
-    }
-
-    .highcharts-graph {
-        stroke: var(--site-color);
-    }
-
-    .highcharts-markers > path {
-        fill: var(--site-color)
-    }
-
-    .highcharts-label > path:last-of-type {
-        stroke: var(--site-color);
-        fill: var(--container-content);
-        opacity: 0.85;
-    }
-
-    .highcharts-label > text > tspan:nth-child(2) {
-        fill: var(--site-color) !important;
-    }
 }
 
 @-moz-document regexp("https?://socialblade.com/dailymotion/user/.*"),
-regexp("https?://socialblade.com/mixer/user/.*") {
+regexp("https?://socialblade.com/mixer/user/.*"),
+regexp("https?://socialblade.com/dlive/user/.*") {
     /*--------------------------------------------------*/
     /* Dailymotion Base                                 */
     /* Mixer Base                                       */
+    /* DLive Base                                       */
     /*--------------------------------------------------*/
     /* Header */
     #youtube-authenticated-action-menu,
@@ -3414,51 +2924,13 @@ regexp("https?://socialblade.com/mixer/user/.*") {
     }
 
     #YouTubeUserMenu > a:hover {
-        background: var(--container-background);
-    }
-
-    /* Favorite Feature Popup */
-    #dialog_favorite_logincheck,
-    .ui-dialog-titlebar-close,
-    .ui-dialog-titlebar-close:hover {
-        background: var(--container-content) !important;
-    }
-
-    .ui-dialog a {
-        color: var(--site-color);
-    }
-
-    #dialog_favorite_logincheck,
-    .ui-button-text {
-        color: var(--font-color);
+        background: var(--container-content);
     }
 
     /* Recent Blog Posts */
     #socialblade-user-sidebar > div > div:nth-child(2) {
         background: var(--container-background) !important;
         color: var(--font-color) !important;
-    }
-
-    .anchor-sidebar,
-    .anchor-sidebar:hover {
-        background: var(--container-content);
-        color: var(--font-color);
-        border-top: 1px solid var(--container-background);
-    }
-
-    /* Graph */
-    .highcharts-selection-marker {
-        fill: var(--font-color) !important;
-        fill-opacity: 0.25;
-    }
-
-    /* Graph Button */
-    .highcharts-reset-zoom > rect {
-        fill: var(--site-color);
-    }
-
-    .highcharts-reset-zoom > text {
-        fill: var(--font-color) !important;
     }
 
     /* Ads */
@@ -3470,10 +2942,12 @@ regexp("https?://socialblade.com/mixer/user/.*") {
 }
 
 @-moz-document regexp("https?://socialblade.com/dailymotion/user/[^/]*/?"),
-regexp("https?://socialblade.com/mixer/user/[^/]*/?") {
+regexp("https?://socialblade.com/mixer/user/[^/]*/?"),
+regexp("https?://socialblade.com/dlive/user/[^/]*/?") {
     /*--------------------------------------------------*/
     /* Dailymotion User Summary                         */
     /* Mixer User Summary                               */
+    /* DLive User Summary                               */
     /*--------------------------------------------------*/
     /* Tab Highlight */
     #YouTubeUserMenu > a:first-child {
@@ -3503,16 +2977,12 @@ regexp("https?://socialblade.com/mixer/user/[^/]*/?") {
     }
 
     #socialblade-user-content > div:nth-child(5) > div,
-    #socialblade-user-content > div:nth-child(6),
-    #socialblade-user-content > div:nth-child(7) {
+    #socialblade-user-content > div:nth-child(6) {
         background: var(--container-content) !important;
     }
 
+    #socialblade-user-content > div:nth-child(5) > div:nth-child(even),
     #socialblade-user-content > div:nth-child(7) {
-        border: none !important;
-    }
-
-    #socialblade-user-content > div:nth-child(5) > div:nth-child(even) {
         background: var(--container-highlight) !important;
     }
 
@@ -3520,34 +2990,21 @@ regexp("https?://socialblade.com/mixer/user/[^/]*/?") {
     #socialblade-user-content > div:nth-last-child(2) {
         background: var(--container-content) !important;
     }
+}
 
-    .highcharts-background {
-        fill: var(--container-content) !important;
+@-moz-document regexp("https?://socialblade.com/dlive/user/[^/]*/?") {
+    /*--------------------------------------------------*/
+    /* DLive User Summary                               */
+    /*--------------------------------------------------*/
+    /* Graph */
+    #socialblade-user-content > div:nth-last-child(4) {
+        background: var(--container-content) !important;
     }
 
-    .highcharts-title > tspan,
-    .highcharts-axis > text,
-    .highcharts-axis-labels > text,
-    .highcharts-tooltip > text {
-        fill: var(--font-color) !important;
-    }
-
-    .highcharts-graph {
-        stroke: var(--site-color);
-    }
-
-    .highcharts-markers > path {
-        fill: var(--site-color)
-    }
-
-    .highcharts-label > path:last-of-type {
-        stroke: var(--site-color);
-        fill: var(--container-content);
-        opacity: 0.85;
-    }
-
-    .highcharts-label > text > tspan:nth-child(2) {
-        fill: var(--site-color) !important;
+    /* Ads */
+    #socialblade-user-content > div:nth-last-child(3) {
+        background: var(--container-background) !important;
+        display: /*[[hideAdContainers]]*/;
     }
 }
 
@@ -3580,16 +3037,12 @@ regexp("https?://socialblade.com/mixer/user/.*/monthly") {
     }
 
     #socialblade-user-content > div:nth-child(5) > div,
-    #socialblade-user-content > div:nth-child(6),
-    #socialblade-user-content > div:nth-child(7) {
+    #socialblade-user-content > div:nth-child(6) {
         background: var(--container-content) !important;
     }
 
+    #socialblade-user-content > div:nth-child(5) > div:nth-child(even),
     #socialblade-user-content > div:nth-child(7) {
-        border: none !important;
-    }
-
-    #socialblade-user-content > div:nth-child(5) > div:nth-child(even) {
         background: var(--container-highlight) !important;
     }
 
@@ -3597,34 +3050,82 @@ regexp("https?://socialblade.com/mixer/user/.*/monthly") {
     #socialblade-user-content > div:nth-last-child(2) {
         background: var(--container-content) !important;
     }
+}
 
-    .highcharts-background {
-        fill: var(--container-content) !important;
+@-moz-document regexp("https?://socialblade.com/storyfire/user/.*") {
+    /*--------------------------------------------------*/
+    /* StoryFire User Base                              */
+    /*--------------------------------------------------*/
+    /* Header */
+    #youtube-authenticated-action-menu,
+    #YouTubeUserTopInfoWrap {
+        background: var(--container-background) !important;
     }
 
-    .highcharts-title > tspan,
-    .highcharts-axis > text,
-    .highcharts-axis-labels > text,
-    .highcharts-tooltip > text {
-        fill: var(--font-color) !important;
+    #YouTubeUserTopInfoWrap span,
+    #YouTubeUserTopInfoBlockTop div h2 {
+        color: var(--font-color) !important;
     }
 
-    .highcharts-graph {
-        stroke: var(--site-color);
+    #youtube-authenticated-action-authenticate {
+        color: var(--site-color);
     }
 
-    .highcharts-markers > path {
-        fill: var(--site-color)
+    #YouTubeUserMenu {
+        border-top: 1px solid var(--font-color);
     }
 
-    .highcharts-label > path:last-of-type {
-        stroke: var(--site-color);
-        fill: var(--container-content);
-        opacity: 0.85;
+    #YouTubeUserMenu > a:hover {
+        background: var(--container-content);
+    }
+}
+
+@-moz-document regexp("https?://socialblade.com/storyfire/user/[^/]*/?") {
+
+    /* Tab Highlight */
+    #YouTubeUserMenu > a:first-child {
+        background: var(--container-highlight);
     }
 
-    .highcharts-label > text > tspan:nth-child(2) {
-        fill: var(--site-color) !important;
+    /* Overview */
+    #socialblade-user-content > div:first-child > div:nth-of-type(2),
+    #socialblade-user-content > div:nth-of-type(3) > div,
+    #socialblade-user-content > div:nth-of-type(5) > div {
+        background: var(--container-content) !important;
+    }
+
+    #socialblade-user-content > div:first-child span,
+    #socialblade-user-content > div:nth-of-type(3) > div > p {
+        color: var(--font-color) !important;
+    }
+
+    /* Table */
+    #socialblade-user-content > div:nth-of-type(6) > div:first-child > div {
+        margin-bottom: 20px;
+    }
+
+    /* Header Spacer */
+    #socialblade-user-content > div:nth-of-type(10) {
+        border-bottom: 2px var(--font-color) solid;
+    }
+
+    /* Rows */
+    #socialblade-user-content > div:nth-child(11) > div,
+    #socialblade-user-content > div:nth-last-child(7) {
+        background: var(--container-highlight) !important;
+        color: var(--font-color) !important;
+    }
+
+    #socialblade-user-content > div:nth-child(11) > div:nth-child(even),
+    #socialblade-user-content > div:nth-last-child(8) {
+        background: var(--container-content) !important;
+        color: var(--font-color) !important;
+    }
+
+    /* Sidebar */
+    #socialblade-user-sidebar > div > div {
+        color: var(--font-color) !important;
+        background: var(--container-background) !important;
     }
 }
 
@@ -3667,13 +3168,13 @@ regexp("https?://socialblade.com/mixer/user/.*/monthly") {
         background: var(--facebook-color);
     }
 
-    div.share a.google,
-    div.share a.google:hover {
-        background: var(--google-color);
-    }
-
     div.share a.return,
     div.share a.return:hover {
+        background: var(--site-color);
+    }
+
+    .page-realtime-body-containment .meta-twitter a span,
+    .page-realtime-body-containment .meta-twitter a span:hover {
         background: var(--site-color);
     }
 
@@ -3726,6 +3227,20 @@ regexp("https?://socialblade.com/mixer/user/.*/monthly") {
 
     .highcharts-label > text {
         fill: var(--font-color) !important;
+    }
+
+    /* Change user */
+    #changeLiveSettings,
+    #changeLiveUser {
+        background: var(--container-background);
+        color: var(--font-color);
+    }
+
+    #changeLiveSettings input,
+    #changeLiveSettings select,
+    #changeLiveUser input {
+        background: var(--container-background);
+        color: var(--font-color);
     }
 }
 
@@ -4082,7 +3597,6 @@ regexp("https?://socialblade.com/mixer/user/.*/monthly") {
     }
 }
 
-
 @-moz-document regexp("https?://socialblade.com/authenticate.*") {
     /*--------------------------------------------------*/
     /* SocialBlade Authenticate Base                    */
@@ -4126,7 +3640,6 @@ regexp("https?://socialblade.com/mixer/user/.*/monthly") {
         background: var(--container-content) !important;
         border: none !important;
     }
-
 
     .ui-knowledge {
         background: var(--site-color);
@@ -4178,6 +3691,14 @@ regexp("https?://socialblade.com/mixer/user/.*/monthly") {
         background: var(--mixer-color) !important;
     }
 
+    .core-button[href$="dlive"] {
+        background: var(--dlive-color) !important;
+    }
+
+    .core-button[href$="storyfire"] {
+        background: var(--storyfire-color) !important;
+    }
+
     /* Table */
     .fav-top-header {
         background: var(--container-background);
@@ -4186,7 +3707,6 @@ regexp("https?://socialblade.com/mixer/user/.*/monthly") {
     .fav-top-content-blank a {
         color: var(--site-color) !important;
     }
-
 
     .fav-top-content-blank {
         color: var(--font-color) !important;
@@ -4236,7 +3756,6 @@ regexp("https?://socialblade.com/mixer/user/.*/monthly") {
         color: var(--font-color);
     }
 
-
     #fav-no-fav {
         background: var(--site-color);
     }
@@ -4247,17 +3766,20 @@ regexp("https?://socialblade.com/mixer/user/.*/monthly") {
     }
 }
 
-@-moz-document regexp("https?://socialblade.com/favorites/(youtube|twitch|dailymotion)") {
+@-moz-document regexp("https?://socialblade.com/favorites/youtube") {
     /*--------------------------------------------------*/
     /* SocialBlade Favorites Youtube                    */
-    /* SocialBlade Favorites Twitch                     */
     /*--------------------------------------------------*/
+    .fav-top-header > a:nth-child(3) div {
+        margin-right: 10px;
+    }
+
     .fav-top-content-blank > div:nth-child(7),
     .fav-top-content-blank > div:nth-child(8),
     .fav-top-content-blank > div:nth-child(12),
     .fav-top-content-blank > div:nth-child(13) {
         padding-left: 10px;
-        width: 80px !important;
+        width: 75px !important;
     }
 
     .fav-top-content-blank > div:nth-child(3) {
@@ -4319,7 +3841,6 @@ regexp("https?://socialblade.com/mixer/user/.*/monthly") {
         color: var(--font-color) !important;
     }
 
-
     .fav-top-content-blank span {
         font-weight: 100 !important;
     }
@@ -4352,107 +3873,28 @@ regexp("https?://socialblade.com/mixer/user/.*/monthly") {
     /*--------------------------------------------------*/
     /* SocialBlade Subscription                         */
     /*--------------------------------------------------*/
-    #top-menu-wrap ~ div[style^="width: 1260px"] > div:nth-child(3) > div > div:nth-child(1) {
+    #top-menu-wrap ~ div[style^="background: #e6e6e6"] {
+        background: var(--site-background) !important;
+    }
+
+    #top-menu-wrap ~ div[style^="background: #e6e6e6"] > div[style^="width: 1260px"] > div:nth-child(n + 2) > div:nth-child(1) {
         background: var(--container-background) !important;
     }
 
-    #top-menu-wrap ~ div[style^="width: 1260px"] > div:nth-child(3) > div > div:nth-child(n + 2) {
+    #top-menu-wrap ~ div[style^="background: #e6e6e6"] > div[style^="width: 1260px"] > div > div:nth-child(n + 3) {
         background: var(--container-content) !important;
     }
 
-    #top-menu-wrap ~ div[style^="width: 1260px"] > div:nth-child(3) > div > div:nth-child(n + 2) span:not([class]),
-    #top-menu-wrap ~ div[style^="width: 1260px"] .hint--top {
+    #top-menu-wrap ~ div[style^="background: #e6e6e6"] > div[style^="width: 1260px"] span,
+    #top-menu-wrap ~ div[style^="background: #e6e6e6"] > div[style^="width: 1260px"] h3,
+    #top-menu-wrap ~ div[style^="background: #e6e6e6"] > div[style^="width: 1260px"] p {
         color: var(--font-color) !important;
     }
 
-    #top-menu-wrap ~ div[style^="width: 1260px"] > div:nth-child(3) > div > div:nth-child(n + 2) span[style*="color:#8bb32c"] {
-        color: var(--special) !important;
-    }
-
-    #top-menu-wrap ~ div[style^="width: 1260px"] > div:nth-child(3) > div > div:nth-child(n + 2) span[style*="color:#dd3333"] {
+    #top-menu-wrap ~ div[style^="background: #e6e6e6"] > div[style^="width: 1260px"] p[style*="color:#3498db"] {
         color: var(--good) !important;
     }
-
-    #top-menu-wrap ~ div[style^="width: 1260px"] > div:nth-child(3) {
-        margin-top: 20px;
-    }
-
-    #top-menu-wrap ~ div[style^="width: 1260px"] > div:nth-child(n + 3) {
-        display: flex;
-    }
-
-    #top-menu-wrap ~ div[style^="width: 1260px"] > div:nth-child(3) > div,
-    #top-menu-wrap ~ div[style^="width: 1260px"] > div:nth-child(n + 6) > div {
-        margin: 0 6px !important;
-        background: var(--container-highlight);
-        width: 229px !important;
-        padding-bottom: 8px;
-    }
-
-    #top-menu-wrap ~ div[style^="width: 1260px"] > div:nth-child(3) > div,
-    #top-menu-wrap ~ div[style^="width: 1260px"] > div:nth-child(7) > div,
-    #top-menu-wrap ~ div[style^="width: 1260px"] > div:nth-child(10) > div {
-        padding-bottom: 30px;
-    }
-
-    #top-menu-wrap ~ div[style^="width: 1260px"] > div:nth-child(n + 3) > div:first-child {
-        margin-left: 0 !important;
-    }
-
-    #top-menu-wrap ~ div[style^="width: 1260px"] > div:nth-child(n + 3) > div:last-child {
-        margin-right: 0 !important;
-    }
-
-    #top-menu-wrap ~ div[style^="width: 1260px"] > div:nth-child(n + 3) > div > div {
-        width: 100% !important;
-    }
-
-    #top-menu-wrap ~ div[style^="width: 1260px"] > div:nth-child(n + 5) {
-        text-align: center;
-    }
-
-
-    #top-menu-wrap ~ div[style^="width: 1260px"] > div:nth-last-child(n + 2)[style="clear: both;"] {
-        display: none;
-    }
 }
-
-@-moz-document regexp("https?://socialblade.com/products/subscription") {
-    /*--------------------------------------------------*/
-    /* SocialBlade Subscription Irregularities          */
-    /*--------------------------------------------------*/
-    /*  additional container around the monthly prices */
-    #top-menu-wrap ~ div[style^="width: 1260px"] > div:nth-child(5) > div {
-        width: 950px !important;
-        display: flex;
-    }
-
-    #top-menu-wrap ~ div[style^="width: 1260px"] > div:nth-child(5) > div > div {
-        margin: 0 6px !important;
-        background: var(--container-highlight);
-        width: 229px !important;
-        padding-bottom: 8px;
-    }
-
-    #top-menu-wrap ~ div[style^="width: 1260px"] > div:nth-child(5) > div > div:first-child {
-        margin-left: 0 !important;
-    }
-
-    #top-menu-wrap ~ div[style^="width: 1260px"] > div:nth-child(5) > div > div:last-child {
-        margin-right: 0 !important;
-    }
-
-    /*  clear:both container in first button row */
-    #top-menu-wrap ~ div[style^="width: 1260px"] > div:nth-child(7) > div:nth-last-child(2) {
-        margin-right: 0 !important;
-    }
-
-    #top-menu-wrap ~ div[style^="width: 1260px"] > div > [style="clear: both;"] {
-        display: none;
-    }
-}
-
-
 
 @-moz-document regexp("https?://socialblade.com/products/query/.*") {
     /*--------------------------------------------------*/
@@ -4480,7 +3922,6 @@ regexp("https?://socialblade.com/mixer/user/.*/monthly") {
         width: auto !important;
         margin: 0 4px;
     }
-
 
     #product-query-twitter-usercount {
         color: var(--twitter-color) !important;
@@ -4637,8 +4078,7 @@ regexp("https?://socialblade.com/mixer/user/.*/monthly") {
         color: var(--font-color) !important;
     }
 
-
-    #top-menu-wrap ~ div[style^="width: 1260px"] > div {
+    #top-menu-wrap ~ div[style^="width: 1200px"] {
         background: var(--container-background) !important;
     }
 
@@ -4795,7 +4235,6 @@ regexp("https?://socialblade.com/mixer/user/.*/monthly") {
     .core-button {
         border-color: var(--font-color) !important;
     }
-
 
     .ui-widget-content {
         background: var(--container-content);
