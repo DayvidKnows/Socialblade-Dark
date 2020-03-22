@@ -20,7 +20,7 @@
  none EOT;
 }
 @advanced color socialblade-color "SocialBlade" #b3382c
-@advanced dropdown platformOverrideColor "Color site based on platform?" {
+@advanced dropdown platformOverride "Color site based on platform?" {
  yes "Yes" <<<EOT
  var() EOT;
  no "No" <<<EOT
@@ -132,7 +132,7 @@ regexp("https?://socialblade.com/favorites/storyfire") {
 
 @-moz-document domain("socialblade.com") {
     :root {
-        --site-color: /*[[platformOverrideColor]]*/;
+        --site-color: /*[[platformOverride]]*/;
     }
 }
 
